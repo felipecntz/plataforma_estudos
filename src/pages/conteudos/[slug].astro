@@ -1,0 +1,22 @@
+---
+import { render } from "astro:content";
+import { getStudies, relatedEntries } from "../../lib/content";
+import StudyLayout from "../../layouts/StudyLayout.astro";
+
+export async function getStaticPaths() {
+  const studies = await getStudies();
+  return studies.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry } }));
+}
+
+const all = await getStudies();
+const { entry } = Astro.props;
+const currentIndex = all.findIndex((item) => item.id === entry.id);
+const prev = currentIndex > 0 ? all[currentIndex - 1] : undefined;
+const next = currentIndex < all.length - 1 ? all[currentIndex + 1] : undefined;
+const related = relatedEntries(entry, all);
+const { Content, headings } = await render(entry);
+---
+
+<StudyLayout entry={entry} related={related} prev={prev} next={next} headings={headings}>
+  <Content />
+</StudyLayout>

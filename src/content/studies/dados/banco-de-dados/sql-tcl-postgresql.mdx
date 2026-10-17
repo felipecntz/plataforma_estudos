@@ -1,0 +1,178 @@
+---
+title: "TCL: transacoes no PostgreSQL"
+description: Aprenda BEGIN, COMMIT, ROLLBACK, SAVEPOINT, isolamento e o papel das transacoes na consistencia dos dados.
+area: Dados
+areaSlug: dados
+category: Banco de Dados
+categorySlug: banco-de-dados
+topic: TCL PostgreSQL
+slug: sql-tcl-postgresql
+order: 41
+icon: database
+color: data
+difficulty: Intermediario
+readingTime: 14 min
+updatedAt: 01/08/2026
+featured: false
+tags:
+  - dados
+  - sql
+  - postgresql
+  - tcl
+  - transacoes
+summary: TCL controla transacoes. BEGIN inicia, COMMIT confirma e ROLLBACK desfaz. Transacoes garantem que um conjunto de mudancas seja aplicado inteiro ou nao seja aplicado.
+mindMap:
+  title: Mapa mental de TCL
+  subtitle: Confirmar ou desfazer unidades de trabalho.
+  highlights:
+    - BEGIN
+    - COMMIT
+    - ROLLBACK
+    - ACID
+  sections:
+    - title: BEGIN
+      kind: core
+      definition: Inicia uma transacao explicita.
+      example: BEGIN;
+    - title: COMMIT
+      kind: process
+      definition: Confirma todas as mudancas da transacao.
+      example: COMMIT;
+    - title: ROLLBACK
+      kind: process
+      definition: Desfaz mudancas ainda nao confirmadas.
+      example: ROLLBACK;
+    - title: SAVEPOINT
+      kind: application
+      definition: Marca um ponto parcial para desfazer parte da transacao.
+      example: ROLLBACK TO SAVEPOINT antes_importacao.
+    - title: ACID
+      kind: base
+      definition: Atomicidade, consistencia, isolamento e durabilidade.
+      bullets:
+        - tudo ou nada
+        - regras preservadas
+        - concorrencia controlada
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## O que e transacao
+
+<DefinitionBlock title="Transacao e uma unidade de trabalho" text="Uma transacao agrupa comandos para que todos sejam confirmados juntos ou todos sejam desfeitos." />
+
+Exemplo classico: transferir dinheiro.
+
+1. debitar da conta A;
+2. creditar na conta B;
+3. registrar movimentacao.
+
+Se o passo 2 falhar, o passo 1 nao pode ficar confirmado sozinho.
+
+## BEGIN, COMMIT e ROLLBACK
+
+```sql
+BEGIN;
+
+UPDATE contas
+SET saldo = saldo - 100
+WHERE id = 1;
+
+UPDATE contas
+SET saldo = saldo + 100
+WHERE id = 2;
+
+INSERT INTO movimentacoes (conta_origem_id, conta_destino_id, valor)
+VALUES (1, 2, 100);
+
+COMMIT;
+```
+
+Se algo estiver errado:
+
+```sql
+BEGIN;
+
+UPDATE pedidos
+SET status = 'cancelado'
+WHERE criado_em < now() - interval '2 years';
+
+ROLLBACK;
+```
+
+`ROLLBACK` desfaz tudo que ainda nao foi confirmado.
+
+## SAVEPOINT
+
+Permite desfazer parte.
+
+```sql
+BEGIN;
+
+UPDATE clientes
+SET ativo = false
+WHERE id = 10;
+
+SAVEPOINT antes_pedidos;
+
+UPDATE pedidos
+SET status = 'cancelado'
+WHERE cliente_id = 10;
+
+ROLLBACK TO SAVEPOINT antes_pedidos;
+
+COMMIT;
+```
+
+Nesse exemplo, a alteracao no cliente permanece, mas a alteracao nos pedidos e desfeita.
+
+## ACID
+
+| Letra | Significado | Ideia |
+| --- | --- | --- |
+| A | Atomicidade | tudo acontece ou nada acontece |
+| C | Consistencia | regras do banco continuam validas |
+| I | Isolamento | transacoes concorrentes nao se atropelam de qualquer jeito |
+| D | Durabilidade | depois do commit, a mudanca deve sobreviver a falhas |
+
+## Isolamento
+
+PostgreSQL permite configurar isolamento:
+
+```sql
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
+BEGIN TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+BEGIN TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+```
+
+Uso comum:
+
+- `READ COMMITTED`: padrao, bom para a maioria dos casos;
+- `REPEATABLE READ`: leitura consistente durante a transacao;
+- `SERIALIZABLE`: mais rigoroso, pode exigir reexecucao quando ha conflito.
+
+## Bloqueios
+
+Atualizacoes podem bloquear linhas.
+
+```sql
+BEGIN;
+
+SELECT *
+FROM pedidos
+WHERE id = 10
+FOR UPDATE;
+
+UPDATE pedidos
+SET status = 'pago'
+WHERE id = 10;
+
+COMMIT;
+```
+
+`FOR UPDATE` bloqueia a linha selecionada para evitar que outra transacao altere ao mesmo tempo.
+
+<WarningBlock title="Transacao aberta demais atrapalha" text="Transacoes longas seguram locks, atrasam outras operacoes e podem acumular trabalho interno no banco. Abra, faça o necessario e finalize." />
+
+<TipBlock title="Use transacao para lote perigoso" text="Antes de UPDATE ou DELETE grande, rode dentro de BEGIN. Confira com SELECT. Se estiver certo, COMMIT. Se estiver errado, ROLLBACK." />

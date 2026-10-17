@@ -1,0 +1,149 @@
+---
+title: While em Python
+description: Aprenda a usar while para repetir enquanto uma condição for verdadeira, com break, continue e cuidados com laço infinito.
+area: Programação
+areaSlug: programacao
+category: Python
+categorySlug: python
+topic: While
+slug: python-while
+order: 7
+icon: code
+color: tech
+difficulty: Iniciante
+readingTime: 8 min
+updatedAt: 18/07/2026
+featured: false
+tags:
+  - programação
+  - python
+  - while
+  - laços
+summary: while é usado quando a repetição depende de uma condição que pode mudar durante a execução.
+mindMap:
+  title: Mapa mental de while
+  subtitle: Repetição controlada por condição.
+  highlights:
+    - condição
+    - break
+    - continue
+  sections:
+    - title: while
+      kind: core
+      definition: Repete um bloco enquanto a condição for verdadeira.
+      bullets:
+        - condição vem no início
+        - bloco fica indentado
+        - estado precisa mudar
+      example: while senha != "python".
+    - title: Controle
+      kind: process
+      definition: A repetição deve ter uma forma clara de terminar.
+      bullets:
+        - atualize contadores
+        - mude variáveis usadas na condição
+        - valide a saída
+      example: tentativas += 1.
+    - title: break
+      kind: process
+      definition: Encerra o laço imediatamente.
+      bullets:
+        - usado ao encontrar o resultado
+        - sai só do laço atual
+        - evita continuar sem necessidade
+      example: break após senha correta.
+    - title: continue
+      kind: process
+      definition: Pula para a próxima repetição.
+      bullets:
+        - ignora o restante da volta atual
+        - mantém o laço ativo
+        - útil para valores inválidos
+      example: continue ao receber número negativo.
+    - title: Risco
+      kind: application
+      definition: Se a condição nunca ficar falsa, o laço não termina.
+      bullets:
+        - revise a condição de saída
+        - teste com limites pequenos
+        - cuidado com input eterno
+      example: esquecer tentativas += 1 pode travar a repetição.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="while repete por condição" text="O while executa um bloco enquanto uma condição for verdadeira. Ele é indicado quando você não sabe exatamente quantas repetições serão necessárias." />
+
+## Estrutura básica
+
+```python
+contador = 1
+
+while contador <= 5:
+    print(contador)
+    contador += 1
+```
+
+O bloco roda enquanto `contador <= 5`. A linha `contador += 1` é essencial, porque altera o valor usado na condição.
+
+<WarningBlock title="Cuidado com laço infinito" text="Se nada dentro do while muda a condição de saída, o programa pode repetir para sempre." />
+
+## Exemplo com senha
+
+```python
+tentativas = 0
+senha = ""
+
+while senha != "python" and tentativas < 3:
+    senha = input("Senha: ")
+    tentativas += 1
+
+if senha == "python":
+    print("Acesso liberado")
+else:
+    print("Limite de tentativas atingido")
+```
+
+Aqui o laço para em duas situações: a senha correta aparece ou o limite de tentativas é atingido.
+
+## break
+
+`break` encerra o laço imediatamente.
+
+```python
+while True:
+    comando = input("Digite sair para encerrar: ")
+
+    if comando == "sair":
+        break
+
+    print(f"Você digitou: {comando}")
+```
+
+`while True` cria uma repetição teoricamente infinita, mas o `break` define uma saída explícita.
+
+## continue
+
+`continue` pula o restante da repetição atual e volta para o teste da condição.
+
+```python
+numero = 0
+
+while numero < 6:
+    numero += 1
+
+    if numero == 3:
+        continue
+
+    print(numero)
+```
+
+O número 3 não é impresso, porque aquela volta foi pulada.
+
+<ExampleBlock title="Quando usar while" text="Use while para continuar pedindo uma nota até que o usuário digite um valor válido, ou para repetir uma operação até uma condição de parada acontecer." />
+
+<TipBlock title="Desenhe a saída antes" text="Antes de escrever while, responda: o que muda a cada volta e em qual estado a repetição termina?" />

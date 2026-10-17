@@ -1,0 +1,29 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import AppShell from "../components/AppShell.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  breadcrumbs: { label: string; href?: string }[];
+}
+
+const { title, description, breadcrumbs } = Astro.props;
+---
+
+<BaseLayout title={`${title} | Plataforma de Estudos`} description={description}>
+  <AppShell currentPath={Astro.url.pathname} breadcrumbs={breadcrumbs}>
+    <article class="content-panel panel">
+      <header class="content-header stack-md">
+        <Breadcrumbs items={breadcrumbs} />
+        <span class="eyebrow">Area de estudo</span>
+        <h1 class="section-title">{title}</h1>
+        <p class="lede">{description}</p>
+      </header>
+      <div class="main-content stack-lg">
+        <slot />
+      </div>
+    </article>
+  </AppShell>
+</BaseLayout>

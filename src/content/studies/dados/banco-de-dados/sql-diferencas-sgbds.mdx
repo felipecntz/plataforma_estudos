@@ -1,0 +1,260 @@
+---
+title: Diferencas entre PostgreSQL, SQL Server, MySQL e Oracle
+description: Compare conceitos, sintaxes e recursos importantes entre os principais SGBDs relacionais do mercado.
+area: Dados
+areaSlug: dados
+category: Banco de Dados
+categorySlug: banco-de-dados
+topic: Diferencas entre SGBDs
+slug: sql-diferencas-sgbds
+order: 42
+icon: database
+color: data
+difficulty: Intermediario
+readingTime: 16 min
+updatedAt: 01/08/2026
+featured: false
+tags:
+  - dados
+  - sql
+  - postgresql
+  - sql server
+  - mysql
+  - oracle
+summary: SQL muda entre SGBDs. PostgreSQL usa LIMIT, ILIKE, RETURNING e schemas fortes; SQL Server usa TOP, T-SQL e brackets; MySQL usa AUTO_INCREMENT e backticks; Oracle usa sequences, PL/SQL e tratamento peculiar de string vazia.
+mindMap:
+  title: Mapa mental das diferencas
+  subtitle: O que observar ao trocar de SGBD.
+  highlights:
+    - LIMIT vs TOP
+    - identity
+    - strings
+    - funcoes
+  sections:
+    - title: PostgreSQL
+      kind: core
+      definition: Forte em SQL moderno, tipos ricos, JSONB, extensoes e RETURNING.
+      example: SELECT ... LIMIT 10.
+    - title: SQL Server
+      kind: base
+      definition: Usa T-SQL, TOP, brackets e identidade com IDENTITY.
+      example: SELECT TOP 10 * FROM vendas.
+    - title: MySQL
+      kind: process
+      definition: Muito usado na web, usa AUTO_INCREMENT, backticks e LIMIT.
+      example: LIMIT 10 OFFSET 20.
+    - title: Oracle
+      kind: application
+      definition: Forte em enterprise, PL/SQL, sequences e recursos corporativos.
+      example: FETCH FIRST 10 ROWS ONLY.
+    - title: Portabilidade
+      kind: process
+      definition: SQL basico viaja bem; funcoes, datas, strings e upsert mudam bastante.
+      bullets:
+        - teste sintaxe
+        - leia planos
+        - evite assumir
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="SQL tem dialetos" text="A base relacional e parecida entre SGBDs, mas cada banco tem extensoes, funcoes, tipos e detalhes de sintaxe." />
+
+Aprender PostgreSQL cria uma otima base, mas voce precisa reconhecer diferencas quando muda para SQL Server, MySQL ou Oracle.
+
+## Limitar linhas
+
+PostgreSQL e MySQL:
+
+```sql
+SELECT *
+FROM pedidos
+ORDER BY criado_em DESC
+LIMIT 10 OFFSET 20;
+```
+
+SQL Server:
+
+```sql
+SELECT TOP 10 *
+FROM pedidos
+ORDER BY criado_em DESC;
+```
+
+SQL Server com paginacao:
+
+```sql
+SELECT *
+FROM pedidos
+ORDER BY criado_em DESC
+OFFSET 20 ROWS FETCH NEXT 10 ROWS ONLY;
+```
+
+Oracle moderno:
+
+```sql
+SELECT *
+FROM pedidos
+ORDER BY criado_em DESC
+FETCH FIRST 10 ROWS ONLY;
+```
+
+## Autoincremento
+
+PostgreSQL moderno:
+
+```sql
+id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY
+```
+
+MySQL:
+
+```sql
+id bigint AUTO_INCREMENT PRIMARY KEY
+```
+
+SQL Server:
+
+```sql
+id bigint IDENTITY(1,1) PRIMARY KEY
+```
+
+Oracle tradicional usa sequence:
+
+```sql
+CREATE SEQUENCE pedidos_seq;
+```
+
+Oracle moderno tambem suporta identity.
+
+## Strings e aspas
+
+| SGBD | Identificador | Texto |
+| --- | --- | --- |
+| PostgreSQL | `"NomeColuna"` | `'texto'` |
+| SQL Server | `[NomeColuna]` ou `"NomeColuna"` | `'texto'` |
+| MySQL | `` `NomeColuna` `` | `'texto'` |
+| Oracle | `"NomeColuna"` | `'texto'` |
+
+Regra pratica: evite nomes com espaco, acento e maiusculas significativas. Prefira `snake_case`.
+
+## Busca case-insensitive
+
+PostgreSQL:
+
+```sql
+WHERE nome ILIKE 'ana%'
+```
+
+SQL Server geralmente depende de collation:
+
+```sql
+WHERE nome LIKE 'ana%'
+```
+
+MySQL tambem costuma depender de collation.
+
+Oracle:
+
+```sql
+WHERE LOWER(nome) LIKE 'ana%'
+```
+
+## Datas
+
+PostgreSQL:
+
+```sql
+WHERE criado_em >= now() - interval '30 days'
+```
+
+SQL Server:
+
+```sql
+WHERE criado_em >= DATEADD(day, -30, GETDATE())
+```
+
+MySQL:
+
+```sql
+WHERE criado_em >= NOW() - INTERVAL 30 DAY
+```
+
+Oracle:
+
+```sql
+WHERE criado_em >= SYSDATE - 30
+```
+
+## Upsert
+
+PostgreSQL:
+
+```sql
+INSERT INTO clientes (email, nome)
+VALUES ('ana@email.com', 'Ana')
+ON CONFLICT (email)
+DO UPDATE SET nome = EXCLUDED.nome;
+```
+
+MySQL:
+
+```sql
+INSERT INTO clientes (email, nome)
+VALUES ('ana@email.com', 'Ana')
+ON DUPLICATE KEY UPDATE nome = VALUES(nome);
+```
+
+SQL Server e Oracle usam `MERGE`, com cuidados porque a sintaxe e mais longa e historicamente exige atencao a concorrencia e versao.
+
+## RETURNING e OUTPUT
+
+PostgreSQL:
+
+```sql
+INSERT INTO clientes (nome, email)
+VALUES ('Ana', 'ana@email.com')
+RETURNING id;
+```
+
+SQL Server:
+
+```sql
+INSERT INTO clientes (nome, email)
+OUTPUT inserted.id
+VALUES ('Ana', 'ana@email.com');
+```
+
+MySQL costuma usar `LAST_INSERT_ID()` para o id gerado na conexao.
+
+Oracle suporta `RETURNING INTO` em PL/SQL.
+
+## Tipos e recursos marcantes
+
+| Tema | PostgreSQL | SQL Server | MySQL | Oracle |
+| --- | --- | --- | --- | --- |
+| Linguagem procedural | PL/pgSQL | T-SQL | SQL/PSM limitado | PL/SQL |
+| JSON | `jsonb` forte | JSON em texto com funcoes | JSON nativo | JSON suportado |
+| Extensoes | muito forte | ecossistema Microsoft | plugins/storage engines | recursos enterprise |
+| Window functions | forte | forte | moderno suporta | forte |
+| Schemas | muito usados | muito usados | database/schema se confundem | muito usados |
+| Booleano | `boolean` | `bit` | `tinyint(1)` comum | sem boolean SQL tradicional em tabelas |
+
+## Conceitos que viajam bem
+
+Mesmo com dialetos, estes conceitos permanecem:
+
+- tabelas, linhas e colunas;
+- primary key e foreign key;
+- normalizacao;
+- `SELECT`, `WHERE`, `GROUP BY`, `HAVING`, `ORDER BY`;
+- joins;
+- indices;
+- transacoes;
+- permissoes;
+- planos de execucao.
+
+<TipBlock title="Aprenda conceito e dialeto" text="O conceito te deixa independente. O dialeto te faz produtivo no banco real que a empresa usa." />
+

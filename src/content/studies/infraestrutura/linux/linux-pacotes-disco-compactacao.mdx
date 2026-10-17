@@ -1,0 +1,143 @@
+---
+title: Pacotes, disco e compactação no Linux
+description: Veja comandos para instalar pacotes, medir espaço em disco, localizar arquivos grandes e compactar ou extrair arquivos.
+area: Infraestrutura
+areaSlug: infraestrutura
+category: Linux
+categorySlug: linux
+topic: Pacotes, disco e compactação
+slug: linux-pacotes-disco-compactacao
+order: 8
+icon: terminal
+color: tech
+difficulty: Iniciante
+readingTime: 9 min
+updatedAt: 19/07/2026
+featured: false
+tags:
+  - infraestrutura
+  - linux
+  - pacotes
+  - disco
+  - compactação
+summary: Operações de infraestrutura costumam envolver instalar ferramentas, checar disco e empacotar arquivos para backup ou transferência.
+mindMap:
+  title: Mapa mental de operação do sistema
+  subtitle: Pacotes, espaço em disco e arquivos compactados.
+  highlights:
+    - apt
+    - df
+    - tar
+  sections:
+    - title: Pacotes
+      kind: core
+      definition: Gerenciadores instalam, atualizam e removem softwares.
+      bullets:
+        - apt em Debian e Ubuntu
+        - dnf em Fedora e Rocky
+        - apk em Alpine
+      example: sudo apt install nginx.
+    - title: Disco
+      kind: process
+      definition: df mostra uso de sistemas de arquivos.
+      bullets:
+        - df -h é legível
+        - du mede pastas
+        - lsblk lista discos
+      example: du -sh /var/log.
+    - title: Arquivos grandes
+      kind: process
+      definition: find ajuda a encontrar consumo inesperado.
+      bullets:
+        - -size filtra tamanho
+        - -mtime filtra idade
+        - sort ordena resultados
+      example: find /var -type f -size +100M.
+    - title: Compactar
+      kind: application
+      definition: tar e gzip empacotam arquivos para backup ou transporte.
+      bullets:
+        - tar -czf cria .tar.gz
+        - tar -xzf extrai
+        - unzip extrai zip
+      example: tar -czf logs.tar.gz /var/log/app.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Operar sistema é medir antes de mudar" text="Instalar pacotes, limpar disco e compactar arquivos são tarefas comuns. O bom fluxo é consultar estado, agir com escopo claro e conferir o resultado." />
+
+## Pacotes
+
+Debian e Ubuntu:
+
+```bash
+sudo apt update
+sudo apt install nginx
+sudo apt remove nginx
+apt search nginx
+```
+
+Fedora, Rocky e similares:
+
+```bash
+sudo dnf install nginx
+sudo dnf remove nginx
+dnf search nginx
+```
+
+Alpine:
+
+```bash
+sudo apk add curl
+sudo apk del curl
+apk search curl
+```
+
+## Disco
+
+```bash
+df -h
+du -sh /var/log
+du -h --max-depth=1 /var | sort -h
+lsblk
+```
+
+`df` mostra sistemas de arquivos. `du` mede arquivos e diretórios.
+
+## Encontrar arquivos grandes
+
+```bash
+find /var -type f -size +100M
+find /var/log -type f -mtime +30
+```
+
+<WarningBlock title="Não apague logs sem entender" text="Logs podem ser importantes para auditoria e diagnóstico. Antes de remover, confirme retenção, serviço dono e política do ambiente." />
+
+## Compactar e extrair
+
+```bash
+tar -czf backup.tar.gz /opt/app
+tar -xzf backup.tar.gz
+zip -r backup.zip pasta/
+unzip backup.zip
+gzip arquivo.log
+gunzip arquivo.log.gz
+```
+
+## Exemplo de operação
+
+```bash
+df -h
+du -sh /var/log
+sudo tar -czf /tmp/logs.tar.gz /var/log
+ls -lh /tmp/logs.tar.gz
+```
+
+<ExampleBlock title="Backup rápido de logs" text="Antes de limpar uma pasta de logs, compacte uma cópia em /tmp ou em um diretório de backup definido pelo ambiente." />
+
+<TipBlock title="Instale só o necessário" text="Em servidores, pacote a mais é superfície a mais. Prefira ferramentas úteis, conhecidas e justificadas pela operação." />

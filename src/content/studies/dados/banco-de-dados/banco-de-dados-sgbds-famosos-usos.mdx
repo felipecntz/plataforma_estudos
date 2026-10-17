@@ -1,0 +1,177 @@
+---
+title: SGBDs famosos e usos
+description: Compare os SGBDs mais conhecidos, onde aparecem no mercado e como escolher uma tecnologia conforme o problema.
+area: Dados
+areaSlug: dados
+category: Banco de Dados
+categorySlug: banco-de-dados
+topic: SGBDs famosos e usos
+slug: banco-de-dados-sgbds-famosos-usos
+order: 31
+icon: database
+color: data
+difficulty: Iniciante
+readingTime: 10 min
+updatedAt: 01/08/2026
+featured: false
+tags:
+  - dados
+  - sgbd
+  - postgresql
+  - sql server
+  - mysql
+  - oracle
+summary: Os SGBDs mais usados resolvem problemas parecidos, mas com estilos diferentes. PostgreSQL brilha em recursos e extensibilidade, SQL Server em ecossistema Microsoft, MySQL em web, Oracle em ambientes corporativos grandes.
+mindMap:
+  title: Mapa mental de SGBDs
+  subtitle: Onde cada banco costuma aparecer.
+  highlights:
+    - PostgreSQL
+    - SQL Server
+    - MySQL
+    - Oracle
+  sections:
+    - title: PostgreSQL
+      kind: core
+      definition: Banco relacional aberto, robusto, extensivel e muito forte em SQL.
+      bullets:
+        - JSONB
+        - window functions
+        - extensoes
+      example: apps SaaS, analytics operacional e sistemas internos.
+    - title: SQL Server
+      kind: base
+      definition: SGBD Microsoft muito usado em empresas com BI, .NET e integrações corporativas.
+      bullets:
+        - T-SQL
+        - SSMS
+        - Power BI
+      example: ambientes Windows e relatórios corporativos.
+    - title: MySQL
+      kind: base
+      definition: Banco popular em aplicações web, hospedagens e ecossistemas PHP.
+      bullets:
+        - simples de operar
+        - muito difundido
+        - comum em WordPress
+    - title: Oracle
+      kind: application
+      definition: Banco corporativo forte em ambientes críticos, legados e grandes ERPs.
+      bullets:
+        - PL/SQL
+        - recursos enterprise
+        - licenciamento complexo
+    - title: NoSQL
+      kind: process
+      definition: Bancos especializados que trocam o modelo relacional por documento, chave-valor, coluna ou grafo.
+      bullets:
+        - MongoDB
+        - Redis
+        - Cassandra
+        - Neo4j
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## SGBD nao e tudo igual
+
+<DefinitionBlock title="Escolha depende do problema" text="SGBDs diferentes podem armazenar dados, mas variam em linguagem, desempenho, recursos, operacao, custos, ferramentas e cultura de mercado." />
+
+Para estudar SQL, os bancos relacionais sao o ponto principal: PostgreSQL, SQL Server, MySQL, Oracle, MariaDB e SQLite. Eles compartilham a ideia de tabelas, chaves e consultas, mas divergem em sintaxe, tipos, funcoes e recursos.
+
+## PostgreSQL
+
+PostgreSQL e uma das melhores escolhas para aprender e trabalhar com SQL moderno.
+
+Pontos fortes:
+
+- gratuito e open source;
+- aderente a padroes SQL;
+- tipos ricos: `jsonb`, arrays, ranges, `uuid`, `numeric`;
+- consultas avancadas: CTEs, window functions, `FILTER`, `LATERAL`;
+- extensoes: PostGIS, pg_trgm, citext;
+- muito usado em startups, produtos SaaS, sistemas internos e analytics operacional.
+
+Exemplo de recurso expressivo:
+
+```sql
+SELECT
+  cliente_id,
+  SUM(total) FILTER (WHERE status = 'pago') AS total_pago,
+  COUNT(*) FILTER (WHERE status = 'cancelado') AS pedidos_cancelados
+FROM pedidos
+GROUP BY cliente_id;
+```
+
+## SQL Server
+
+SQL Server e muito forte no ecossistema Microsoft.
+
+Onde aparece:
+
+- empresas com Windows Server e Active Directory;
+- sistemas .NET;
+- integrações com Power BI, SSIS, SSAS e SSRS;
+- ambientes corporativos com suporte Microsoft.
+
+A linguagem tem extensoes chamadas T-SQL. Por exemplo, limite de linhas costuma usar `TOP`:
+
+```sql
+SELECT TOP 10 *
+FROM vendas
+ORDER BY criado_em DESC;
+```
+
+## MySQL e MariaDB
+
+MySQL ficou famoso por aplicações web. MariaDB nasceu como fork comunitario.
+
+Onde aparecem:
+
+- WordPress;
+- e-commerce;
+- hospedagens compartilhadas;
+- aplicações PHP;
+- sistemas que precisam de um banco simples e difundido.
+
+Em MySQL moderno existem CTEs e window functions, mas historicamente ele foi mais simples que PostgreSQL em recursos avancados.
+
+## Oracle Database
+
+Oracle e muito comum em grandes empresas, bancos, telecom, ERPs e ambientes legados.
+
+Pontos marcantes:
+
+- recursos enterprise maduros;
+- PL/SQL para programacao dentro do banco;
+- ferramentas corporativas;
+- alta presenca em sistemas críticos;
+- licenciamento e operacao mais complexos.
+
+## SQLite
+
+SQLite e um banco em arquivo. Ele nao roda como servidor.
+
+Casos bons:
+
+- aprendizado;
+- prototipos;
+- apps locais;
+- testes;
+- ferramentas desktop/mobile.
+
+Ele e excelente para começar, mas nao substitui PostgreSQL quando varias conexoes concorrentes e operacao de servidor entram no jogo.
+
+## Bancos NoSQL
+
+NoSQL nao significa "melhor que SQL". Significa outro modelo para outro tipo de problema.
+
+| Tipo | Exemplo | Bom para |
+| --- | --- | --- |
+| Documento | MongoDB | documentos flexiveis em JSON |
+| Chave-valor | Redis | cache, filas simples, sessoes |
+| Colunar distribuido | Cassandra | escrita massiva distribuida |
+| Grafo | Neo4j | relacionamentos profundos |
+
+<TipBlock title="Regra de escolha" text="Se seus dados têm relacionamentos fortes, consistência importante e consultas variadas, comece pensando em relacional. Saia dele quando houver motivo claro." />
+

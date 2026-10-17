@@ -1,0 +1,87 @@
+---
+import AreaLayout from "../../layouts/AreaLayout.astro";
+import StudyCard from "../../components/StudyCard.astro";
+import TopicCard from "../../components/TopicCard.astro";
+import { navigation } from "../../data/navigation";
+import { getArea, getStudiesByArea } from "../../lib/content";
+import { withBase } from "../../lib/links";
+
+export async function getStaticPaths() {
+  return navigation.map((item) => ({ params: { area: item.slug } }));
+}
+
+const { area } = Astro.params;
+const areaMeta = getArea(area!);
+const navArea = navigation.find((item) => item.slug === area);
+const studies = await getStudiesByArea(area!);
+
+if (!areaMeta || !navArea) {
+  throw new Error("Area nao encontrada");
+}
+
+const countLabel = (count: number, singular: string, plural: string) => `${count} ${count === 1 ? singular : plural}`;
+---
+
+<AreaLayout
+  title={areaMeta.name}
+  description={areaMeta.description}
+  breadcrumbs={[{ label: "Inicio", href: withBase("/") }, { label: areaMeta.name }]}
+>
+  <section class="hero-grid">
+    <article class="hero-card area-accent-hero" style={`--area-soft:var(--${areaMeta.color}-soft);`}>
+      <div class="stack-md">
+        <span class="eyebrow">{areaMeta.heroKicker}</span>
+        <h2 class="section-title">{areaMeta.stats.spotlight}</h2>
+        <p class="lede">{areaMeta.description}</p>
+      </div>
+    </article>
+    <article class="hero-card">
+      <div class="eyebrow">Mapa geral</div>
+      <p class="lede" style="margin-top:0.4rem;">Categorias, topicos e leituras curtas em uma unica trilha.</p>
+      <div class="meta-row">
+        <span class="tag">{countLabel(areaMeta.stats.categories, "categoria", "categorias")}</span>
+        <span class="tag">{countLabel(areaMeta.stats.topics, "tópico", "tópicos")}</span>
+      </div>
+    </article>
+  </section>
+
+  <section class="stack-md">
+    <div class="stack-sm">
+      <span class="eyebrow">Categorias</span>
+      <h2 class="section-title">Portas de entrada da area</h2>
+    </div>
+    {navArea.categories.length > 0 ? (
+      <div class="cards-2">
+        {navArea.categories.map((category) => (
+          <StudyCard
+            title={category.name}
+            description={category.description}
+            href={withBase(`/categorias/${navArea.slug}/${category.slug}/`)}
+            meta={countLabel(category.topics.length, "tópico", "tópicos")}
+            accent={`var(--${areaMeta.color})`}
+          />
+        ))}
+      </div>
+    ) : (
+      <div class="info-card">
+        <span class="eyebrow">Sem conteudo por enquanto</span>
+        <h3 style="font-size:1.3rem;margin:0.35rem 0 0.3rem;">Esta area permanece disponivel, mas ainda vazia.</h3>
+        <p class="lede" style="margin:0;">Voce vai definir os temas de Dados aos poucos, entao deixei a estrutura pronta sem publicar topicos agora.</p>
+      </div>
+    )}
+  </section>
+
+  {studies.length > 0 ? (
+    <section class="stack-md">
+      <div class="stack-sm">
+        <span class="eyebrow">Conteudos em destaque</span>
+        <h2 class="section-title">Comecos recomendados</h2>
+      </div>
+      <div class="cards-2">
+        {studies.slice(0, 4).map((study) => (
+          <TopicCard title={study.data.title} description={study.data.description} href={withBase(`/conteudos/${study.data.slug}/`)} kicker={study.data.category} />
+        ))}
+      </div>
+    </section>
+  ) : null}
+</AreaLayout>

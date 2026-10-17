@@ -1,0 +1,183 @@
+---
+title: Programação orientada a objetos básica em Python
+description: Entenda classes, objetos, atributos, métodos, self, __init__, encapsulamento e uma herança simples em Python.
+area: Programação
+areaSlug: programacao
+category: Python
+categorySlug: python
+topic: POO básica
+slug: python-poo-basica
+order: 10
+icon: code
+color: tech
+difficulty: Iniciante
+readingTime: 11 min
+updatedAt: 18/07/2026
+featured: false
+tags:
+  - programação
+  - python
+  - orientação a objetos
+  - classes
+summary: Orientação a objetos organiza estado e comportamento em entidades chamadas objetos.
+mindMap:
+  title: Mapa mental de POO básica
+  subtitle: Primeiros conceitos de classes e objetos em Python.
+  highlights:
+    - classe
+    - objeto
+    - método
+  sections:
+    - title: Classe
+      kind: core
+      definition: Modelo que descreve atributos e comportamentos.
+      bullets:
+        - criada com class
+        - nomes geralmente usam PascalCase
+        - define métodos
+      example: class Conta.
+    - title: Objeto
+      kind: base
+      definition: Instância concreta criada a partir de uma classe.
+      bullets:
+        - possui estado próprio
+        - chama métodos
+        - representa uma entidade
+      example: conta_ana = Conta("Ana").
+    - title: Atributo
+      kind: base
+      definition: Dado guardado no objeto.
+      bullets:
+        - titular
+        - saldo
+        - pontos
+      example: self.saldo = saldo_inicial.
+    - title: Método
+      kind: process
+      definition: Função definida dentro da classe.
+      bullets:
+        - recebe self
+        - altera ou consulta estado
+        - expressa comportamento
+      example: depositar(self, valor).
+    - title: Herança
+      kind: application
+      definition: Uma classe pode especializar outra.
+      bullets:
+        - reutiliza comportamentos
+        - pode sobrescrever métodos
+        - deve ser usada com critério
+      example: ContaPremium(Conta).
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Objeto combina estado e comportamento" text="Programação orientada a objetos organiza o programa em entidades que guardam dados e sabem executar ações relacionadas a esses dados." />
+
+## Vocabulário essencial
+
+- **classe**: modelo que descreve atributos e métodos;
+- **objeto**: instância concreta criada a partir da classe;
+- **atributo**: dado guardado no objeto;
+- **método**: função definida dentro da classe;
+- **encapsulamento**: manter dados e regras relacionados no mesmo lugar;
+- **herança**: criar uma classe especializada a partir de outra.
+
+Veja tudo junto em um exemplo pequeno:
+
+```python
+class Conta:
+    # __init__ prepara o objeto no momento em que ele é criado
+    def __init__(self, titular, saldo_inicial=0.0):
+        self.titular = titular          # atributo
+        self.saldo = saldo_inicial      # atributo
+
+    # depositar é um método, porque é uma função dentro da classe
+    def depositar(self, valor):
+        self.saldo += valor
+
+
+conta_ana = Conta("Ana", 100.0)         # objeto
+conta_ana.depositar(50.0)               # chamada de método
+```
+
+Lendo o exemplo:
+
+| Parte | Onde aparece | O que significa |
+| --- | --- | --- |
+| classe | `class Conta:` | modelo geral de uma conta |
+| objeto | `conta_ana = Conta(...)` | conta concreta criada a partir da classe |
+| atributo | `self.titular`, `self.saldo` | dados guardados dentro do objeto |
+| método | `depositar` | ação que o objeto sabe executar |
+| `__init__` | `def __init__(...)` | método especial que configura o objeto ao nascer |
+| `self` | `self.saldo` | referência ao objeto atual |
+
+Uma forma boa de não confundir: **classe é a receita**, **objeto é o bolo pronto**, **atributos são características** e **métodos são ações**. No exemplo, `Conta` é a receita; `conta_ana` é uma conta real; `saldo` é uma característica; `depositar()` é uma ação.
+
+## Criando uma classe
+
+```python
+class Conta:
+    def __init__(self, titular, saldo_inicial=0.0):
+        self.titular = titular
+        self.saldo = saldo_inicial
+
+    def depositar(self, valor):
+        if valor <= 0:
+            return False
+        self.saldo += valor
+        return True
+
+    def exibir_resumo(self):
+        return f"{self.titular}: R$ {self.saldo:.2f}"
+```
+
+`__init__` é chamado quando o objeto nasce. `self` representa a instância atual.
+
+## Criando objetos
+
+```python
+conta_ana = Conta("Ana", 100.0)
+conta_ana.depositar(50.0)
+
+print(conta_ana.exibir_resumo())
+```
+
+`conta_ana` é um objeto. Ele tem seus próprios atributos `titular` e `saldo`.
+
+## self
+
+`self` permite que o método acesse o estado daquele objeto específico.
+
+Quando você escreve:
+
+```python
+conta_ana.depositar(50.0)
+```
+
+Python chama o método passando `conta_ana` como `self`. Por isso o método consegue alterar `self.saldo`.
+
+## Herança simples
+
+```python
+class ContaPremium(Conta):
+    def __init__(self, titular, saldo_inicial=0.0, pontos=0):
+        super().__init__(titular, saldo_inicial)
+        self.pontos = pontos
+
+    def exibir_resumo(self):
+        resumo_base = super().exibir_resumo()
+        return f"{resumo_base} | {self.pontos} pontos"
+```
+
+`ContaPremium` herda comportamentos de `Conta`, amplia a inicialização e sobrescreve `exibir_resumo`.
+
+<WarningBlock title="Classe não é obrigatória" text="Se você só precisa transformar uma lista e devolver um resultado, funções podem ser suficientes. Classes ficam mais úteis quando há estado e comportamento caminhando juntos." />
+
+<ExampleBlock title="Quando POO ajuda" text="Uma conta bancária tem saldo, titular e operações como depositar. Faz sentido agrupar esses dados e comportamentos em uma classe." />
+
+<TipBlock title="Comece simples" text="Antes de criar várias classes, escreva a regra com funções. Se aparecer uma entidade clara com estado próprio, aí a classe começa a fazer sentido." />

@@ -1,0 +1,248 @@
+---
+title: "DDL: estrutura do banco no PostgreSQL"
+description: Aprenda CREATE, ALTER, DROP, TRUNCATE, schemas, tabelas, restricoes e indices com sintaxe PostgreSQL.
+area: Dados
+areaSlug: dados
+category: Banco de Dados
+categorySlug: banco-de-dados
+topic: DDL PostgreSQL
+slug: sql-ddl-postgresql
+order: 33
+icon: database
+color: data
+difficulty: Iniciante
+readingTime: 14 min
+updatedAt: 01/08/2026
+featured: false
+tags:
+  - dados
+  - sql
+  - postgresql
+  - ddl
+summary: DDL define a estrutura do banco. Em PostgreSQL, os comandos centrais sao CREATE, ALTER, DROP e TRUNCATE, usados para schemas, tabelas, colunas, restricoes e indices.
+mindMap:
+  title: Mapa mental de DDL
+  subtitle: Comandos que moldam a estrutura.
+  highlights:
+    - CREATE
+    - ALTER
+    - DROP
+    - INDEX
+  sections:
+    - title: CREATE
+      kind: core
+      definition: Cria objetos como schema, tabela, view e indice.
+      example: CREATE TABLE clientes (...).
+    - title: ALTER
+      kind: process
+      definition: Altera objetos existentes.
+      bullets:
+        - adiciona coluna
+        - muda tipo
+        - cria restricao
+    - title: DROP
+      kind: process
+      definition: Remove objetos do banco.
+      bullets:
+        - pode apagar estrutura
+        - exige cuidado
+    - title: TRUNCATE
+      kind: application
+      definition: Remove todas as linhas de uma tabela rapidamente.
+      bullets:
+        - nao filtra
+        - pode reiniciar identity
+    - title: Restricoes
+      kind: base
+      definition: Regras estruturais para proteger dados.
+      bullets:
+        - primary key
+        - foreign key
+        - check
+        - unique
+---
+import WarningBlock from "../../../../components/WarningBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## O que e DDL
+
+DDL significa Data Definition Language. E a parte do SQL que define estruturas.
+
+Use DDL quando quiser criar ou alterar:
+
+- schemas;
+- tabelas;
+- colunas;
+- tipos;
+- restricoes;
+- indices;
+- views;
+- sequences.
+
+## Criando schema
+
+Schema organiza objetos dentro do banco.
+
+```sql
+CREATE SCHEMA vendas;
+CREATE SCHEMA financeiro;
+```
+
+Para referenciar:
+
+```sql
+CREATE TABLE vendas.clientes (
+  id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  nome text NOT NULL
+);
+```
+
+## CREATE TABLE
+
+Exemplo completo:
+
+```sql
+CREATE TABLE clientes (
+  id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  nome text NOT NULL,
+  email text NOT NULL UNIQUE,
+  documento text UNIQUE,
+  ativo boolean NOT NULL DEFAULT true,
+  criado_em timestamptz NOT NULL DEFAULT now()
+);
+```
+
+Tabela relacionada:
+
+```sql
+CREATE TABLE pedidos (
+  id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  cliente_id bigint NOT NULL REFERENCES clientes(id),
+  status text NOT NULL DEFAULT 'aberto',
+  total numeric(12,2) NOT NULL CHECK (total >= 0),
+  criado_em timestamptz NOT NULL DEFAULT now()
+);
+```
+
+## ALTER TABLE
+
+Adicionar coluna:
+
+```sql
+ALTER TABLE clientes
+ADD COLUMN telefone text;
+```
+
+Renomear coluna:
+
+```sql
+ALTER TABLE clientes
+RENAME COLUMN documento TO cpf_cnpj;
+```
+
+Alterar tipo:
+
+```sql
+ALTER TABLE clientes
+ALTER COLUMN telefone TYPE varchar(30);
+```
+
+Definir default:
+
+```sql
+ALTER TABLE pedidos
+ALTER COLUMN status SET DEFAULT 'novo';
+```
+
+Adicionar restricao:
+
+```sql
+ALTER TABLE pedidos
+ADD CONSTRAINT pedidos_status_check
+CHECK (status IN ('novo', 'pago', 'cancelado'));
+```
+
+## DROP
+
+Remover coluna:
+
+```sql
+ALTER TABLE clientes
+DROP COLUMN telefone;
+```
+
+Remover tabela:
+
+```sql
+DROP TABLE pedidos;
+```
+
+Remover se existir:
+
+```sql
+DROP TABLE IF EXISTS pedidos;
+```
+
+<WarningBlock title="DROP apaga estrutura" text="DROP remove o objeto. Em ambientes reais, revise dependencias, backups e migrations antes de executar." />
+
+## TRUNCATE
+
+`TRUNCATE` remove todas as linhas rapidamente.
+
+```sql
+TRUNCATE TABLE pedidos;
+TRUNCATE TABLE pedidos RESTART IDENTITY;
+TRUNCATE TABLE pedidos, clientes RESTART IDENTITY CASCADE;
+```
+
+Use com cuidado: ele nao tem `WHERE`.
+
+## Indices
+
+Criar indice simples:
+
+```sql
+CREATE INDEX idx_pedidos_cliente_id
+ON pedidos (cliente_id);
+```
+
+Indice composto:
+
+```sql
+CREATE INDEX idx_pedidos_status_criado
+ON pedidos (status, criado_em DESC);
+```
+
+Indice parcial:
+
+```sql
+CREATE INDEX idx_pedidos_pagos
+ON pedidos (criado_em DESC)
+WHERE status = 'pago';
+```
+
+<TipBlock title="Indice composto tem ordem" text="Um indice em (status, criado_em) ajuda muito quando a consulta filtra por status e ordena por criado_em. A primeira coluna costuma ser decisiva." />
+
+## View
+
+View e uma consulta salva como objeto.
+
+```sql
+CREATE VIEW resumo_clientes AS
+SELECT
+  c.id,
+  c.nome,
+  COUNT(p.id) AS quantidade_pedidos,
+  COALESCE(SUM(p.total), 0) AS total_comprado
+FROM clientes c
+LEFT JOIN pedidos p ON p.cliente_id = c.id
+GROUP BY c.id, c.nome;
+```
+
+Consultar:
+
+```sql
+SELECT *
+FROM resumo_clientes
+ORDER BY total_comprado DESC;
+```

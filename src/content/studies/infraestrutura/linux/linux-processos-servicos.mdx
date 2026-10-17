@@ -1,0 +1,117 @@
+---
+title: Processos e serviços no Linux
+description: Aprenda ps, top, htop, kill, systemctl e journalctl para observar e controlar programas em execução.
+area: Infraestrutura
+areaSlug: infraestrutura
+category: Linux
+categorySlug: linux
+topic: Processos e serviços
+slug: linux-processos-servicos
+order: 6
+icon: terminal
+color: tech
+difficulty: Iniciante
+readingTime: 9 min
+updatedAt: 19/07/2026
+featured: false
+tags:
+  - infraestrutura
+  - linux
+  - processos
+  - systemctl
+summary: Processos são programas em execução; serviços são processos gerenciados pelo sistema, geralmente via systemd.
+mindMap:
+  title: Mapa mental de processos
+  subtitle: Consultar processos, encerrar tarefas e operar serviços.
+  highlights:
+    - ps
+    - kill
+    - systemctl
+  sections:
+    - title: Processo
+      kind: core
+      definition: Programa em execução identificado por PID.
+      bullets:
+        - ps lista processos
+        - top mostra consumo
+        - PID identifica alvo
+      example: ps aux | grep nginx.
+    - title: Encerrar
+      kind: process
+      definition: kill envia sinais para processos.
+      bullets:
+        - kill PID pede encerramento
+        - kill -9 força
+        - pkill busca por nome
+      example: kill 1234.
+    - title: Serviço
+      kind: process
+      definition: Unidade controlada pelo systemd em muitas distribuições.
+      bullets:
+        - start inicia
+        - stop para
+        - restart reinicia
+      example: systemctl status nginx.
+    - title: Logs
+      kind: application
+      definition: journalctl consulta logs de serviços e do sistema.
+      bullets:
+        - -u filtra unidade
+        - -f acompanha
+        - --since filtra tempo
+      example: journalctl -u nginx -f.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Serviço é processo gerenciado" text="Um processo é um programa rodando. Um serviço é um processo administrado pelo sistema, normalmente iniciado no boot e controlado por comandos padronizados." />
+
+## Ver processos
+
+```bash
+ps aux
+ps aux | grep nginx
+top
+htop
+pgrep nginx
+```
+
+`top` mostra consumo em tempo real. `htop` é mais amigável, quando instalado.
+
+## Encerrar processos
+
+```bash
+kill 1234
+kill -9 1234
+pkill nginx
+```
+
+`kill` envia sinal. `kill -9` força encerramento e deve ser último recurso.
+
+## Controlar serviços com systemctl
+
+```bash
+systemctl status nginx
+sudo systemctl start nginx
+sudo systemctl stop nginx
+sudo systemctl restart nginx
+sudo systemctl enable nginx
+sudo systemctl disable nginx
+```
+
+`enable` configura início automático no boot. `start` inicia agora.
+
+## Ver logs com journalctl
+
+```bash
+journalctl -u nginx
+journalctl -u nginx -f
+journalctl -u nginx --since "1 hour ago"
+```
+
+<ExampleBlock title="Investigar serviço parado" text="Rode systemctl status nginx para ver estado geral. Depois use journalctl -u nginx --since '1 hour ago' para procurar erro recente." />
+
+<WarningBlock title="Reiniciar não é diagnóstico" text="Reiniciar pode aliviar o sintoma, mas confira logs e causa provável. Em produção, reinício sem contexto pode esconder falhas recorrentes." />

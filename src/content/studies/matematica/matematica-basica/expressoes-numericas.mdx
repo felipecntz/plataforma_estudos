@@ -1,0 +1,130 @@
+---
+title: Expressoes numericas
+description: Aprenda a resolver expressoes numericas respeitando agrupamentos e a ordem correta das operacoes.
+area: Matematica
+areaSlug: matematica
+category: Matematica basica
+categorySlug: matematica-basica
+topic: Expressoes numericas
+slug: expressoes-numericas
+order: 3
+icon: brackets
+color: math
+difficulty: Iniciante
+readingTime: 8 min
+updatedAt: 18/07/2026
+featured: true
+tags:
+  - matematica
+  - expressoes numericas
+  - ordem das operacoes
+summary: Entenda agrupamentos, prioridade das operacoes, sinais e um roteiro seguro para resolver expressoes.
+mindMap:
+  title: Mapa mental de expressoes numericas
+  subtitle: A ordem que organiza a conta e evita resultados diferentes.
+  highlights: [agrupamentos, potencias, multiplicacao, soma]
+  sections:
+    - title: Primeiro os agrupamentos
+      kind: core
+      definition: Resolva de dentro para fora, sem apagar os sinais externos.
+      bullets:
+        - parenteses primeiro
+        - depois colchetes
+        - por fim chaves
+      example: 2 × [3 + (5 - 1)] = 2 × 7 = 14.
+    - title: Ordem das operacoes
+      kind: base
+      definition: No mesmo agrupamento, algumas operacoes têm prioridade.
+      bullets:
+        - potencias e raizes
+        - multiplicacoes e divisoes
+        - adicoes e subtracoes
+      example: 4 + 3 × 2 = 10, e nao 14.
+    - title: Mesma prioridade
+      kind: process
+      definition: Multiplicacao e divisao empatam; soma e subtracao tambem.
+      bullets:
+        - resolva da esquerda para a direita
+        - nao escolha a operacao pelo tamanho dos numeros
+      example: 24 ÷ 6 × 2 = 4 × 2 = 8.
+    - title: Sinais
+      kind: process
+      definition: Um sinal fora do agrupamento pode alterar todos os termos internos.
+      bullets:
+        - menos antes de parenteses troca os sinais ao remover
+        - produto de sinais iguais e positivo
+        - produto de sinais diferentes e negativo
+      example: 10 - (3 + 2) = 5.
+    - title: Conferencia
+      kind: application
+      definition: Escreva uma linha por etapa e confira se so uma prioridade foi resolvida.
+      bullets:
+        - copie o que ainda nao foi calculado
+        - estime o sinal do resultado
+        - revise agrupamentos antes da conta
+      example: Em 18 - 2 × 5, o resultado deve ser 8.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## O que é uma expressão numérica
+
+<DefinitionBlock title="Uma expressão é uma sequência de operações" text="Ela combina números, sinais e agrupamentos. Resolver a expressão significa encontrar um único valor sem alterar a relação indicada entre esses elementos." />
+
+A ordem existe para que qualquer pessoa chegue ao mesmo resultado. Sem ela, `4 + 3 × 2` poderia virar `14` ou `10`. Pela convenção correta, a multiplicação vem antes da adição, então o resultado é `10`.
+
+## A ordem das operações
+
+Dentro de cada agrupamento, siga esta sequência:
+
+1. Potenciações e radiciações.
+2. Multiplicações e divisões, da esquerda para a direita.
+3. Adições e subtrações, da esquerda para a direita.
+
+<ExampleBlock title="Prioridade muda o resultado" text="Em 2 + 5 × 3, resolvemos 5 × 3 = 15 e depois 2 + 15 = 17. Somar 2 + 5 primeiro quebraria a prioridade." />
+
+Operações da mesma linha têm a mesma prioridade. Em `24 ÷ 6 × 2`, não existe regra dizendo que a multiplicação sempre vence a divisão: calculamos da esquerda para a direita, obtendo `4 × 2 = 8`.
+
+## Agrupamentos: de dentro para fora
+
+Quando houver símbolos de agrupamento, resolva o mais interno primeiro:
+
+- parênteses `( )`;
+- colchetes `[ ]`;
+- chaves `{ }`.
+
+<ExampleBlock title="Expressão com agrupamentos" text="Em 2 × [3 + (5 - 1)], fazemos 5 - 1 = 4; depois 3 + 4 = 7; por fim 2 × 7 = 14." />
+
+O agrupamento cria uma pequena expressão dentro da expressão maior. Termine essa parte antes de misturá-la com o restante.
+
+## Cuidado com os sinais
+
+Um sinal de menos antes de um agrupamento equivale a multiplicá-lo por `-1`. Ao retirar os parênteses, os sinais internos mudam:
+
+- `8 - (3 + 2) = 8 - 3 - 2 = 3`;
+- `8 - (3 - 2) = 8 - 3 + 2 = 7`.
+
+<WarningBlock title="Não resolva apenas da esquerda para a direita" text="A leitura linear só vale entre operações de mesma prioridade. Antes disso, respeite potências, raízes, multiplicações e divisões." />
+
+## Roteiro seguro
+
+1. Localize os agrupamentos.
+2. Marque potências e raízes.
+3. Resolva multiplicações e divisões.
+4. Termine com adições e subtrações.
+5. Faça uma linha por etapa, copiando o que ainda não foi calculado.
+
+<TipBlock title="Resolva uma prioridade por linha" text="Esse hábito deixa os sinais visíveis e torna fácil encontrar exatamente onde um erro aconteceu." />
+
+## Exemplo completo
+
+Calcule `30 - [2 × (4 + 3) + 5]`:
+
+1. Parênteses: `4 + 3 = 7`.
+2. Multiplicação: `2 × 7 = 14`.
+3. Colchetes: `14 + 5 = 19`.
+4. Subtração final: `30 - 19 = 11`.
+
+<ExampleBlock title="Conferência rápida" text="Antes de concluir, estime: o valor dentro dos colchetes é menor que 30, então o resultado deve ser positivo. O 11 é coerente." />

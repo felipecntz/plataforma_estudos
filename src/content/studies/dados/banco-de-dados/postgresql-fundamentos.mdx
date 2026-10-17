@@ -1,0 +1,168 @@
+---
+title: "PostgreSQL: fundamentos"
+description: Conheca schemas, tabelas, tipos, chaves, restricoes, indices e o fluxo basico para trabalhar com PostgreSQL.
+area: Dados
+areaSlug: dados
+category: Banco de Dados
+categorySlug: banco-de-dados
+topic: PostgreSQL fundamentos
+slug: postgresql-fundamentos
+order: 32
+icon: database
+color: data
+difficulty: Iniciante
+readingTime: 13 min
+updatedAt: 01/08/2026
+featured: false
+tags:
+  - dados
+  - postgresql
+  - sql
+  - tipos
+summary: PostgreSQL organiza objetos em bancos, schemas, tabelas e relacoes. O essencial e dominar tipos, chaves, restricoes, indices e a diferenca entre estrutura, dados e consulta.
+mindMap:
+  title: Mapa mental de PostgreSQL
+  subtitle: A base antes dos comandos SQL.
+  highlights:
+    - schema
+    - tabela
+    - chave
+    - indice
+  sections:
+    - title: Banco
+      kind: core
+      definition: Unidade principal que agrupa schemas, tabelas, funcoes, permissoes e dados.
+      bullets:
+        - conexao aponta para um banco
+        - objetos vivem dentro dele
+    - title: Schema
+      kind: base
+      definition: Pasta logica dentro do banco, usada para organizar objetos.
+      bullets:
+        - public e o schema padrao
+        - pode separar dominios
+      example: vendas.clientes.
+    - title: Tabela
+      kind: process
+      definition: Estrutura de linhas e colunas com tipos e restricoes.
+      bullets:
+        - coluna tem tipo
+        - linha e registro
+        - restricao protege regra
+    - title: Chaves
+      kind: process
+      definition: Primary key identifica; foreign key relaciona.
+      bullets:
+        - PK deve ser unica
+        - FK aponta para outra tabela
+    - title: Indice
+      kind: application
+      definition: Estrutura auxiliar que acelera busca, filtro e ordenacao.
+      bullets:
+        - melhora leitura
+        - custa escrita
+        - deve seguir consultas reais
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Hierarquia mental
+
+<DefinitionBlock title="PostgreSQL organiza objetos em camadas" text="Voce conecta em um banco, trabalha dentro de schemas e cria tabelas, indices, views, funcoes e permissoes." />
+
+Uma forma simples de enxergar:
+
+```text
+Servidor PostgreSQL
+└── banco app_vendas
+    └── schema public
+        ├── tabela clientes
+        ├── tabela pedidos
+        ├── indice idx_pedidos_cliente
+        └── view vendas_mensais
+```
+
+No uso cotidiano, voce escreve SQL contra tabelas. Mas entender essa hierarquia ajuda quando aparecem nomes como `public.clientes`, permissoes por schema ou objetos com o mesmo nome em schemas diferentes.
+
+## Tipos importantes
+
+PostgreSQL tem tipos ricos. Os mais comuns:
+
+| Tipo | Uso |
+| --- | --- |
+| `integer`, `bigint` | numeros inteiros |
+| `numeric(12,2)` | valores exatos, como dinheiro |
+| `text`, `varchar(n)` | textos |
+| `boolean` | verdadeiro/falso |
+| `date` | data |
+| `timestamp` | data e hora |
+| `timestamptz` | data e hora com fuso tratado |
+| `uuid` | identificador universal |
+| `jsonb` | JSON binario indexavel |
+| `serial`, `bigserial` | inteiros autoincrementais legados |
+| `identity` | autoincremento SQL moderno |
+
+<TipBlock title="Dinheiro pede numeric" text="Evite float para dinheiro. Use numeric com escala definida, por exemplo numeric(12,2), para preservar precisão decimal." />
+
+## Chaves e restricoes
+
+Restricoes protegem a qualidade dos dados.
+
+```sql
+CREATE TABLE clientes (
+  id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  email text NOT NULL UNIQUE,
+  nome text NOT NULL,
+  ativo boolean NOT NULL DEFAULT true,
+  criado_em timestamptz NOT NULL DEFAULT now()
+);
+```
+
+Principais restricoes:
+
+- `PRIMARY KEY`: identifica cada linha;
+- `FOREIGN KEY`: cria relacionamento;
+- `NOT NULL`: impede vazio;
+- `UNIQUE`: impede duplicidade;
+- `CHECK`: valida regra;
+- `DEFAULT`: define valor padrao.
+
+Exemplo com relacionamento:
+
+```sql
+CREATE TABLE pedidos (
+  id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  cliente_id bigint NOT NULL REFERENCES clientes(id),
+  total numeric(12,2) NOT NULL CHECK (total >= 0),
+  status text NOT NULL DEFAULT 'aberto',
+  criado_em timestamptz NOT NULL DEFAULT now()
+);
+```
+
+## Indices
+
+Indice e como um sumario fisico para acelerar acesso. Ele ajuda quando o banco precisa localizar poucas linhas dentro de muitas.
+
+```sql
+CREATE INDEX idx_pedidos_cliente_id ON pedidos (cliente_id);
+CREATE INDEX idx_pedidos_criado_em ON pedidos (criado_em DESC);
+```
+
+Use indice em colunas frequentes em `WHERE`, `JOIN`, `ORDER BY` e `GROUP BY`, mas com criterio. Cada indice tambem precisa ser atualizado em `INSERT`, `UPDATE` e `DELETE`.
+
+<WarningBlock title="Indice nao e enfeite" text="Indice demais pode deixar escrita lenta e ocupar disco. Crie indice para consulta real, nao para toda coluna." />
+
+## Fluxo basico de trabalho
+
+Um ciclo comum:
+
+1. modelar entidades e relacoes;
+2. criar tabelas com DDL;
+3. inserir dados com DML;
+4. consultar com DQL;
+5. ajustar indices conforme consultas reais;
+6. controlar permissoes com DCL;
+7. proteger mudancas com TCL.
+
+Esse modulo segue exatamente essa ordem.

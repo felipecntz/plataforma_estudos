@@ -1,0 +1,135 @@
+---
+title: Permissões e usuários no Linux
+description: Entenda chmod, chown, sudo, grupos, permissões rwx e como ler ls -l.
+area: Infraestrutura
+areaSlug: infraestrutura
+category: Linux
+categorySlug: linux
+topic: Permissões e usuários
+slug: linux-permissoes-usuarios
+order: 5
+icon: terminal
+color: tech
+difficulty: Iniciante
+readingTime: 8 min
+updatedAt: 19/07/2026
+featured: false
+tags:
+  - infraestrutura
+  - linux
+  - permissões
+  - usuários
+summary: Permissões controlam quem pode ler, escrever e executar arquivos; sudo eleva privilégios com responsabilidade.
+mindMap:
+  title: Mapa mental de permissões
+  subtitle: Usuário, grupo, rwx, chmod, chown e sudo.
+  highlights:
+    - rwx
+    - chmod
+    - sudo
+  sections:
+    - title: rwx
+      kind: core
+      definition: Permissões indicam leitura, escrita e execução.
+      bullets:
+        - r é leitura
+        - w é escrita
+        - x é execução
+      example: -rw-r--r--.
+    - title: Dono
+      kind: base
+      definition: Arquivos possuem usuário dono e grupo dono.
+      bullets:
+        - ls -l mostra dono
+        - chown altera dono
+        - chgrp altera grupo
+      example: chown app:app arquivo.
+    - title: chmod
+      kind: process
+      definition: Altera permissões de arquivos e diretórios.
+      bullets:
+        - chmod +x executável
+        - chmod 644 arquivo
+        - chmod 755 script
+      example: chmod +x deploy.sh.
+    - title: sudo
+      kind: application
+      definition: Executa comandos com privilégio administrativo.
+      bullets:
+        - use só quando necessário
+        - registra ações
+        - exige cuidado extra
+      example: sudo systemctl restart nginx.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Permissão é controle de ação" text="No Linux, cada arquivo informa quem pode ler, alterar ou executar. Isso protege configurações, serviços e dados de usuários." />
+
+## Lendo permissões
+
+```bash
+ls -l script.sh
+```
+
+Exemplo:
+
+```text
+-rwxr-xr-- 1 ana dev 1200 jul 19 10:00 script.sh
+```
+
+Leitura rápida:
+
+| Parte | Significado |
+| --- | --- |
+| `r` | read, pode ler |
+| `w` | write, pode escrever |
+| `x` | execute, pode executar |
+| primeiro trio | permissões do dono |
+| segundo trio | permissões do grupo |
+| terceiro trio | permissões dos outros |
+
+## chmod
+
+```bash
+chmod +x script.sh
+chmod 644 arquivo.txt
+chmod 755 script.sh
+```
+
+Valores comuns:
+
+| Modo | Uso comum |
+| --- | --- |
+| `644` | arquivo comum: dono escreve, outros leem |
+| `600` | arquivo privado |
+| `755` | diretório ou script executável |
+| `700` | diretório privado executável pelo dono |
+
+## chown e grupos
+
+```bash
+sudo chown usuario:grupo arquivo.txt
+sudo chown -R app:app /opt/app
+groups
+id
+```
+
+`chown -R` altera recursivamente. Use com atenção.
+
+## sudo
+
+```bash
+sudo apt update
+sudo systemctl status nginx
+sudo journalctl -u nginx
+```
+
+`sudo` roda o comando com privilégio elevado. Em servidor, isso é poder real.
+
+<WarningBlock title="Evite chmod 777" text="chmod 777 dá leitura, escrita e execução para todo mundo. Pode parecer resolver rápido, mas costuma criar risco de segurança." />
+
+<ExampleBlock title="Tornar script executável" text="chmod +x backup.sh permite executar o arquivo com ./backup.sh, desde que o conteúdo seja um script válido." />

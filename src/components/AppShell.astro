@@ -1,0 +1,32 @@
+---
+import Sidebar from "./Sidebar.astro";
+import Header from "./Header.astro";
+
+interface Props {
+  currentPath: string;
+  breadcrumbs?: { label: string; href?: string }[];
+}
+
+const { currentPath, breadcrumbs = [] } = Astro.props;
+---
+
+<div class="page-shell">
+  <div class="app-frame">
+    <div class="drawer-overlay" data-drawer-overlay></div>
+    <div class="sidebar-wrap">
+      <Sidebar currentPath={currentPath} />
+    </div>
+    <div class="content-wrap">
+      <div class="content-panel panel">
+        <Header breadcrumbs={breadcrumbs} currentPath={currentPath} />
+        <main class="main-content">
+          <slot />
+        </main>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import "../scripts/app.ts";
+</script>

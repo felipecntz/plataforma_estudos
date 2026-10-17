@@ -1,0 +1,97 @@
+---
+title: Visao geral do monolito Django
+description: Entenda o fluxo principal de um projeto Django monolito e como projeto, apps, models, views, URLs e templates se conectam.
+area: Programação
+areaSlug: programacao
+category: Django
+categorySlug: django
+topic: Visao geral do monolito
+slug: django-monolito-conceitos
+order: 11
+icon: code
+color: tech
+difficulty: Iniciante
+readingTime: 10 min
+updatedAt: 01/08/2026
+featured: true
+tags:
+  - programação
+  - django
+  - python
+  - monolito
+summary: Django monolito entrega paginas, regras, banco, templates, admin e arquivos estaticos em uma unica aplicacao organizada por apps.
+mindMap:
+  title: Mapa mental de Django monolito
+  subtitle: O fluxo principal antes de detalhar cada peça.
+  highlights:
+    - MTV
+    - apps
+    - ORM
+    - templates
+  sections:
+    - title: Fluxo
+      kind: core
+      definition: URL chama view, view usa model e renderiza template.
+      example: /produtos/ -> lista_produtos -> produtos/lista.html.
+    - title: Monolito
+      kind: base
+      definition: Uma aplicacao entrega interface, regras, banco, autenticacao e admin.
+      bullets:
+        - simples para começar
+        - bom para CRUD
+        - apps separam dominios
+    - title: Projeto
+      kind: process
+      definition: Guarda configuracoes globais, urls raiz, ASGI e WSGI.
+      example: config/settings.py.
+    - title: Apps
+      kind: process
+      definition: Modulos do dominio dentro do monolito.
+      example: produtos, pedidos, financeiro.
+    - title: MTV
+      kind: application
+      definition: Model representa dados, Template monta HTML, View coordena a resposta.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Django e um framework web completo" text="Django permite construir uma aplicacao web com rotas, views, templates, ORM, migrations, formularios, autenticacao, admin, seguranca e organizacao por apps." />
+
+Em um projeto monolito, a aplicacao principal entrega quase tudo: HTML, regras de negocio, banco de dados, formularios, login, admin, arquivos estaticos e deploy. Isso e muito bom para sistemas internos, CRUDs, portais, backoffices e produtos que ainda nao precisam de arquitetura distribuida.
+
+## Fluxo da requisicao
+
+```text
+Navegador
+  -> URL do Django
+  -> View
+  -> Model/ORM
+  -> Banco de dados
+  -> Template HTML
+  -> Resposta para o navegador
+```
+
+Em Django, a view nao e a tela. A view e a funcao ou classe que recebe a requisicao e decide o que devolver. A tela costuma ser o template.
+
+## MTV
+
+| Peça | Papel | Comparacao mental |
+| --- | --- | --- |
+| Model | dados, tabelas, relacoes e regras proximas do banco | o que existe |
+| Template | HTML final com variaveis e blocos | como aparece |
+| View | coordena request, regra e response | o que acontece |
+
+## Sequencia de estudo deste modulo
+
+Esta categoria agora esta separada em topicos:
+
+1. projeto, apps e `settings.py`;
+2. models, ORM e migrations;
+3. views, URLs e templates;
+4. forms, admin e autenticacao;
+5. PostgreSQL, static files e deploy.
+
+<TipBlock title="Macete" text="Se voce lembrar URL -> view -> model -> template, ja tem o mapa para depurar a maioria das duvidas iniciais de Django." />
+

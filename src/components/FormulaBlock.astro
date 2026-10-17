@@ -1,0 +1,42 @@
+---
+import katex from "katex";
+
+interface Props {
+  name: string;
+  expression: string;
+  description: string;
+  variables: { label: string; meaning: string }[];
+  example?: string;
+  note?: string;
+  mistake?: string;
+}
+
+const { name, expression, description, variables, example, note, mistake } = Astro.props;
+const html = katex.renderToString(expression, {
+  throwOnError: false,
+  displayMode: true
+});
+---
+
+<section class="content-block formula-box stack-md">
+  <div>
+    <div class="eyebrow">Formula</div>
+    <h3 style="margin:0.35rem 0 0.4rem;font-size:1.5rem;">{name}</h3>
+    <p class="lede" style="margin:0;">{description}</p>
+  </div>
+  <div class="formula-expression" set:html={html}></div>
+  <div class="cards-2">
+    <div class="info-card">
+      <strong>Variaveis</strong>
+      <ul>
+        {variables.map((item) => <li><strong>{item.label}</strong>: {item.meaning}</li>)}
+      </ul>
+    </div>
+    <div class="info-card">
+      <strong>Aplicacao</strong>
+      <p>{example}</p>
+      {note && <p><strong>Observacao:</strong> {note}</p>}
+      {mistake && <p><strong>Erro comum:</strong> {mistake}</p>}
+    </div>
+  </div>
+</section>

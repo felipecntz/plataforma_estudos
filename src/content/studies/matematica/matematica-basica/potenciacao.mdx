@@ -1,0 +1,136 @@
+---
+title: Potenciacao
+description: Entenda base, expoente, propriedades das potencias e o papel dos parenteses nos sinais.
+area: Matematica
+areaSlug: matematica
+category: Matematica basica
+categorySlug: matematica-basica
+topic: Potenciacao
+slug: potenciacao
+order: 4
+icon: superscript
+color: math
+difficulty: Iniciante
+readingTime: 9 min
+updatedAt: 18/07/2026
+featured: true
+tags:
+  - matematica
+  - potenciacao
+  - potencias
+  - expoentes
+summary: Revise significado, propriedades, expoentes zero e negativos e os cuidados com sinais e somas.
+mindMap:
+  title: Mapa mental de potenciacao
+  subtitle: Significado, regras de expoentes e sinais em uma leitura curta.
+  highlights: [base, expoente, propriedades, sinais]
+  sections:
+    - title: Ideia central
+      kind: core
+      definition: Potencia representa multiplicacoes repetidas de uma mesma base.
+      formula: 'a^n = \underbrace{a \cdot a \cdots a}_{n\ vezes}'
+      bullets:
+        - a e a base
+        - n e o expoente
+      example: 2³ = 2 × 2 × 2 = 8.
+    - title: Mesma base
+      kind: base
+      definition: No produto, somam-se expoentes; na divisao, subtraem-se.
+      formula: 'a^m \cdot a^n = a^{m+n}'
+      bullets:
+        - aᵐ ÷ aⁿ = aᵐ⁻ⁿ
+        - a deve ser diferente de zero na divisao
+      example: 3² × 3⁴ = 3⁶.
+    - title: Potencia de potencia
+      kind: process
+      definition: Multiplique os expoentes quando uma potencia inteira é elevada novamente.
+      formula: '\left(a^m\right)^n = a^{mn}'
+      bullets:
+        - potencia do produto distribui
+        - potencia da divisao distribui
+      example: (2³)² = 2⁶ = 64.
+    - title: Expoentes especiais
+      kind: process
+      definition: Expoente zero produz 1; expoente negativo indica o inverso.
+      formula: 'a^0=1 \quad e \quad a^{-n}=\frac{1}{a^n}'
+      example: 2⁻³ = 1/8.
+    - title: Sinal e parenteses
+      kind: application
+      definition: Os parenteses determinam se o sinal pertence à base.
+      bullets:
+        - (-2)² = 4
+        - -2² = -(2²) = -4
+        - expoente par elimina sinal negativo da base
+      example: (-3)³ = -27.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## O que significa elevar a uma potência
+
+<DefinitionBlock title="Potenciação abrevia multiplicações repetidas" text="Na expressão aⁿ, a base é o fator que se repete e n indica quantas vezes ele aparece na multiplicação." />
+
+Por exemplo, `5³ = 5 × 5 × 5 = 125`. O expoente não é um número pelo qual multiplicamos a base: `5³` não é `5 × 3`.
+
+<FormulaBlock
+  name="Definicao de potencia"
+  expression="a^n = \underbrace{a \cdot a \cdot \ldots \cdot a}_{n\text{ fatores}}"
+  description="Para expoente natural positivo, a base aparece como fator repetido n vezes."
+  variables={[
+    { label: "a", meaning: "base que se repete" },
+    { label: "n", meaning: "numero de fatores iguais" }
+  ]}
+  example="Em 3⁴, multiplicamos 3 × 3 × 3 × 3 e obtemos 81."
+  note="O expoente 1 mantém a própria base: a¹ = a."
+  mistake="Multiplicar a base pelo expoente em vez de repetir a base como fator."
+/>
+
+## Propriedades com a mesma base
+
+As propriedades economizam contas, mas só podem ser usadas quando a estrutura combina com a regra.
+
+- Produto: `aᵐ × aⁿ = aᵐ⁺ⁿ`.
+- Divisão: `aᵐ ÷ aⁿ = aᵐ⁻ⁿ`, com `a ≠ 0`.
+- Potência de potência: `(aᵐ)ⁿ = aᵐⁿ`.
+- Potência de produto: `(a × b)ⁿ = aⁿ × bⁿ`.
+- Potência de uma divisão: `(a/b)ⁿ = aⁿ/bⁿ`, com `b ≠ 0`.
+
+<ExampleBlock title="Produto de mesma base" text="2³ × 2⁵ = 2⁸ = 256. Somamos os expoentes porque, juntos, há oito fatores iguais a 2." />
+
+<WarningBlock title="Expoentes não se somam em uma adição" text="2³ + 2⁵ não é 2⁸. A regra de somar expoentes vale no produto de potências de mesma base, não em uma soma." />
+
+## Expoente zero e negativo
+
+Para qualquer base não nula, `a⁰ = 1`. Essa regra preserva a propriedade da divisão: `a³ ÷ a³ = a⁰`, mas qualquer número não nulo dividido por ele mesmo é `1`.
+
+O expoente negativo cria o inverso:
+
+`a⁻ⁿ = 1/aⁿ`
+
+<ExampleBlock title="Expoente negativo" text="2⁻³ = 1/2³ = 1/8. O sinal negativo no expoente não torna o resultado negativo; ele inverte a potência." />
+
+## Parênteses e sinais
+
+Compare:
+
+- `(-2)² = (-2) × (-2) = 4`;
+- `-2² = -(2²) = -4`.
+
+No primeiro caso, o sinal faz parte da base. No segundo, a potência atua apenas sobre o `2` e o sinal é aplicado depois.
+
+Se uma base negativa estiver entre parênteses, expoente par gera resultado positivo e expoente ímpar mantém o resultado negativo.
+
+<TipBlock title="Pergunte qual é exatamente a base" text="Antes de calcular, identifique o que está elevado. Os parênteses respondem se o sinal negativo participa ou não da potência." />
+
+## Potências de 10
+
+Potências de 10 facilitam a escrita de números grandes e pequenos:
+
+- `10³ = 1.000`;
+- `10⁻² = 0,01`;
+- `4,2 × 10⁵ = 420.000`.
+
+Elas são a base da notação científica: um número é escrito como `a × 10ⁿ`, com `1 ≤ a < 10`.

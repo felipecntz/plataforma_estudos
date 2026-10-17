@@ -1,0 +1,73 @@
+.app-frame {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.sidebar-wrap {
+  position: sticky;
+  top: 1rem;
+  height: calc(100vh - 2rem);
+}
+
+.content-wrap {
+  min-width: 0;
+}
+
+.content-panel {
+  border-radius: 2rem;
+  overflow: clip;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(18rem, 0.9fr);
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.section-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.stack-lg {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.stack-md {
+  display: grid;
+  gap: 1rem;
+}
+
+.stack-sm {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.main-content {
+  padding: 1.1rem;
+}
+
+.content-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 17rem;
+  gap: 1.5rem;
+}
+
+.study-switcher-shell {
+  min-width: 0;
+}
+
+.prose-shell {
+  padding: 1.5rem;
+}
+
+.toc-shell {
+  position: sticky;
+  top: calc(var(--header-height) + 1.5rem);
+  align-self: start;
+}

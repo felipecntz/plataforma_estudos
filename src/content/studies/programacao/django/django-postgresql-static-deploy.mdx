@@ -1,0 +1,143 @@
+---
+title: PostgreSQL, static files e deploy no Django
+description: Configure PostgreSQL, entenda static/media files, comandos essenciais, testes e fluxo de deploy de um monolito Django.
+area: Programação
+areaSlug: programacao
+category: Django
+categorySlug: django
+topic: PostgreSQL, static e deploy
+slug: django-postgresql-static-deploy
+order: 16
+icon: code
+color: tech
+difficulty: Intermediário
+readingTime: 15 min
+updatedAt: 01/08/2026
+featured: false
+tags:
+  - programação
+  - django
+  - postgresql
+  - deploy
+summary: Em produção, Django normalmente usa PostgreSQL, variaveis de ambiente, static files coletados, migrations, servidor WSGI/ASGI e DEBUG desativado.
+mindMap:
+  title: Mapa mental de producao Django
+  subtitle: Banco, arquivos e publicacao.
+  highlights:
+    - PostgreSQL
+    - collectstatic
+    - migrate
+    - DEBUG False
+  sections:
+    - title: PostgreSQL
+      kind: core
+      definition: Banco robusto para sistemas Django em producao.
+      example: ENGINE django.db.backends.postgresql.
+    - title: Static
+      kind: process
+      definition: CSS, JS e imagens do projeto.
+      example: python manage.py collectstatic.
+    - title: Media
+      kind: base
+      definition: Uploads enviados por usuarios.
+      example: MEDIA_ROOT.
+    - title: Deploy
+      kind: application
+      definition: Migrar banco, coletar estaticos e iniciar servidor.
+      example: "gunicorn config.wsgi:application."
+---
+import WarningBlock from "../../../../components/WarningBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## PostgreSQL
+
+Instale o driver:
+
+```bash
+pip install "psycopg[binary]"
+```
+
+Configuracao simples:
+
+```python
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "meu_banco",
+        "USER": "meu_usuario",
+        "PASSWORD": "minha_senha",
+        "HOST": "localhost",
+        "PORT": "5432",
+    }
+}
+```
+
+Em projeto real, use variaveis de ambiente para senhas e hosts.
+
+## Static e media
+
+```python
+STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
+```
+
+Coletar arquivos estaticos:
+
+```bash
+python manage.py collectstatic
+```
+
+`static` e do projeto. `media` e upload de usuario.
+
+## Comandos essenciais
+
+| Comando | Uso |
+| --- | --- |
+| `python manage.py runserver` | servidor local |
+| `python manage.py makemigrations` | gera migrations |
+| `python manage.py migrate` | aplica migrations |
+| `python manage.py createsuperuser` | cria admin |
+| `python manage.py shell` | shell Django |
+| `python manage.py dbshell` | shell do banco |
+| `python manage.py test` | testes |
+| `python manage.py collectstatic` | arquivos estaticos |
+| `python manage.py check --deploy` | checagens de producao |
+
+## Deploy mental
+
+Fluxo comum:
+
+```bash
+python manage.py check --deploy
+python manage.py migrate
+python manage.py collectstatic --noinput
+gunicorn config.wsgi:application
+```
+
+Arquitetura comum:
+
+- Nginx na frente;
+- Gunicorn ou uWSGI rodando Django;
+- PostgreSQL como banco;
+- static files servidos pelo Nginx;
+- variaveis de ambiente;
+- logs e backups configurados.
+
+## Seguranca basica
+
+- `DEBUG = False` em producao;
+- configure `ALLOWED_HOSTS`;
+- proteja `SECRET_KEY`;
+- use HTTPS;
+- nao versione senha;
+- valide permissoes nas views;
+- rode `check --deploy`;
+- faca backup antes de migrations sensiveis.
+
+<WarningBlock title="SQLite para aprender, PostgreSQL para publicar" text="SQLite e ótimo no inicio. Para sistemas publicados com concorrencia, PostgreSQL costuma ser mais robusto." />
+
+<TipBlock title="Checklist antes de subir" text="Banco configurado, migrations aplicadas, static coletado, DEBUG false, ALLOWED_HOSTS correto e senha fora do codigo." />

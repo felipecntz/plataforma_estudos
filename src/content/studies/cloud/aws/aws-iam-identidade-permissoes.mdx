@@ -1,0 +1,112 @@
+---
+title: "IAM: identidade e permissões na AWS"
+description: Entenda usuários, grupos, roles, policies e menor privilégio no controle de acesso da AWS.
+area: Cloud
+areaSlug: cloud
+category: AWS
+categorySlug: aws
+topic: IAM
+slug: aws-iam-identidade-permissoes
+order: 3
+icon: shield
+color: tech
+difficulty: Iniciante
+readingTime: 10 min
+updatedAt: 08/08/2026
+featured: true
+tags:
+  - aws
+  - iam
+  - segurança
+  - permissões
+summary: IAM controla identidades e permissões na AWS; a regra central é conceder só o acesso necessário.
+mindMap:
+  title: Mapa mental de IAM
+  subtitle: Quem acessa, como acessa e o que pode fazer.
+  highlights:
+    - menor privilégio
+    - roles para serviços
+    - policies em JSON
+  sections:
+    - title: Identidades
+      kind: core
+      definition: Representam pessoas, aplicações ou serviços que precisam acessar a AWS.
+      bullets:
+        - usuário para pessoa ou integração legada
+        - grupo organiza permissões de usuários
+        - role é assumida temporariamente
+      example: Desenvolvedores entram por usuário federado; uma EC2 assume uma role.
+    - title: Policies
+      kind: base
+      definition: Documentos que permitem ou negam ações em recursos.
+      bullets:
+        - action define operação
+        - resource define alvo
+        - condition limita contexto
+      example: Permitir `s3:GetObject` apenas em um bucket específico.
+    - title: Boas práticas
+      kind: process
+      definition: Segurança nasce de permissões pequenas, credenciais temporárias e auditoria.
+      bullets:
+        - ativar MFA
+        - evitar chaves fixas
+        - revisar permissões amplas
+      example: Trocar access key em código por role do serviço.
+    - title: Auditoria
+      kind: application
+      definition: IAM deve ser revisado junto com CloudTrail, Access Analyzer e logs.
+      bullets:
+        - rastrear chamadas
+        - detectar acesso público
+        - remover permissões não usadas
+      example: CloudTrail mostra quem alterou uma policy crítica.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="IAM responde quem pode fazer o quê" text="Identity and Access Management é o serviço que controla identidades, autenticação e autorização na AWS. Quase todo recurso importante passa por alguma decisão de permissão." />
+
+O IAM aparece antes dos outros serviços porque uma arquitetura segura depende dele. EC2, Lambda, S3 e RDS podem funcionar tecnicamente sem desenho cuidadoso de permissão, mas isso cria risco. O objetivo é dar acesso suficiente para executar a tarefa e nada além disso.
+
+## Peças principais
+
+| Peça | Função | Quando usar |
+| --- | --- | --- |
+| Usuário | identidade individual | pessoas ou integrações antigas |
+| Grupo | conjunto de usuários | times com permissões parecidas |
+| Role | identidade assumida temporariamente | serviços AWS, automações e federação |
+| Policy | documento de permissão | permitir ou negar ações |
+| Permission boundary | limite máximo de permissão | delegar criação sem liberar tudo |
+
+<TipBlock title="Macete" text="Usuário é alguém. Role é um chapéu temporário que alguém ou algum serviço veste para trabalhar." />
+
+## Como ler uma policy
+
+Uma policy costuma dizer: efeito, ação, recurso e condição. `Effect` pode permitir ou negar. `Action` indica operações como `s3:GetObject`. `Resource` aponta onde a ação vale. `Condition` restringe por IP, tag, MFA, horário ou outros atributos.
+
+```json
+{
+  "Effect": "Allow",
+  "Action": "s3:GetObject",
+  "Resource": "arn:aws:s3:::meu-bucket/*"
+}
+```
+
+<WarningBlock title="Erro comum" text="Usar permissões com asterisco porque resolve rápido. `Action: *` e `Resource: *` devem ser exceção muito bem justificada." />
+
+## IAM com serviços
+
+| Serviço | Relação com IAM |
+| --- | --- |
+| EC2 | instância assume role para acessar S3, CloudWatch ou Secrets Manager |
+| Lambda | função executa com uma execution role |
+| S3 | bucket policy e IAM policy controlam leitura e escrita |
+| RDS | IAM pode controlar administração e, em alguns casos, autenticação no banco |
+
+## Resumo de revisão
+
+IAM é a base de segurança da AWS. Use usuários para pessoas quando necessário, grupos para organizar, roles para serviços e policies para definir permissões. Prefira menor privilégio, MFA, credenciais temporárias e auditoria constante.

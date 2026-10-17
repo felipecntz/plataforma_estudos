@@ -1,0 +1,129 @@
+---
+title: Visão geral da Cloud
+description: Entenda o que é computação em nuvem, por que ela existe e quais conceitos sustentam qualquer provedor.
+area: Cloud
+areaSlug: cloud
+category: Cloud Computing
+categorySlug: cloud-computing
+topic: Visão geral da cloud
+slug: cloud-visao-geral
+order: 1
+icon: cloud
+color: tech
+difficulty: Iniciante
+readingTime: 8 min
+updatedAt: 08/08/2026
+featured: true
+tags:
+  - cloud
+  - infraestrutura
+  - arquitetura
+  - custos
+summary: Cloud é o uso de recursos computacionais sob demanda, pagos conforme consumo e operados por um provedor, permitindo criar ambientes elásticos sem comprar datacenter próprio.
+mindMap:
+  title: Mapa mental de Cloud
+  subtitle: O essencial para enxergar nuvem como arquitetura, operação e custo.
+  highlights:
+    - sob demanda
+    - elasticidade
+    - responsabilidade compartilhada
+  sections:
+    - title: Cloud
+      kind: core
+      definition: Modelo para consumir computação, rede, armazenamento e serviços gerenciados pela internet.
+      bullets:
+        - provisionamento rápido
+        - pagamento por uso
+        - escala conforme demanda
+      example: Criar uma máquina virtual em minutos sem comprar servidor físico.
+    - title: Modelos
+      kind: base
+      definition: IaaS, PaaS e SaaS dividem quanto você gerencia e quanto o provedor gerencia.
+      bullets:
+        - "IaaS: mais controle"
+        - "PaaS: menos operação"
+        - "SaaS: produto pronto"
+      example: VM é IaaS; banco gerenciado é PaaS; e-mail corporativo é SaaS.
+    - title: Arquitetura
+      kind: process
+      definition: Projetos em cloud combinam disponibilidade, segurança, custo, performance e operação.
+      bullets:
+        - desenhar para falha
+        - automatizar implantação
+        - medir uso e custo
+      example: Usar múltiplas zonas para reduzir impacto de falhas locais.
+    - title: Segurança
+      kind: application
+      definition: A segurança é compartilhada entre provedor e cliente.
+      bullets:
+        - provedor protege a infraestrutura
+        - cliente configura acessos e dados
+        - menor privilégio é regra
+      example: O provedor protege o datacenter; você protege senhas, permissões e dados.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Cloud é capacidade sob demanda" text="Computação em nuvem significa consumir recursos de tecnologia pela internet, como servidores, bancos, armazenamento, redes e serviços prontos, sem precisar comprar e operar toda a infraestrutura física." />
+
+A grande virada da cloud não é apenas “usar servidor de outra pessoa”. A diferença real está no modelo operacional: você cria recursos rapidamente, mede consumo, automatiza ambientes e aumenta ou reduz capacidade conforme a necessidade. Em vez de planejar tudo para o maior pico possível, você tenta aproximar capacidade, desempenho e custo da demanda real.
+
+## Por que cloud existe
+
+Antes da cloud, uma empresa precisava comprar servidores, reservar espaço físico, instalar rede, energia, refrigeração, storage, firewall, backup e sistemas. Isso exigia investimento inicial alto e planejamento lento. Se o projeto crescesse, faltava capacidade; se não crescesse, sobrava equipamento parado.
+
+Na cloud, o provedor mantém datacenters, hardware, rede global e muitos serviços prontos. O cliente monta sua arquitetura em cima desses blocos. Isso muda a conversa de “comprar infraestrutura” para “desenhar serviço”: quais recursos usar, quanto isolar, como proteger dados, como escalar e como controlar custos.
+
+## Conceitos essenciais
+
+| Conceito | Resumo para lembrar |
+| --- | --- |
+| Região | área geográfica onde o provedor possui datacenters |
+| Zona de disponibilidade | conjunto isolado dentro de uma região, útil para alta disponibilidade |
+| Elasticidade | capacidade de aumentar ou reduzir recursos conforme demanda |
+| Escalabilidade | capacidade de suportar crescimento de carga |
+| Serviço gerenciado | recurso em que o provedor cuida de parte da operação |
+| Pay as you go | pagamento conforme uso, tempo, tráfego ou armazenamento |
+| SLA | compromisso de disponibilidade definido pelo provedor |
+
+## Modelos de serviço
+
+| Modelo | Você gerencia mais | Provedor gerencia mais | Exemplo |
+| --- | --- | --- | --- |
+| IaaS | sistema, runtime, aplicação e dados | datacenter, rede física, servidores e virtualização | máquina virtual |
+| PaaS | aplicação, dados e configuração principal | sistema, runtime, patches e escala parcial | banco gerenciado ou app service |
+| SaaS | uso, dados e permissões | quase toda a tecnologia | CRM, e-mail, ferramenta online |
+
+<ExampleBlock title="Macete de prova e entrevista" text="Quanto mais você vai de IaaS para SaaS, menos controle técnico fino você tem, mas menos operação manual precisa fazer." />
+
+## Modelos de implantação
+
+Cloud pública é quando você usa serviços de um provedor aberto ao mercado, como AWS, Azure ou Google Cloud. Cloud privada é quando a organização opera uma nuvem dedicada para si. Cloud híbrida mistura ambientes locais e cloud pública. Multicloud usa mais de um provedor.
+
+O ponto importante é não decorar nomes isolados. A pergunta prática é: onde o sistema roda, quem opera a infraestrutura, como os dados trafegam e quem assume os riscos?
+
+## Responsabilidade compartilhada
+
+Em cloud, segurança não é terceirizada por completo. O provedor protege a infraestrutura da nuvem: datacenters, hardware, rede física e serviços base. O cliente protege o que coloca na nuvem: dados, identidades, permissões, configuração de rede, chaves, aplicações e regras de acesso.
+
+<WarningBlock title="Erro comum" text="Achar que cloud é automaticamente segura. Um bucket público, uma chave vazada ou um usuário com permissões excessivas continuam sendo problemas do cliente." />
+
+## Como pensar arquitetura em cloud
+
+Uma boa arquitetura de cloud costuma equilibrar cinco perguntas:
+
+1. O sistema continua funcionando quando algum componente falha?
+2. Os acessos seguem menor privilégio?
+3. O custo acompanha o valor gerado?
+4. A performance atende ao uso real?
+5. A operação pode ser repetida com automação?
+
+<TipBlock title="Regra prática" text="Em cloud, pense em recursos como peças substituíveis. Servidores individuais não devem ser tratados como relíquias; dados, automação e configuração são o que precisa ser protegido." />
+
+## Resumo de revisão
+
+Cloud entrega recursos sob demanda, elasticidade e pagamento por uso. A nuvem reduz a necessidade de infraestrutura própria, mas aumenta a importância de arquitetura, governança, segurança e controle de custos. O melhor uso da cloud acontece quando você escolhe serviços conforme a necessidade: mais controle quando precisa personalizar, mais serviço gerenciado quando quer reduzir operação.

@@ -1,0 +1,43 @@
+---
+import SearchBox from "./SearchBox.astro";
+import Breadcrumbs from "./Breadcrumbs.astro";
+import { withBase } from "../lib/links";
+
+interface Props {
+  currentPath: string;
+  breadcrumbs: { label: string; href?: string }[];
+}
+
+const { currentPath, breadcrumbs } = Astro.props;
+---
+
+<header class="app-header">
+  <button class="icon-button mobile-only" type="button" data-drawer-open aria-label="Abrir menu">≡</button>
+  <div class="brand-lockup">
+    <a href={withBase("/")}>
+      <div class="eyebrow">Revisao direta</div>
+      <div class="brand-title">Atlas de Estudos</div>
+    </a>
+  </div>
+  <div class="header-search">
+    <SearchBox currentPath={currentPath} />
+  </div>
+  <div class="header-actions">
+    <a class="ghost-button" href={`${withBase("/")}#recentes`}>Recentes</a>
+    <button
+      class="icon-button theme-toggle"
+      type="button"
+      data-theme-toggle
+      aria-label="Ativar modo escuro"
+      title="Ativar modo escuro"
+    >
+      <span class="theme-icon theme-icon-moon" aria-hidden="true">☾</span>
+      <span class="theme-icon theme-icon-sun" aria-hidden="true">☀</span>
+    </button>
+  </div>
+</header>
+{breadcrumbs.length > 1 && (
+  <div class="main-content" style="padding-top:0.8rem;padding-bottom:0;">
+    <Breadcrumbs items={breadcrumbs} />
+  </div>
+)}

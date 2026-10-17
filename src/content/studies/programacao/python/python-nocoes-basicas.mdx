@@ -1,0 +1,159 @@
+---
+title: Noções básicas da linguagem Python
+description: Entenda arquivos .py, execução, indentação, comentários, nomes, erros iniciais e a forma básica de escrever código Python.
+area: Programação
+areaSlug: programacao
+category: Python
+categorySlug: python
+topic: Noções básicas da linguagem
+slug: python-nocoes-basicas
+order: 2
+icon: code
+color: tech
+difficulty: Iniciante
+readingTime: 9 min
+updatedAt: 18/07/2026
+featured: false
+tags:
+  - programação
+  - python
+  - sintaxe
+  - indentação
+summary: Um guia inicial sobre como um programa Python é escrito, lido e executado.
+mindMap:
+  title: Mapa mental das noções básicas
+  subtitle: Primeiras regras para escrever código Python sem tropeçar na sintaxe.
+  highlights:
+    - arquivos
+    - indentação
+    - nomes
+  sections:
+    - title: Programa
+      kind: core
+      definition: Um programa é uma sequência de instruções executadas pelo Python.
+      bullets:
+        - arquivos geralmente terminam em .py
+        - instruções são lidas de cima para baixo
+        - funções executam ações
+      example: print("Oi") chama a função print.
+    - title: Indentação
+      kind: base
+      definition: Espaços à esquerda definem blocos de código.
+      bullets:
+        - "padrão comum: quatro espaços"
+        - não misture tabs e espaços
+        - blocos aparecem após dois-pontos
+      example: linhas dentro de if ficam indentadas.
+    - title: Comentários
+      kind: base
+      definition: Comentários explicam intenção e são ignorados pelo interpretador.
+      bullets:
+        - começam com #
+        - devem ajudar o leitor
+        - não substituem nomes claros
+      example: "'# calcula o preço final'."
+    - title: Nomes
+      kind: process
+      definition: Identificadores nomeiam variáveis, funções e classes.
+      bullets:
+        - variáveis usam snake_case
+        - Python diferencia maiúsculas e minúsculas
+        - não use palavras reservadas
+      example: preco_final é mais claro que pf.
+    - title: Erros
+      kind: process
+      definition: Mensagens de erro indicam tipo do problema e linha aproximada.
+      bullets:
+        - leia a última linha
+        - confira indentação e nomes
+        - reduza o exemplo
+      example: IndentationError costuma apontar bloco desalinhado.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Python executa instruções" text="Um programa Python é uma sequência de comandos. Cada linha costuma representar uma ação, uma atribuição ou uma decisão dentro do fluxo do programa." />
+
+O primeiro exemplo clássico chama a função `print`, que escreve algo na tela:
+
+```python
+print("Olá, mundo!")
+```
+
+Arquivos Python normalmente usam a extensão `.py`. Um arquivo chamado `app.py` pode ser executado com `python app.py` ou `python3 app.py`, dependendo da instalação do sistema.
+
+## Blocos e indentação
+
+Python não usa chaves para marcar blocos. Ele usa indentação, ou seja, espaços no começo da linha. A convenção mais comum é usar quatro espaços por nível.
+
+```python
+idade = 18
+
+if idade >= 18:
+    print("Maior de idade")
+    print("Acesso liberado")
+
+print("Fim")
+```
+
+As duas linhas indentadas pertencem ao `if`. A última linha está fora do bloco.
+
+<WarningBlock title="Indentação é regra, não enfeite" text="Se uma linha deveria estar dentro de um bloco, ela precisa estar alinhada com as outras linhas desse bloco. Tabs e espaços misturados costumam gerar erros difíceis de enxergar." />
+
+## Comentários
+
+Comentários começam com `#` e são ignorados pelo Python.
+
+```python
+# Calcula o preço depois do desconto
+preco_original = 120.0
+desconto = 0.10
+preco_final = preco_original * (1 - desconto)
+```
+
+Use comentários para explicar intenção, não para repetir o óbvio. Um bom nome muitas vezes vale mais que uma frase longa.
+
+## Nomes em Python
+
+Variáveis e funções geralmente usam `snake_case`: letras minúsculas com palavras separadas por sublinhado.
+
+```python
+nome_do_aluno = "Lia"
+media_final = 8.5
+```
+
+Python diferencia maiúsculas de minúsculas. `nome`, `Nome` e `NOME` são nomes diferentes. Também não dá para começar um nome com número nem usar palavras reservadas como `if`, `for`, `class`, `return` e `while`.
+
+## Entrada, processamento e saída
+
+Muitos programas seguem este fluxo:
+
+1. recebem dados;
+2. processam esses dados;
+3. mostram ou salvam um resultado.
+
+```python
+nome = input("Qual é o seu nome? ")
+mensagem = f"Olá, {nome}!"
+print(mensagem)
+```
+
+`input()` lê texto digitado pelo usuário. `print()` mostra valores na tela. Entre uma coisa e outra, você cria regras.
+
+<ExampleBlock title="Leitura do fluxo" text="Primeiro o programa pede um nome. Depois monta uma mensagem usando esse nome. Por fim, mostra a mensagem." />
+
+## Como ler erros iniciais
+
+Quando algo falha, Python mostra uma mensagem chamada traceback. Para começar, leia a última linha: ela costuma trazer o tipo do erro e uma descrição curta.
+
+- `NameError`: um nome foi usado sem existir naquele ponto;
+- `SyntaxError`: há algo inválido na escrita do código;
+- `IndentationError`: a indentação está inconsistente;
+- `TypeError`: uma operação recebeu um tipo inadequado;
+- `ValueError`: o tipo é aceitável, mas o valor não serve.
+
+<TipBlock title="Pequenos testes vencem confusão" text="Quando um erro aparecer, reduza o código para o menor exemplo possível. Fica mais fácil enxergar se o problema está no nome, no tipo, na indentação ou na regra." />

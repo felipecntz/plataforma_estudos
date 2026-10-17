@@ -1,0 +1,322 @@
+---
+title: Listas, dicionários e tuplas em Python
+description: Aprenda quando usar lista, dicionário e tupla, com acesso por índice, chave, mutabilidade e exemplos.
+area: Programação
+areaSlug: programacao
+category: Python
+categorySlug: python
+topic: Listas, dicionários e tuplas
+slug: python-listas-dicionarios-tuplas
+order: 5
+icon: code
+color: tech
+difficulty: Iniciante
+readingTime: 14 min
+updatedAt: 18/07/2026
+featured: false
+tags:
+  - programação
+  - python
+  - listas
+  - dicionários
+  - tuplas
+summary: Coleções organizam vários valores; listas mudam com facilidade, tuplas preservam registros estáveis e dicionários relacionam chaves a valores.
+mindMap:
+  title: Mapa mental de coleções
+  subtitle: Como escolher entre lista, tupla e dicionário.
+  highlights:
+    - lista
+    - tupla
+    - dicionário
+  sections:
+    - title: Lista
+      kind: core
+      definition: Sequência ordenada e mutável.
+      bullets:
+        - acessa por índice
+        - aceita append e remove
+        - ideal para coleção que muda
+      example: linguagens = ["Python", "SQL"].
+    - title: Tupla
+      kind: base
+      definition: Sequência ordenada e imutável.
+      bullets:
+        - acessa por índice
+        - não altera após criação
+        - boa para registros estáveis
+      example: coordenada = (10, 25).
+    - title: Dicionário
+      kind: base
+      definition: Estrutura de chave e valor.
+      bullets:
+        - acessa por chave
+        - representa campos nomeados
+        - aceita items(), keys() e values()
+      example: 'aluno = {"nome": "Bia"}.'
+    - title: Mutabilidade
+      kind: process
+      definition: Algumas estruturas podem mudar; outras não.
+      bullets:
+        - listas mudam
+        - dicionários mudam
+        - tuplas não mudam
+      example: lista.append("novo") altera a lista.
+    - title: Escolha
+      kind: application
+      definition: A melhor coleção depende do formato mental dos dados.
+      bullets:
+        - "sequência simples: lista"
+        - "registro fixo: tupla"
+        - "entidade com campos: dicionário"
+      example: um aluno com nome e notas combina com dicionário.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Coleções agrupam valores" text="Listas, tuplas e dicionários permitem guardar vários valores em uma estrutura. A diferença está em como os dados são acessados e se podem ser alterados." />
+
+## Listas
+
+Listas são ordenadas e mutáveis. Use quando você tem uma sequência de itens que pode crescer, diminuir, ser reordenada ou receber alterações. Os índices começam em zero, e índices negativos contam a partir do fim.
+
+```python
+linguagens = ["Python", "SQL", "JavaScript"]
+
+print(linguagens[0])   # Python
+print(linguagens[-1])  # JavaScript
+```
+
+### Acessar e fatiar
+
+Fatiamento seleciona uma parte da lista. O limite final não entra no resultado.
+
+```python
+numeros = [10, 20, 30, 40, 50]
+
+print(numeros[1])       # 20
+print(numeros[1:4])     # [20, 30, 40]
+print(numeros[:3])      # [10, 20, 30]
+print(numeros[::2])     # [10, 30, 50]
+```
+
+### Adicionar, alterar e remover
+
+```python
+linguagens = ["Python", "SQL"]
+
+linguagens.append("JavaScript")      # adiciona no fim
+linguagens.insert(1, "Bash")         # adiciona em uma posição
+linguagens[0] = "Python 3"           # altera por índice
+linguagens.extend(["Go", "Rust"])    # junta outra sequência
+
+removida = linguagens.pop()          # remove e devolve o último item
+linguagens.remove("SQL")             # remove pelo valor
+```
+
+`pop()` é útil quando você precisa do item removido. `remove()` procura pelo valor; se ele não existir, gera erro.
+
+### Ordenar, contar e localizar
+
+```python
+notas = [8.0, 7.5, 9.0, 7.5]
+
+print(len(notas))           # quantidade de itens
+print(sum(notas))           # soma
+print(min(notas))           # menor valor
+print(max(notas))           # maior valor
+print(notas.count(7.5))     # quantas vezes aparece
+print(notas.index(9.0))     # posição do valor
+
+notas.sort()                # ordena a própria lista
+ordenadas = sorted(notas)   # cria uma nova lista ordenada
+```
+
+`sort()` altera a lista original. `sorted()` preserva a original e devolve uma nova sequência ordenada.
+
+### Percorrer listas
+
+```python
+nomes = ["Ana", "Caio", "Luz"]
+
+for nome in nomes:
+    print(nome)
+
+for indice, nome in enumerate(nomes, start=1):
+    print(indice, nome)
+```
+
+Use `enumerate()` quando precisa do índice e do valor ao mesmo tempo.
+
+## Tuplas
+
+Tuplas também são ordenadas, mas imutáveis. Depois de criadas, não permitem adicionar, remover ou trocar itens. Elas combinam bem com dados que formam um pequeno registro estável, como coordenadas, pares e resultados que não deveriam mudar.
+
+```python
+coordenada = (10, 25)
+x, y = coordenada
+print(x, y)
+```
+
+Para criar uma tupla com um único item, a vírgula é necessária:
+
+```python
+linguagem = ("Python",)
+```
+
+### Operações úteis em tuplas
+
+Como tuplas são imutáveis, as operações principais são de leitura, contagem, desempacotamento e conversão.
+
+```python
+cores = ("azul", "verde", "azul")
+
+print(cores[0])             # azul
+print(cores.count("azul"))  # 2
+print(cores.index("verde")) # 1
+```
+
+Desempacotamento deixa o código direto quando a quantidade de itens é conhecida:
+
+```python
+ponto = (10, 25)
+x, y = ponto
+```
+
+Também dá para usar `*` para capturar o restante:
+
+```python
+primeiro, *resto = (1, 2, 3, 4)
+print(primeiro)  # 1
+print(resto)     # [2, 3, 4]
+```
+
+Se você precisa alterar uma tupla, normalmente cria outra. Também é possível converter para lista, alterar e converter de volta:
+
+```python
+valores = (1, 2, 3)
+temporaria = list(valores)
+temporaria.append(4)
+valores = tuple(temporaria)
+```
+
+## Dicionários
+
+Dicionários guardam pares de chave e valor. Eles são ótimos para representar uma entidade com campos nomeados.
+
+```python
+aluno = {
+    "nome": "Bia",
+    "idade": 20,
+    "aprovado": True,
+}
+
+print(aluno["nome"])
+aluno["curso"] = "Python"
+```
+
+`aluno.get("email")` retorna `None` se a chave não existir. Já `aluno["email"]` gera erro quando a chave não está presente.
+
+### Acessar, adicionar e alterar
+
+```python
+aluno = {"nome": "Bia", "idade": 20}
+
+print(aluno["nome"])
+print(aluno.get("email", "não informado"))
+
+aluno["idade"] = 21
+aluno["curso"] = "Python"
+```
+
+Use `[]` quando a chave deve existir. Use `get()` quando a ausência da chave é aceitável.
+
+### Remover itens
+
+```python
+aluno = {"nome": "Bia", "idade": 20, "curso": "Python"}
+
+curso = aluno.pop("curso")      # remove e devolve o valor
+del aluno["idade"]              # remove diretamente
+aluno.clear()                   # esvazia o dicionário
+```
+
+`pop()` é mais controlado quando você precisa aproveitar o valor removido ou informar um padrão:
+
+```python
+email = aluno.pop("email", "sem email")
+```
+
+### Percorrer dicionários
+
+```python
+for chave, valor in aluno.items():
+    print(chave, valor)
+```
+
+`items()` percorre pares. `keys()` percorre chaves. `values()` percorre valores.
+
+```python
+for chave in aluno.keys():
+    print(chave)
+
+for valor in aluno.values():
+    print(valor)
+```
+
+### Atualizar e combinar dados
+
+```python
+config = {"tema": "claro", "fonte": 14}
+
+config.update({"tema": "escuro", "idioma": "pt-BR"})
+```
+
+`update()` altera chaves existentes e adiciona as novas. O operador `in` verifica se uma chave existe:
+
+```python
+if "tema" in config:
+    print(config["tema"])
+```
+
+### Dicionário com listas
+
+É comum combinar estruturas. Um dicionário pode guardar listas, e uma lista pode guardar dicionários.
+
+```python
+aluno = {
+    "nome": "Bia",
+    "notas": [8.0, 7.5, 9.0],
+}
+
+media = sum(aluno["notas"]) / len(aluno["notas"])
+```
+
+```python
+alunos = [
+    {"nome": "Bia", "media": 8.2},
+    {"nome": "Caio", "media": 6.9},
+]
+```
+
+## Comparação rápida
+
+| Estrutura | Ordenada | Mutável | Acesso principal | Quando usar |
+| --- | --- | --- | --- | --- |
+| lista | sim | sim | índice | sequência que pode mudar |
+| tupla | sim | não | índice | registro estável |
+| dicionário | sim | sim | chave | dados com campos nomeados |
+
+## Operações mais úteis por estrutura
+
+| Estrutura | Operações principais |
+| --- | --- |
+| lista | `append`, `insert`, `extend`, `pop`, `remove`, `sort`, `count`, `index`, fatiamento |
+| tupla | acesso por índice, fatiamento, `count`, `index`, desempacotamento, conversão com `list()` e `tuple()` |
+| dicionário | acesso por chave, `get`, atribuição, `pop`, `update`, `items`, `keys`, `values`, `in` |
+
+<ExampleBlock title="Modelando um aluno" text="Use um dicionário para nome, idade e notas; dentro dele, use uma lista para guardar as notas, porque a quantidade de notas pode crescer." />
+
+<TipBlock title="Modele antes de escolher" text="Pergunte: esses dados são uma sequência, um registro fixo ou uma entidade com campos nomeados? A resposta quase sempre aponta a coleção certa." />

@@ -1,0 +1,59 @@
+.prose {
+  max-width: 70ch;
+}
+
+.prose p,
+.prose li {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-soft);
+}
+
+.prose h2 {
+  font-size: 1.8rem;
+  margin: 1.8rem 0 0.7rem;
+}
+
+.prose h3 {
+  font-size: 1.2rem;
+  margin: 1.5rem 0 0.6rem;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.25rem;
+}
+
+.prose pre {
+  background: #171310;
+  color: #f8eee1;
+  padding: 1rem;
+  border-radius: 1rem;
+  overflow: auto;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  display: block;
+  overflow: auto;
+}
+
+.prose th,
+.prose td {
+  padding: 0.8rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.prose blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.2rem;
+  border-left: 3px solid var(--math);
+  background: rgba(255, 248, 240, 0.85);
+  border-radius: 0 1rem 1rem 0;
+}
+
+:root[data-theme="dark"] .prose blockquote {
+  background: rgba(58, 40, 31, 0.58);
+}

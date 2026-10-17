@@ -1,0 +1,131 @@
+---
+title: Equacao do primeiro grau
+description: Resolva equacoes lineares entendendo equivalencia, distributiva e verificacao da resposta.
+area: Matematica
+areaSlug: matematica
+category: Matematica basica
+categorySlug: matematica-basica
+topic: Equacao do primeiro grau
+slug: equacao-primeiro-grau
+order: 7
+icon: equation
+color: math
+difficulty: Iniciante
+readingTime: 10 min
+updatedAt: 18/07/2026
+featured: true
+tags:
+  - matematica
+  - algebra
+  - equacao primeiro grau
+  - equacao linear
+summary: Aprenda a preservar a igualdade, isolar a incognita, tratar parenteses e modelar problemas lineares.
+mindMap:
+  title: Mapa mental de equacao do primeiro grau
+  subtitle: Equilibrio, isolamento da incognita e conferencia.
+  highlights: [igualdade, incognita, equivalencia, solucao]
+  sections:
+    - title: Forma geral
+      kind: core
+      definition: É uma igualdade em que a incognita aparece com expoente 1.
+      formula: 'ax+b=0 \quad (a\neq0)'
+      example: 3x - 12 = 0 tem x = 4.
+    - title: Principio da balanca
+      kind: base
+      definition: Toda operacao feita em um membro deve ser feita no outro.
+      bullets:
+        - some o mesmo valor nos dois lados
+        - multiplique os dois lados pelo mesmo valor nao nulo
+        - simplifique sem romper a igualdade
+      example: x + 5 = 12; subtraindo 5, x = 7.
+    - title: Roteiro
+      kind: process
+      definition: Organize antes de isolar a incognita.
+      bullets:
+        - elimine parenteses
+        - reduza termos semelhantes
+        - leve termos com x a um lado
+        - divida pelo coeficiente de x
+      example: 2(x + 3) = 14 resulta em x = 4.
+    - title: Possibilidades
+      kind: process
+      definition: A simplificacao pode produzir uma solucao, nenhuma ou infinitas.
+      bullets:
+        - '0x = numero nao nulo: sem solucao'
+        - '0x = 0: infinitas solucoes'
+        - 'ax = c com a nao nulo: uma solucao'
+      example: 2(x + 1) = 2x + 2 vale para todo x.
+    - title: Verificacao
+      kind: application
+      definition: Substitua a resposta na equacao original e compare os membros.
+      example: Em 3x + 2 = 14, x = 4 gera 14 = 14.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## O que é uma equação do primeiro grau
+
+<DefinitionBlock title="Equacao é uma igualdade com valor desconhecido" text="No primeiro grau, a incógnita aparece elevada a 1. Resolver significa encontrar o valor que torna os dois membros da igualdade verdadeiros ao mesmo tempo." />
+
+<FormulaBlock
+  name="Forma geral da equacao linear"
+  expression="ax+b=0,\quad a\neq0"
+  description="O coeficiente a acompanha a incognita e precisa ser diferente de zero para que a equacao seja realmente do primeiro grau."
+  variables={[
+    { label: "x", meaning: "incognita procurada" },
+    { label: "a", meaning: "coeficiente de x" },
+    { label: "b", meaning: "termo independente" }
+  ]}
+  example="Em 3x - 12 = 0, temos a = 3, b = -12 e x = 4."
+  note="Uma equacao pode aparecer fora da forma geral e ser reorganizada."
+  mistake="Trocar um termo de lado sem compreender a operacao inversa feita nos dois membros."
+/>
+
+## A igualdade como balança
+
+Os dois lados precisam permanecer equivalentes. Se somamos, subtraímos, multiplicamos ou dividimos um membro por um valor, fazemos o mesmo no outro membro.
+
+Em `x + 5 = 12`, subtraímos `5` dos dois lados:
+
+`x + 5 - 5 = 12 - 5`, então `x = 7`.
+
+A frase “passa para o outro lado trocando o sinal” é um atalho para essa operação, não uma regra independente.
+
+## Roteiro de resolução
+
+1. Elimine parênteses com a distributiva.
+2. Reduza termos semelhantes em cada membro.
+3. Reúna os termos com incógnita em um lado.
+4. Reúna os termos constantes no outro.
+5. Divida pelo coeficiente da incógnita.
+
+<ExampleBlock title="Equacao com parenteses" text="2(x + 3) = 14. Pela distributiva, 2x + 6 = 14. Subtraindo 6: 2x = 8. Dividindo por 2: x = 4." />
+
+<ExampleBlock title="Incognita nos dois membros" text="5x - 4 = 2x + 11. Subtraindo 2x dos dois lados: 3x - 4 = 11. Somando 4: 3x = 15. Logo, x = 5." />
+
+## Equações com frações
+
+Você pode multiplicar todos os termos pelo MMC dos denominadores para eliminá-los.
+
+Em `x/3 + 1/2 = 5/6`, o MMC é `6`. Multiplicando a equação inteira por `6`:
+
+`2x + 3 = 5`, então `2x = 2` e `x = 1`.
+
+<WarningBlock title="Multiplique todos os termos" text="Ao eliminar denominadores ou aplicar a distributiva, nenhum termo pode ficar de fora. Esse é um dos erros mais frequentes." />
+
+## Uma, nenhuma ou infinitas soluções
+
+Depois de simplificar:
+
+- `ax = c`, com `a ≠ 0`, dá uma solução;
+- `0x = 5` é impossível e não tem solução;
+- `0x = 0` é verdadeira para qualquer valor e tem infinitas soluções.
+
+## Modelando um problema
+
+<ExampleBlock title="Problema de idade" text="Ana tem 8 anos a mais que Bia. Juntas, têm 34. Se Bia tem x, então Ana tem x + 8. A equação x + (x + 8) = 34 leva a 2x = 26; Bia tem 13 e Ana, 21." />
+
+<TipBlock title="Sempre substitua a resposta" text="Coloque o valor encontrado na equação original. Se os dois lados não coincidirem, reveja sinais, distributiva e divisão final." />

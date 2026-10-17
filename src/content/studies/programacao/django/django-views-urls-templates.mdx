@@ -1,0 +1,150 @@
+---
+title: Views, URLs e templates no Django
+description: Aprenda como URLs chamam views, como views renderizam templates e como organizar HTML com heranca em Django.
+area: Programação
+areaSlug: programacao
+category: Django
+categorySlug: django
+topic: Views, URLs e templates
+slug: django-views-urls-templates
+order: 14
+icon: code
+color: tech
+difficulty: Iniciante
+readingTime: 14 min
+updatedAt: 01/08/2026
+featured: false
+tags:
+  - programação
+  - django
+  - views
+  - templates
+summary: URLs nomeadas apontam para views. Views recebem request e devolvem response. Templates montam o HTML com variaveis, blocos, heranca e includes.
+mindMap:
+  title: Mapa mental de views e templates
+  subtitle: Da rota ao HTML final.
+  highlights:
+    - urls.py
+    - views.py
+    - template
+  sections:
+    - title: URL
+      kind: core
+      definition: Mapeia caminho para view.
+      example: path('produtos/', views.lista, name='lista').
+    - title: View
+      kind: process
+      definition: Recebe request, consulta dados e devolve resposta.
+      example: render(request, 'produtos/lista.html', contexto).
+    - title: Template
+      kind: application
+      definition: HTML com variaveis, tags e blocos.
+      example: "{% extends \"base.html\" %}."
+    - title: Bootstrap
+      kind: base
+      definition: Pode acelerar layout em templates renderizados no servidor.
+---
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## URLs
+
+```python
+# config/urls.py
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("produtos/", include("produtos.urls")),
+]
+```
+
+```python
+# produtos/urls.py
+from django.urls import path
+from . import views
+
+app_name = "produtos"
+
+urlpatterns = [
+    path("", views.lista_produtos, name="lista"),
+    path("<int:pk>/", views.detalhe_produto, name="detalhe"),
+]
+```
+
+## Function-based views
+
+```python
+from django.shortcuts import get_object_or_404, render
+from .models import Produto
+
+def lista_produtos(request):
+    produtos = Produto.objects.select_related("categoria").filter(ativo=True)
+    return render(request, "produtos/lista.html", {"produtos": produtos})
+
+def detalhe_produto(request, pk):
+    produto = get_object_or_404(Produto, pk=pk)
+    return render(request, "produtos/detalhe.html", {"produto": produto})
+```
+
+## Class-based views
+
+```python
+from django.views.generic import DetailView, ListView
+from .models import Produto
+
+class ProdutoListView(ListView):
+    model = Produto
+    template_name = "produtos/lista.html"
+    context_object_name = "produtos"
+    paginate_by = 20
+
+class ProdutoDetailView(DetailView):
+    model = Produto
+    template_name = "produtos/detalhe.html"
+```
+
+## Template base
+
+```html
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Meu sistema{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  </head>
+  <body>
+    {% include "partials/navbar.html" %}
+    <main class="container py-4">
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>
+```
+
+## Template de lista
+
+```html
+{% extends "base.html" %}
+
+{% block title %}Produtos{% endblock %}
+
+{% block content %}
+  <h1>Produtos</h1>
+
+  {% for produto in produtos %}
+    <article>
+      <h2>{{ produto.nome }}</h2>
+      <p>{{ produto.categoria.nome }}</p>
+      <strong>R$ {{ produto.preco }}</strong>
+    </article>
+  {% empty %}
+    <p>Nenhum produto cadastrado.</p>
+  {% endfor %}
+{% endblock %}
+```
+
+<TipBlock title="URLs com nome" text="Use name nas rotas e {% url %} nos templates. Assim voce pode mudar o caminho sem quebrar links espalhados." />

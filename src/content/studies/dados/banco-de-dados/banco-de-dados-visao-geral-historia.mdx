@@ -1,0 +1,159 @@
+---
+title: Visao geral e historia dos bancos de dados
+description: Entenda o que e um banco de dados, por que ele existe, como evoluiu e quais conceitos aparecem em quase todo SGBD.
+area: Dados
+areaSlug: dados
+category: Banco de Dados
+categorySlug: banco-de-dados
+topic: Visao geral e historia
+slug: banco-de-dados-visao-geral-historia
+order: 30
+icon: database
+color: data
+difficulty: Iniciante
+readingTime: 12 min
+updatedAt: 01/08/2026
+featured: true
+tags:
+  - dados
+  - banco de dados
+  - sql
+  - sgbd
+summary: Banco de dados e uma forma organizada de guardar, consultar e proteger informacoes. A historia sai de arquivos isolados, passa pelos modelos hierarquico e relacional, e chega aos bancos distribuidos e especializados.
+mindMap:
+  title: Mapa mental de banco de dados
+  subtitle: O que guardar, como consultar e por que um SGBD importa.
+  highlights:
+    - dados
+    - SGBD
+    - SQL
+    - transacao
+  sections:
+    - title: Banco
+      kind: core
+      definition: Colecao organizada de dados com estrutura, regras e formas de consulta.
+      bullets:
+        - guarda fatos do dominio
+        - evita planilhas soltas
+        - permite recuperar informacao
+      example: clientes, pedidos e pagamentos.
+    - title: SGBD
+      kind: base
+      definition: Software que cria, consulta, protege, concorre e recupera bancos de dados.
+      bullets:
+        - controla acesso
+        - executa SQL
+        - gerencia transacoes
+      example: PostgreSQL, SQL Server, MySQL e Oracle.
+    - title: Modelo relacional
+      kind: process
+      definition: Organiza dados em tabelas relacionadas por chaves.
+      bullets:
+        - linhas representam registros
+        - colunas representam atributos
+        - chaves conectam entidades
+      example: pedido.cliente_id aponta para cliente.id.
+    - title: Historia
+      kind: process
+      definition: Evoluiu de arquivos e modelos rigidos para SQL, transacoes, analise e sistemas distribuidos.
+      bullets:
+        - "anos 1960: arquivos e modelos hierarquicos"
+        - "anos 1970: modelo relacional"
+        - "anos 2000+: NoSQL e nuvem"
+    - title: Ideia central
+      kind: application
+      definition: O banco deve preservar verdade, consistencia e recuperacao rapida.
+      bullets:
+        - confiabilidade
+        - consulta
+        - integridade
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## O que e um banco de dados
+
+<DefinitionBlock title="Banco de dados organiza memoria operacional" text="Um banco de dados guarda informacoes de forma estruturada para que elas possam ser inseridas, consultadas, alteradas, protegidas e recuperadas com previsibilidade." />
+
+Uma planilha pode guardar dados, mas um banco de dados vai alem: ele define tipos, regras, relacionamentos, permissoes, transacoes, indices e mecanismos de recuperacao. Isso permite que varias pessoas ou sistemas usem a mesma informacao sem depender de arquivos soltos.
+
+Pense em um e-commerce. Ele precisa guardar clientes, produtos, pedidos, itens do pedido, pagamentos, estoque e entregas. Se cada parte ficar em uma planilha diferente, surgem duplicidades, erros de digitacao e dificuldade para saber qual versao e a verdadeira. O banco centraliza essa verdade.
+
+## O papel do SGBD
+
+SGBD significa Sistema Gerenciador de Banco de Dados. Ele e o software que faz o banco funcionar.
+
+Responsabilidades comuns:
+
+- criar tabelas, tipos, restricoes e indices;
+- executar consultas;
+- controlar permissoes;
+- garantir transacoes;
+- evitar corrupcao em caso de falha;
+- otimizar leituras e escritas;
+- manter logs, backups e recuperacao.
+
+Exemplos de SGBDs: PostgreSQL, SQL Server, MySQL, Oracle Database, SQLite, MariaDB, MongoDB, Redis e Cassandra.
+
+## Do arquivo ao banco relacional
+
+No comeco, muitos sistemas gravavam dados em arquivos. Isso funcionava para programas pequenos, mas ficava dificil quando muitos processos precisavam acessar os mesmos dados.
+
+Depois vieram modelos mais estruturados:
+
+| Fase | Ideia | Limite principal |
+| --- | --- | --- |
+| Arquivos | Cada programa controla seus arquivos | repeticao, pouca consistencia |
+| Hierarquico | Dados em arvore | dificil representar muitos relacionamentos |
+| Rede | Registros ligados por ponteiros | complexo para consultar |
+| Relacional | Tabelas, chaves e algebra relacional | exige modelagem cuidadosa |
+| NoSQL | Modelos orientados a documento, chave-valor, coluna ou grafo | cada modelo troca flexibilidade por garantias diferentes |
+
+O modelo relacional ganhou muita forca porque separou a pergunta do caminho fisico. Em vez de dizer exatamente como percorrer arquivos, voce declara o que quer: `SELECT clientes ativos ordenados por cidade`.
+
+## Modelo relacional
+
+No modelo relacional, dados ficam em tabelas.
+
+```text
+clientes
+id | nome       | cidade
+1  | Ana Lima   | Recife
+2  | Bruno Dias | Curitiba
+
+pedidos
+id | cliente_id | total
+10 | 1          | 250.00
+11 | 1          | 90.00
+```
+
+Conceitos-chave:
+
+- tabela: conjunto de registros de uma entidade;
+- linha: um registro;
+- coluna: atributo do registro;
+- chave primaria: identifica uma linha;
+- chave estrangeira: aponta para outra tabela;
+- restricao: regra que impede dados invalidos;
+- indice: estrutura que acelera busca;
+- transacao: conjunto de comandos tratado como uma unidade.
+
+## SQL em uma frase
+
+SQL e a linguagem mais comum para trabalhar com bancos relacionais. Ela tem familias:
+
+| Familia | Uso |
+| --- | --- |
+| DDL | cria e altera estruturas |
+| DML | insere, altera e remove dados |
+| DQL | consulta dados |
+| DCL | controla permissoes |
+| TCL | controla transacoes |
+
+<TipBlock title="Mapa mental inicial" text="DDL define a casa, DML mexe nos moveis, DQL olha o que existe, DCL decide quem entra e TCL garante que a mudanca inteira acontece ou e desfeita." />
+
+## Por que estudar pelo PostgreSQL
+
+PostgreSQL e uma excelente base para aprender SQL porque e robusto, gratuito, muito aderente a padroes, rico em tipos, forte em consultas e usado tanto em projetos pequenos quanto em ambientes grandes.
+
+Aprender com foco em PostgreSQL ajuda a criar uma base transferivel. Depois fica mais facil enxergar o que muda em SQL Server, MySQL e Oracle.

@@ -1,0 +1,193 @@
+---
+title: "DML: manipulacao de dados no PostgreSQL"
+description: Use INSERT, UPDATE, DELETE, UPSERT e RETURNING para manipular registros com seguranca.
+area: Dados
+areaSlug: dados
+category: Banco de Dados
+categorySlug: banco-de-dados
+topic: DML PostgreSQL
+slug: sql-dml-postgresql
+order: 34
+icon: database
+color: data
+difficulty: Iniciante
+readingTime: 13 min
+updatedAt: 01/08/2026
+featured: false
+tags:
+  - dados
+  - sql
+  - postgresql
+  - dml
+summary: DML manipula linhas. Em PostgreSQL, INSERT, UPDATE, DELETE e ON CONFLICT cobrem o essencial, e RETURNING ajuda a ver o que foi criado ou alterado.
+mindMap:
+  title: Mapa mental de DML
+  subtitle: Comandos que mexem nos dados.
+  highlights:
+    - INSERT
+    - UPDATE
+    - DELETE
+    - RETURNING
+  sections:
+    - title: INSERT
+      kind: core
+      definition: Insere novas linhas.
+      example: INSERT INTO clientes (...) VALUES (...).
+    - title: UPDATE
+      kind: process
+      definition: Altera linhas existentes.
+      bullets:
+        - quase sempre usa WHERE
+        - pode retornar linhas
+    - title: DELETE
+      kind: process
+      definition: Remove linhas existentes.
+      bullets:
+        - cuidado sem WHERE
+        - respeita foreign keys
+    - title: UPSERT
+      kind: application
+      definition: Insere ou atualiza quando existe conflito.
+      example: ON CONFLICT (email) DO UPDATE.
+    - title: RETURNING
+      kind: base
+      definition: Mostra dados afetados pelo comando.
+      example: RETURNING id, criado_em.
+---
+import WarningBlock from "../../../../components/WarningBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## O que e DML
+
+DML significa Data Manipulation Language. E a parte do SQL que altera linhas dentro das tabelas.
+
+Comandos principais:
+
+- `INSERT`: cria linhas;
+- `UPDATE`: altera linhas;
+- `DELETE`: remove linhas;
+- `ON CONFLICT`: faz upsert no PostgreSQL;
+- `RETURNING`: retorna linhas afetadas.
+
+## INSERT
+
+Inserindo uma linha:
+
+```sql
+INSERT INTO clientes (nome, email)
+VALUES ('Ana Lima', 'ana@email.com');
+```
+
+Inserindo varias:
+
+```sql
+INSERT INTO clientes (nome, email)
+VALUES
+  ('Bruno Dias', 'bruno@email.com'),
+  ('Carla Nunes', 'carla@email.com');
+```
+
+Retornando o id criado:
+
+```sql
+INSERT INTO clientes (nome, email)
+VALUES ('Diego Rocha', 'diego@email.com')
+RETURNING id, nome, criado_em;
+```
+
+## INSERT a partir de SELECT
+
+Bom para copiar ou transformar dados.
+
+```sql
+INSERT INTO clientes_inativos (cliente_id, nome, email)
+SELECT id, nome, email
+FROM clientes
+WHERE ativo = false;
+```
+
+## UPDATE
+
+Atualizar uma linha:
+
+```sql
+UPDATE clientes
+SET nome = 'Ana Maria Lima'
+WHERE id = 1
+RETURNING id, nome;
+```
+
+Atualizar varias com regra:
+
+```sql
+UPDATE pedidos
+SET status = 'expirado'
+WHERE status = 'aberto'
+  AND criado_em < now() - interval '30 days';
+```
+
+Atualizar usando outra tabela:
+
+```sql
+UPDATE pedidos p
+SET status = 'vip'
+FROM clientes c
+WHERE c.id = p.cliente_id
+  AND c.email LIKE '%@empresa.com';
+```
+
+<WarningBlock title="UPDATE sem WHERE pode mudar tudo" text="Antes de rodar UPDATE amplo, execute um SELECT com o mesmo WHERE para confirmar quais linhas serao afetadas." />
+
+## DELETE
+
+Remover uma linha:
+
+```sql
+DELETE FROM pedidos
+WHERE id = 10
+RETURNING id, status, total;
+```
+
+Remover por regra:
+
+```sql
+DELETE FROM pedidos
+WHERE status = 'cancelado'
+  AND criado_em < now() - interval '1 year';
+```
+
+Se houver chave estrangeira apontando para a linha, o banco pode impedir a remocao. Isso e bom: evita apagar clientes que ainda possuem pedidos.
+
+## UPSERT com ON CONFLICT
+
+Quando existe restricao unica, PostgreSQL consegue inserir ou atualizar.
+
+```sql
+INSERT INTO clientes (nome, email)
+VALUES ('Ana Lima', 'ana@email.com')
+ON CONFLICT (email)
+DO UPDATE SET
+  nome = EXCLUDED.nome,
+  ativo = true
+RETURNING id, nome, email;
+```
+
+`EXCLUDED` representa a linha que tentou entrar.
+
+Ignorar duplicidade:
+
+```sql
+INSERT INTO clientes (nome, email)
+VALUES ('Ana Lima', 'ana@email.com')
+ON CONFLICT (email) DO NOTHING;
+```
+
+## Boas praticas
+
+- sempre escreva colunas no `INSERT`;
+- prefira `RETURNING` para conferir efeitos;
+- teste `WHERE` com `SELECT` antes de `UPDATE` e `DELETE`;
+- use transacao para mudancas grandes;
+- evite manipular dados sem backup em produção.
+
+<TipBlock title="SELECT antes de mexer" text="A tecnica mais simples para nao se arrepender: monte o WHERE em um SELECT, confira o resultado, depois transforme em UPDATE ou DELETE." />

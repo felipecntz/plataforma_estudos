@@ -1,0 +1,198 @@
+---
+title: Funcao do segundo grau
+description: Analise a parabola por coeficientes, raizes, vertice, imagem, sinal e aplicacoes.
+area: Matematica
+areaSlug: matematica
+category: Matematica nivel medio
+categorySlug: matematica-nivel-medio
+topic: Funcao do segundo grau
+slug: funcao-segundo-grau
+order: 16
+icon: parabola
+color: math
+difficulty: Intermediario
+readingTime: 14 min
+updatedAt: 18/07/2026
+featured: true
+tags:
+  - matematica
+  - funcao segundo grau
+  - funcao quadratica
+  - parabola
+summary: Leia uma parábola por sua concavidade, interceptos, eixo de simetria, vértice, imagem e sinal.
+mindMap:
+  title: Mapa mental de funcao do segundo grau
+  subtitle: Coeficientes e pontos notaveis que determinam a parabola.
+  highlights: [concavidade, raizes, vertice, sinal]
+  sections:
+    - title: Forma geral
+      kind: core
+      definition: Função quadrática tem maior expoente 2 e gráfico em forma de parábola.
+      formula: 'f(x)=ax^2+bx+c\quad(a\neq0)'
+      bullets:
+        - a controla concavidade e abertura
+        - c = f(0) é o intercepto vertical
+      example: f(x) = x² - 4x + 3.
+    - title: Raizes
+      kind: base
+      definition: São as entradas em que a parábola cruza ou toca o eixo x.
+      formula: '\Delta=b^2-4ac,\quad x=\frac{-b\pm\sqrt\Delta}{2a}'
+      bullets:
+        - Δ positivo gera duas raizes reais
+        - Δ zero gera uma raiz dupla
+        - Δ negativo não gera raiz real
+      example: x² - 4x + 3 tem raízes 1 e 3.
+    - title: Vertice
+      kind: process
+      definition: É o ponto de mínimo quando a é positivo e de máximo quando a é negativo.
+      formula: 'x_v=-\frac{b}{2a},\quad y_v=-\frac{\Delta}{4a}'
+      example: Em x² - 4x + 3, V = (2, -1).
+    - title: Grafico e imagem
+      kind: process
+      definition: Concavidade, interceptos e vértice orientam o esboço.
+      bullets:
+        - a positivo abre para cima
+        - a negativo abre para baixo
+        - eixo de simetria é x = xv
+        - imagem começa ou termina em yv
+      example: Se a > 0, a imagem é [yv, +∞).
+    - title: Sinal e aplicacoes
+      kind: application
+      definition: O sinal depende da concavidade e da posição em relação às raízes.
+      bullets:
+        - fora das raízes, o sinal acompanha a
+        - entre duas raízes, o sinal é oposto a a
+        - vértice resolve problemas de máximo ou mínimo
+      example: Uma trajetória parabólica atinge altura máxima no vértice.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import GraphBlock from "../../../../components/GraphBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## O modelo quadrático
+
+<DefinitionBlock title="Funcao quadratica produz uma parabola" text="Sua lei é f(x) = ax² + bx + c, com a diferente de zero. O termo quadrático faz a taxa de variação mudar, criando uma curva com ponto de máximo ou mínimo." />
+
+<FormulaBlock
+  name="Forma geral da funcao quadratica"
+  expression="f(x)=ax^2+bx+c,\quad a\neq0"
+  description="Os três coeficientes ajudam a determinar concavidade, posição e interceptos da parábola."
+  variables={[
+    { label: "a", meaning: "controla concavidade e abertura" },
+    { label: "b", meaning: "participa do eixo de simetria" },
+    { label: "c", meaning: "valor f(0), intercepto no eixo y" }
+  ]}
+  example="Em f(x) = 2x² - 8x + 5, a = 2, b = -8 e c = 5."
+  note="Se a fosse zero, a função deixaria de ser do segundo grau."
+  mistake="Analisar coeficientes antes de organizar a expressão na forma ax² + bx + c."
+/>
+
+## Concavidade e abertura
+
+- `a > 0`: concavidade voltada para cima e vértice de mínimo;
+- `a < 0`: concavidade voltada para baixo e vértice de máximo.
+
+Quanto maior `|a|`, mais fechada é a parábola em comparação com funções de mesma translação. O sinal de `a` não informa onde o gráfico está, apenas sua orientação.
+
+## Interceptos e raízes
+
+O ponto em que a parábola cruza o eixo y é `(0, c)`. Os encontros com o eixo x são obtidos resolvendo `f(x) = 0`.
+
+<FormulaBlock
+  name="Raizes reais"
+  expression="\Delta=b^2-4ac\qquad x=\frac{-b\pm\sqrt{\Delta}}{2a}"
+  description="O discriminante indica quantos encontros a parábola possui com o eixo x."
+  variables={[
+    { label: "Δ > 0", meaning: "duas raizes reais distintas" },
+    { label: "Δ = 0", meaning: "uma raiz real dupla" },
+    { label: "Δ < 0", meaning: "nenhuma raiz real" }
+  ]}
+  example="Para x² - 4x + 3, Δ = 4 e as raízes são 1 e 3."
+  note="Se houver fatoração evidente, ela pode substituir Bhaskara."
+  mistake="Esquecer os sinais dos coeficientes ao calcular delta."
+/>
+
+## Vértice e eixo de simetria
+
+<FormulaBlock
+  name="Coordenadas do vertice"
+  expression="x_v=-\frac{b}{2a}\qquad y_v=f(x_v)=-\frac{\Delta}{4a}"
+  description="O vértice fica sobre o eixo de simetria e representa o valor extremo da função."
+  variables={[
+    { label: "xᵥ", meaning: "entrada do ponto extremo" },
+    { label: "yᵥ", meaning: "valor minimo ou maximo" }
+  ]}
+  example="Em f(x) = x² - 4x + 3, xᵥ = 2 e yᵥ = -1. Logo, V = (2, -1)."
+  note="O eixo de simetria é a reta vertical x = xᵥ."
+  mistake="Usar apenas xᵥ e esquecer que o vértice é um ponto com duas coordenadas."
+/>
+
+Se existem duas raízes reais `x₁` e `x₂`, o eixo de simetria também pode ser encontrado pela média: `xᵥ = (x₁ + x₂)/2`.
+
+## Construindo o gráfico
+
+1. Observe o sinal de `a` para definir a concavidade.
+2. Marque o intercepto `(0, c)`.
+3. Encontre as raízes reais, se existirem.
+4. Calcule o vértice.
+5. Trace a parábola respeitando o eixo de simetria.
+
+<GraphBlock
+  title="Parábola: f(x) = x² - 4x + 3"
+  description="A parábola abre para cima, cruza o eixo x nas raízes 1 e 3 e tem vértice em (2, -1)."
+  variant="parabolaUp"
+  notes={[
+    "Como a = 1 > 0, a concavidade é voltada para cima.",
+    "As raízes x = 1 e x = 3 são os pontos em que o gráfico encontra o eixo x.",
+    "O eixo de simetria passa por x = 2, exatamente no meio das duas raízes."
+  ]}
+/>
+
+<TipBlock title="Use a simetria para conferir pontos" text="Pontos com a mesma distância horizontal do eixo x = xᵥ possuem a mesma altura." />
+
+## Imagem da função
+
+O vértice determina os valores que a função pode assumir:
+
+- se `a > 0`, `Im(f) = [yᵥ, +∞)`;
+- se `a < 0`, `Im(f) = (-∞, yᵥ]`.
+
+O domínio usual de uma função quadrática é todo `ℝ`.
+
+## Estudo do sinal
+
+Quando existem duas raízes reais `x₁ < x₂`:
+
+- fora do intervalo entre as raízes, o sinal de `f(x)` é igual ao sinal de `a`;
+- entre as raízes, o sinal é oposto ao sinal de `a`;
+- nas raízes, `f(x) = 0`.
+
+<WarningBlock title="Sem raizes reais, o grafico nao cruza o eixo x" text="Nesse caso, a função mantém o sinal de a em todo o domínio: positiva se a > 0 e negativa se a < 0." />
+
+## Forma fatorada e forma canônica
+
+Quando há raízes reais:
+
+`f(x) = a(x - x₁)(x - x₂)`
+
+A forma canônica destaca o vértice:
+
+`f(x) = a(x - xᵥ)² + yᵥ`
+
+## Aplicação de máximo
+
+<ExampleBlock title="Altura de um objeto" text="A altura h(t) = -5t² + 20t + 1 possui máximo porque a = -5. O instante do vértice é tᵥ = -20/(2 × -5) = 2 s. A altura máxima é h(2) = 21 m." />
+
+<GraphBlock
+  title="Parábola com máximo"
+  description="Quando a é negativo, a parábola abre para baixo e o vértice representa o maior valor da função."
+  variant="parabolaDown"
+  notes={[
+    "Antes do vértice, a função cresce.",
+    "No vértice, a função atinge o valor máximo.",
+    "Depois do vértice, a função decresce."
+  ]}
+/>

@@ -1,0 +1,280 @@
+---
+title: "DQL: SELECT, filtros e ordem do SQL"
+description: Aprenda a estrutura do SELECT, WHERE, ORDER BY, LIMIT, DISTINCT e a diferenca entre ordem de sintaxe e ordem logica de execucao.
+area: Dados
+areaSlug: dados
+category: Banco de Dados
+categorySlug: banco-de-dados
+topic: DQL SELECT e filtros
+slug: sql-dql-select-filtros-postgresql
+order: 35
+icon: database
+color: data
+difficulty: Iniciante
+readingTime: 18 min
+updatedAt: 01/08/2026
+featured: true
+tags:
+  - dados
+  - sql
+  - postgresql
+  - dql
+  - select
+summary: "DQL e a linguagem de consulta. A sintaxe do SELECT nao e a mesma ordem em que o banco resolve a consulta: FROM vem antes de WHERE, depois GROUP BY, HAVING, SELECT, DISTINCT, ORDER BY e LIMIT."
+mindMap:
+  title: Mapa mental de SELECT
+  subtitle: Filtrar, projetar, ordenar e limitar resultados.
+  highlights:
+    - SELECT
+    - WHERE
+    - ORDER BY
+    - LIMIT
+  sections:
+    - title: Sintaxe
+      kind: core
+      definition: Ordem em que voce escreve a consulta.
+      formula: SELECT -> FROM -> WHERE -> GROUP BY -> HAVING -> ORDER BY -> LIMIT
+    - title: Execucao logica
+      kind: process
+      definition: Ordem conceitual em que o SQL e resolvido.
+      formula: FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> DISTINCT -> ORDER BY -> LIMIT
+    - title: WHERE
+      kind: process
+      definition: Filtra linhas antes de agregacoes.
+      example: WHERE status = 'pago' AND total >= 100.
+    - title: ORDER BY
+      kind: application
+      definition: Ordena o resultado final.
+      example: ORDER BY criado_em DESC.
+    - title: LIMIT
+      kind: application
+      definition: Restringe quantidade de linhas retornadas.
+      example: LIMIT 20 OFFSET 40.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## O que e DQL
+
+<DefinitionBlock title="DQL consulta dados" text="DQL significa Data Query Language. Na pratica, o comando central e SELECT, usado para ler, filtrar, calcular, agrupar e combinar dados." />
+
+Exemplo basico:
+
+```sql
+SELECT nome, email
+FROM clientes
+WHERE ativo = true
+ORDER BY nome;
+```
+
+## Ordem de sintaxe
+
+A ordem em que voce escreve uma consulta completa costuma ser:
+
+```sql
+SELECT
+FROM
+JOIN
+WHERE
+GROUP BY
+HAVING
+WINDOW
+ORDER BY
+LIMIT / OFFSET
+```
+
+Exemplo:
+
+```sql
+SELECT
+  c.cidade,
+  COUNT(*) AS total_clientes
+FROM clientes c
+WHERE c.ativo = true
+GROUP BY c.cidade
+HAVING COUNT(*) >= 10
+ORDER BY total_clientes DESC
+LIMIT 5;
+```
+
+## Ordem logica de execucao
+
+A ordem conceitual em que o banco resolve a consulta e diferente:
+
+| Ordem logica | Etapa | O que acontece |
+| --- | --- | --- |
+| 1 | `FROM` / `JOIN` | escolhe e combina fontes |
+| 2 | `WHERE` | filtra linhas brutas |
+| 3 | `GROUP BY` | cria grupos |
+| 4 | agregacoes | calcula `COUNT`, `SUM`, `AVG` |
+| 5 | `HAVING` | filtra grupos |
+| 6 | `SELECT` | escolhe colunas e expressoes |
+| 7 | `DISTINCT` | remove duplicidades do resultado |
+| 8 | window functions | calcula janelas sobre o resultado logico |
+| 9 | `ORDER BY` | ordena a saida |
+| 10 | `LIMIT` / `OFFSET` | corta a quantidade final |
+
+<TipBlock title="Macete da ordem" text="WHERE filtra linhas antes do agrupamento. HAVING filtra grupos depois do agrupamento. Essa diferenca evita muitos erros." />
+
+## SELECT e aliases
+
+Selecionar colunas:
+
+```sql
+SELECT id, nome, email
+FROM clientes;
+```
+
+Criar alias:
+
+```sql
+SELECT
+  nome AS cliente,
+  criado_em::date AS data_cadastro
+FROM clientes;
+```
+
+Calcular no resultado:
+
+```sql
+SELECT
+  id,
+  total,
+  total * 0.10 AS imposto_estimado,
+  total * 1.10 AS total_com_imposto
+FROM pedidos;
+```
+
+## WHERE
+
+Operadores comuns:
+
+```sql
+SELECT *
+FROM pedidos
+WHERE status = 'pago';
+
+SELECT *
+FROM pedidos
+WHERE total >= 100 AND total < 500;
+
+SELECT *
+FROM clientes
+WHERE cidade IN ('Recife', 'Curitiba', 'Sao Paulo');
+
+SELECT *
+FROM pedidos
+WHERE criado_em BETWEEN '2026-01-01' AND '2026-01-31';
+
+SELECT *
+FROM clientes
+WHERE email IS NOT NULL;
+```
+
+Busca por padrao:
+
+```sql
+SELECT *
+FROM clientes
+WHERE nome ILIKE 'ana%';
+```
+
+No PostgreSQL, `ILIKE` ignora maiusculas/minusculas. `LIKE` diferencia conforme collation.
+
+## DISTINCT
+
+Remove duplicidades no resultado:
+
+```sql
+SELECT DISTINCT cidade
+FROM clientes
+ORDER BY cidade;
+```
+
+`DISTINCT ON` e um recurso especial do PostgreSQL:
+
+```sql
+SELECT DISTINCT ON (cliente_id)
+  cliente_id,
+  id AS pedido_id,
+  total,
+  criado_em
+FROM pedidos
+ORDER BY cliente_id, criado_em DESC;
+```
+
+Isso pega o pedido mais recente de cada cliente.
+
+## ORDER BY
+
+Ordenar crescente e decrescente:
+
+```sql
+SELECT id, cliente_id, total, criado_em
+FROM pedidos
+ORDER BY criado_em DESC;
+```
+
+Ordenar por mais de uma coluna:
+
+```sql
+SELECT *
+FROM pedidos
+ORDER BY status ASC, total DESC, criado_em DESC;
+```
+
+Controlar nulos:
+
+```sql
+SELECT *
+FROM clientes
+ORDER BY cidade NULLS LAST, nome;
+```
+
+## LIMIT e OFFSET
+
+Primeiras linhas:
+
+```sql
+SELECT *
+FROM pedidos
+ORDER BY criado_em DESC
+LIMIT 20;
+```
+
+Paginacao simples:
+
+```sql
+SELECT *
+FROM pedidos
+ORDER BY criado_em DESC
+LIMIT 20 OFFSET 40;
+```
+
+<WarningBlock title="LIMIT sem ORDER BY e instavel" text="Sem ORDER BY, o banco nao promete uma ordem de retorno. Para paginação ou top N, sempre ordene explicitamente." />
+
+## CASE
+
+`CASE` cria classificacoes dentro da consulta.
+
+```sql
+SELECT
+  id,
+  total,
+  CASE
+    WHEN total >= 1000 THEN 'alto'
+    WHEN total >= 300 THEN 'medio'
+    ELSE 'baixo'
+  END AS faixa
+FROM pedidos;
+```
+
+## Checklist de SELECT
+
+- sei de qual tabela vem o dado?
+- preciso filtrar linha ou grupo?
+- preciso remover duplicidade?
+- a ordenacao esta explicita?
+- o limite depende de uma ordem confiavel?
+- os nomes das colunas ficaram claros com alias?

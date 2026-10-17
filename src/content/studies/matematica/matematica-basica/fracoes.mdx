@@ -1,0 +1,172 @@
+---
+title: Fracoes
+description: Revise a logica das fracoes, as operacoes principais e os macetes que evitam erros.
+area: Matematica
+areaSlug: matematica
+category: Matematica basica
+categorySlug: matematica-basica
+topic: Fracoes
+slug: fracoes
+order: 1
+icon: divide
+color: math
+difficulty: Iniciante
+readingTime: 8 min
+updatedAt: 13/07/2026
+featured: true
+tags:
+  - matematica
+  - fracoes
+  - operacoes
+summary: A pagina cobre leitura de fracoes, equivalencia, comparacao e as quatro operacoes com exemplos.
+mindMap:
+  title: Mapa mental de fracoes
+  subtitle: Revisao visual do conceito, das operacoes e dos macetes mais cobrados.
+  highlights:
+    - parte e todo
+    - operacoes
+    - mmc
+  sections:
+    - title: O que e
+      kind: core
+      definition: Fracao e uma relacao entre quantidade considerada e total de partes iguais.
+      formula: '\frac{a}{b}'
+      bullets:
+        - numerador = partes escolhidas
+        - denominador = total de partes iguais
+      example: 3/4 significa 3 partes de um inteiro dividido em 4.
+    - title: Equivalencia e comparacao
+      kind: base
+      definition: Fracoes equivalentes mudam a escrita, nao a quantidade.
+      bullets:
+        - 1/2 = 2/4 = 3/6
+        - 'mesmo denominador: compare numeradores'
+        - 'mesmo numerador: menor denominador gera fracao maior'
+      example: 3/4 > 3/5 porque as partes em quartos sao maiores.
+    - title: Somar e subtrair
+      kind: process
+      definition: Primeiro iguale os denominadores; depois opere os numeradores.
+      formula: '\frac{1}{2} + \frac{1}{3} = \frac{3}{6} + \frac{2}{6} = \frac{5}{6}'
+      bullets:
+        - use MMC quando os denominadores forem diferentes
+        - o denominador final permanece o comum
+      example: 5/6 - 1/4 = 10/12 - 3/12 = 7/12.
+    - title: Multiplicar e dividir
+      kind: process
+      definition: Multiplicacao e direta; divisao vira multiplicacao pelo inverso.
+      formula: '\frac{3}{4} \div \frac{2}{5} = \frac{3}{4} \times \frac{5}{2}'
+      bullets:
+        - 'multiplicar: num com num, den com den'
+        - 'dividir: conserve a primeira e inverta a segunda'
+      example: 1/2 ÷ 1/4 = 2 porque dois quartos cabem em um meio.
+    - title: Macetes
+      kind: application
+      definition: Os atalhos bons reduzem conta sem trocar a logica.
+      bullets:
+        - simplifique antes de multiplicar
+        - pense no denominador como tamanho da fatia
+        - nunca some numerador com denominador
+      example: 1/2 + 1/3 nao e 2/5.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Fracao representa uma relacao" text="Ela mostra quantas partes foram consideradas em relacao ao total de partes iguais. O numero de baixo define a divisao do todo; o de cima informa quantas dessas partes entraram na contagem." />
+
+Pensar em fracao como relacao evita decoracao vazia. Quando voce olha para `3/5`, nao esta vendo dois numeros separados: esta vendo tres partes escolhidas dentro de um conjunto dividido em cinco partes iguais.
+
+## Como ler uma fracao
+
+<FormulaBlock
+  name="Estrutura da fracao"
+  expression="\frac{a}{b}"
+  description="O numerador indica quantas partes entram no calculo. O denominador informa em quantas partes iguais o inteiro foi dividido."
+  variables={[
+    { label: "a", meaning: "numerador" },
+    { label: "b", meaning: "denominador" }
+  ]}
+  example="Em 3/4, o inteiro foi dividido em quatro partes iguais e tres foram consideradas."
+  note="O denominador nao pode ser zero, porque nao existe divisao do inteiro em zero partes."
+  mistake="Ler 3/4 como 3 e 4 isolados, sem a ideia de proporcao."
+/>
+
+## Fracoes equivalentes
+
+Fracoe equivalentes representam a mesma quantidade, mesmo com aparencia diferente. Isso acontece quando multiplicamos ou dividimos numerador e denominador pelo mesmo numero.
+
+- `1/2 = 2/4 = 3/6`
+- `2/3 = 4/6`
+
+Essa ideia e importante porque quase toda operacao com fracoes depende de transformar fracoes em formas comparaveis.
+
+<ExampleBlock title="Por que 1/2 e igual a 2/4?" text="Se metade de uma barra de chocolate for repartida em duas partes menores, a quantidade continua sendo metade. O nome mudou; a quantidade nao." />
+
+## Comparacao de fracoes
+
+Quando o denominador e igual, compare os numeradores. Quando o numerador e igual, a fracao com denominador menor e maior, porque o inteiro foi dividido em menos partes.
+
+- `5/8 > 3/8` porque as partes tem o mesmo tamanho.
+- `3/4 > 3/5` porque dividir em quatro gera partes maiores do que dividir em cinco.
+
+Se nada disso coincidir, transforme as fracoes para um mesmo denominador ou use produto cruzado com cuidado.
+
+## Soma e subtracao
+
+Para somar ou subtrair fracoes, elas precisam falar a mesma lingua: o mesmo denominador.
+
+### Mesmo denominador
+
+- `2/7 + 3/7 = 5/7`
+- `6/9 - 1/9 = 5/9`
+
+O denominador fica igual porque o tamanho das partes nao mudou; o que muda e a quantidade de partes.
+
+### Denominadores diferentes
+
+1. Encontre um denominador comum, normalmente pelo MMC.
+2. Reescreva as fracoes em formas equivalentes.
+3. Some ou subtraia os numeradores.
+4. Simplifique, se possivel.
+
+<ExampleBlock title="Exemplo de soma" text="Para calcular 1/2 + 1/3, usamos MMC de 2 e 3, que e 6. Entao 1/2 vira 3/6 e 1/3 vira 2/6. Resultado: 5/6." />
+
+<ExampleBlock title="Exemplo de subtracao" text="Em 5/6 - 1/4, o MMC de 6 e 4 e 12. Assim, 5/6 vira 10/12 e 1/4 vira 3/12. Resultado: 7/12." />
+
+## Multiplicacao de fracoes
+
+Na multiplicacao, a conta e mais direta: multiplicamos numerador com numerador e denominador com denominador.
+
+- `2/3 × 4/5 = 8/15`
+- `3/7 × 2 = 6/7` porque `2 = 2/1`
+
+Uma leitura util e pensar que multiplicar por uma fracao aplica apenas uma parte de outra quantidade.
+
+<ExampleBlock title="Exemplo intuitivo" text="Se voce quer 2/3 de 15, pode fazer 2/3 × 15/1 = 30/3 = 10." />
+
+## Divisao de fracoes
+
+Dividir por fracao significa multiplicar pelo inverso da segunda fracao.
+
+- `3/4 ÷ 2/5 = 3/4 × 5/2 = 15/8`
+- `1/2 ÷ 1/4 = 1/2 × 4/1 = 4/2 = 2`
+
+Isso faz sentido porque estamos perguntando quantas vezes uma parte cabe na outra.
+
+<ExampleBlock title="Leitura da divisao" text="Em 1/2 ÷ 1/4, queremos saber quantos quartos cabem em um meio. Cabem dois." />
+
+## Macetes que ajudam de verdade
+
+<TipBlock title="Simplifique antes de multiplicar" text="Se houver fatores comuns cruzados, simplifique antes da multiplicacao. Isso reduz a conta e diminui erro." />
+
+<TipBlock title="Pense no denominador como tamanho da fatia" text="Esse raciocinio ajuda em comparacao, soma e leitura de resultado." />
+
+<WarningBlock title="Nao some numerador com denominador" text="Em 1/2 + 1/3, o resultado nao e 2/5. Esse erro mistura quantidade de partes com tamanho das partes." />
+
+## Fechamento
+
+Se voce domina equivalencia, comparacao e as quatro operacoes, ja tem a base que reaparece em porcentagem, probabilidade, taxas e varias leituras de dados.

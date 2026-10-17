@@ -1,0 +1,124 @@
+---
+title: Rede e diagnóstico no Linux
+description: Revise ip, ping, curl, wget, ss, dig, nslookup, traceroute e comandos úteis para diagnosticar conexão.
+area: Infraestrutura
+areaSlug: infraestrutura
+category: Linux
+categorySlug: linux
+topic: Rede e diagnóstico
+slug: linux-rede-diagnostico
+order: 7
+icon: terminal
+color: tech
+difficulty: Iniciante
+readingTime: 9 min
+updatedAt: 19/07/2026
+featured: false
+tags:
+  - infraestrutura
+  - linux
+  - rede
+  - diagnóstico
+summary: Diagnóstico de rede combina IP local, conectividade, DNS, portas abertas e resposta HTTP.
+mindMap:
+  title: Mapa mental de rede
+  subtitle: Comandos para entender conectividade e serviços expostos.
+  highlights:
+    - ip
+    - ping
+    - curl
+  sections:
+    - title: IP local
+      kind: core
+      definition: ip mostra endereços, rotas e interfaces.
+      bullets:
+        - ip addr lista endereços
+        - ip route mostra rotas
+        - hostname -I resume IPs
+      example: ip addr show.
+    - title: Conexão
+      kind: process
+      definition: ping testa alcance básico entre máquinas.
+      bullets:
+        - testa latência
+        - pode ser bloqueado
+        - não prova aplicação saudável
+      example: ping -c 4 8.8.8.8.
+    - title: HTTP
+      kind: process
+      definition: curl consulta URLs e APIs pelo terminal.
+      bullets:
+        - -I mostra cabeçalhos
+        - -L segue redirect
+        - -v mostra detalhes
+      example: curl -I https://example.com.
+    - title: Portas
+      kind: application
+      definition: ss mostra sockets e portas em escuta.
+      bullets:
+        - -t TCP
+        - -u UDP
+        - -l portas ouvindo
+      example: ss -tulpen.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Diagnóstico de rede é separar camadas" text="Primeiro confira IP e rota. Depois teste alcance, DNS, porta e resposta da aplicação. Cada comando responde uma pergunta diferente." />
+
+## IP e rota
+
+```bash
+ip addr
+ip route
+hostname -I
+```
+
+`ip addr` mostra interfaces e endereços. `ip route` mostra por onde o tráfego sai.
+
+## Conectividade
+
+```bash
+ping -c 4 8.8.8.8
+ping -c 4 example.com
+traceroute example.com
+```
+
+`ping` pode ser bloqueado por firewall, então falha de ping não prova sozinha que o serviço está fora.
+
+## DNS
+
+```bash
+dig example.com
+nslookup example.com
+getent hosts example.com
+```
+
+DNS transforma nome em endereço. Se IP funciona e nome não funciona, suspeite de resolução.
+
+## HTTP e download
+
+```bash
+curl -I https://example.com
+curl -L https://example.com
+curl -v https://example.com
+wget https://example.com/arquivo.zip
+```
+
+`curl -I` mostra cabeçalhos. `curl -v` ajuda a enxergar conexão, TLS e resposta.
+
+## Portas abertas
+
+```bash
+ss -tulpen
+ss -ltnp
+```
+
+`ss` substitui bem o antigo `netstat` em muitos sistemas.
+
+<ExampleBlock title="Serviço web não responde" text="Confira ss -ltnp para ver se a porta está ouvindo. Depois use curl -I localhost:porta. Se local funciona e remoto não, investigue firewall ou rota." />
+
+<TipBlock title="Pergunta antes do comando" text="Cada comando deve responder algo: tenho IP? resolvo DNS? alcanço o host? a porta está ouvindo? a aplicação responde?" />

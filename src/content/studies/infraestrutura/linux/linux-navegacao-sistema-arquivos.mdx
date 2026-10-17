@@ -1,0 +1,109 @@
+---
+title: Navegação e sistema de arquivos no Linux
+description: Aprenda pwd, ls, cd e a estrutura básica de diretórios como /etc, /var, /home, /tmp e /usr.
+area: Infraestrutura
+areaSlug: infraestrutura
+category: Linux
+categorySlug: linux
+topic: Navegação e sistema de arquivos
+slug: linux-navegacao-sistema-arquivos
+order: 2
+icon: terminal
+color: tech
+difficulty: Iniciante
+readingTime: 7 min
+updatedAt: 19/07/2026
+featured: false
+tags:
+  - infraestrutura
+  - linux
+  - diretórios
+  - comandos
+summary: Navegar bem no Linux começa por entender caminhos absolutos, relativos e os diretórios principais do sistema.
+mindMap:
+  title: Mapa mental de navegação
+  subtitle: Comandos e pastas que aparecem em quase toda operação.
+  highlights:
+    - pwd
+    - ls
+    - cd
+  sections:
+    - title: Localização
+      kind: core
+      definition: O shell sempre está posicionado em um diretório atual.
+      bullets:
+        - pwd mostra onde você está
+        - cd muda de pasta
+        - ls lista conteúdo
+      example: cd /var/log.
+    - title: Caminhos
+      kind: base
+      definition: Caminhos indicam onde arquivos e pastas ficam.
+      bullets:
+        - absoluto começa em /
+        - relativo parte da pasta atual
+        - .. sobe um nível
+      example: ../logs aponta para uma pasta vizinha.
+    - title: Pastas
+      kind: process
+      definition: Diretórios padrão guardam configurações, logs, usuários e binários.
+      bullets:
+        - /etc tem configurações
+        - /var tem dados variáveis
+        - /home tem usuários
+      example: /var/log guarda muitos logs do sistema.
+    - title: Listagem
+      kind: application
+      definition: ls possui opções para detalhes, arquivos ocultos e tamanhos legíveis.
+      bullets:
+        - ls -la mostra ocultos
+        - ls -lh mostra tamanhos
+        - tree mostra árvore quando instalado
+      example: ls -lah /etc.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Tudo começa pelo caminho" text="No Linux, arquivos, diretórios, dispositivos e configurações aparecem dentro de uma árvore que começa em /. Saber navegar evita executar comandos no lugar errado." />
+
+## Comandos principais
+
+```bash
+pwd              # diretório atual
+ls               # lista arquivos
+ls -la           # lista detalhes e ocultos
+ls -lh           # tamanhos legíveis
+cd /etc          # entra em /etc
+cd ..            # sobe um nível
+cd -             # volta ao diretório anterior
+cd ~             # vai para a home do usuário
+```
+
+## Caminhos absolutos e relativos
+
+```bash
+/var/log/syslog      # caminho absoluto
+../backup/app.log    # caminho relativo
+./script.sh          # arquivo no diretório atual
+```
+
+Caminho absoluto começa em `/`. Caminho relativo depende de onde você está.
+
+## Diretórios comuns
+
+| Diretório | Uso comum |
+| --- | --- |
+| `/etc` | arquivos de configuração |
+| `/var` | logs, filas, caches e dados variáveis |
+| `/home` | diretórios dos usuários |
+| `/tmp` | arquivos temporários |
+| `/usr` | programas e bibliotecas |
+| `/bin` e `/sbin` | comandos essenciais |
+| `/opt` | softwares instalados à parte |
+
+<ExampleBlock title="Operação rápida" text="Para investigar logs, rode cd /var/log, depois ls -lh para listar arquivos com tamanhos fáceis de ler." />
+
+<TipBlock title="Confirme antes de agir" text="Use pwd e ls antes de mover, apagar ou editar arquivos. Esse hábito simples evita acidentes caros." />

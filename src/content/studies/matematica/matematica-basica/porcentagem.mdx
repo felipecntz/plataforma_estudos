@@ -1,0 +1,144 @@
+---
+title: Porcentagem
+description: Entenda a porcentagem como traducao de uma relacao e revise aumentos, descontos e variacao percentual.
+area: Matematica
+areaSlug: matematica
+category: Matematica basica
+categorySlug: matematica-basica
+topic: Porcentagem
+slug: porcentagem
+order: 2
+icon: percent
+color: math
+difficulty: Iniciante
+readingTime: 7 min
+updatedAt: 13/07/2026
+featured: true
+tags:
+  - matematica
+  - porcentagem
+  - variacao
+summary: A pagina cobre calculo de porcentagem, leitura de aumentos e erros frequentes em variacao percentual.
+mindMap:
+  title: Mapa mental de porcentagem
+  subtitle: Revisao curta de calculo, aumento, desconto e variacao percentual.
+  highlights: [taxa, base, variacao]
+  sections:
+    - title: O que e
+      kind: core
+      definition: Porcentagem e uma relacao colocada na escala de 100.
+      formula: '\left(\frac{\text{parte}}{\text{total}}\right)\times 100'
+      bullets:
+        - 25% = 25 a cada 100
+        - facilita comparar grupos diferentes
+      example: 36 de 45 = 80%.
+    - title: Encontrar parte ou total
+      kind: base
+      definition: Converta o percentual em decimal para voltar ao valor real.
+      bullets:
+        - 20% = 0,20
+        - parte = percentual × total
+        - total = parte ÷ percentual
+      example: 20% de 150 = 30.
+    - title: Aumento e desconto
+      kind: process
+      definition: Use o fator final para chegar direto ao novo valor.
+      bullets:
+        - aumento de 15% = × 1,15
+        - desconto de 15% = × 0,85
+      example: 200 com aumento de 15% vira 230.
+    - title: Variacao percentual
+      kind: process
+      definition: Mede a mudanca em relacao ao valor inicial.
+      formula: '\frac{\text{novo} - \text{antigo}}{\text{antigo}}\times 100'
+      example: de 500 para 650 = 30%.
+    - title: Cuidado com a base
+      kind: application
+      definition: O erro mais comum e comparar usando totais diferentes.
+      bullets:
+        - mesma populacao
+        - mesmo periodo
+        - percentuais sucessivos nao se somam automaticamente
+      example: subir 10% e cair 10% nao volta ao inicio.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## O que porcentagem realmente significa
+
+<DefinitionBlock title="Porcentagem e uma fracao com base 100" text="Ela transforma uma relacao entre parte e total em uma escala padrao. Isso facilita comparacoes entre conjuntos de tamanhos diferentes." />
+
+Quando dizemos `25%`, estamos dizendo `25 a cada 100`. Isso torna a leitura mais intuitiva do que trabalhar sempre com fracoes ou decimais soltos.
+
+## Formula principal
+
+<FormulaBlock
+  name="Calculo da porcentagem"
+  expression="\left(\frac{\text{parte}}{\text{total}}\right) \times 100"
+  description="Primeiro encontramos a relacao entre parte e total. Depois escalamos essa relacao para 100."
+  variables={[
+    { label: "parte", meaning: "valor observado" },
+    { label: "total", meaning: "base de comparacao" }
+  ]}
+  example="Se 18 de 24 entregas chegaram no prazo, a taxa e 75%."
+  note="A base precisa representar o mesmo grupo e o mesmo periodo."
+  mistake="Misturar dois totais diferentes e chamar isso de porcentagem."
+/>
+
+## Tres leituras que aparecem toda hora
+
+### Encontrar a porcentagem
+
+Se voce conhece parte e total, usa a formula diretamente.
+
+<ExampleBlock title="Exemplo" text="36 acertos em 45 questoes geram 36/45 = 0,8. Multiplicando por 100, temos 80%." />
+
+### Encontrar a parte
+
+Se voce conhece a porcentagem e o total, transforma a porcentagem em decimal e multiplica pelo total.
+
+- `20% de 150 = 0,20 × 150 = 30`
+- `7% de 400 = 0,07 × 400 = 28`
+
+### Encontrar o total
+
+Se voce conhece a parte e a porcentagem, monte a relacao ao contrario.
+
+<ExampleBlock title="Exemplo" text="Se 30 representam 20% do total, entao 0,20 × total = 30. Logo, total = 30 / 0,20 = 150." />
+
+## Aumento e desconto percentual
+
+Para aumentar um valor em `p%`, multiplique por `1 + p`.
+
+- aumento de `10%`: multiplica por `1,10`
+- aumento de `25%`: multiplica por `1,25`
+
+Para desconto:
+
+- desconto de `10%`: multiplica por `0,90`
+- desconto de `30%`: multiplica por `0,70`
+
+<ExampleBlock title="Aumento" text="Preco de 200 com aumento de 15% vira 200 × 1,15 = 230." />
+
+<ExampleBlock title="Desconto" text="Preco de 200 com desconto de 15% vira 200 × 0,85 = 170." />
+
+## Variacao percentual
+
+Aqui a pergunta e: quanto mudou em relacao ao valor inicial?
+
+Formula:
+
+`variacao percentual = ((novo - antigo) / antigo) × 100`
+
+<ExampleBlock title="Exemplo de variacao" text="Uma receita passou de 500 para 650. A variacao foi (650 - 500) / 500 × 100 = 30%." />
+
+## Macetes de revisao
+
+<TipBlock title="Converta porcentagem em decimal movendo a virgula duas casas" text="25% vira 0,25. 7% vira 0,07. 125% vira 1,25." />
+
+<TipBlock title="Em aumento e desconto, pense no fator final" text="Isso evita fazer duas contas quando voce quer ir direto ao novo valor." />
+
+<WarningBlock title="Percentuais sucessivos nao se somam automaticamente" text="Aumentar 10% e depois descontar 10% nao volta ao valor inicial, porque a segunda conta usa outra base." />

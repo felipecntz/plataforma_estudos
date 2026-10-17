@@ -1,0 +1,145 @@
+---
+title: Progressao aritmetica
+description: Entenda sequencias com diferenca constante, termo geral, soma dos termos e aplicacoes.
+area: Matematica
+areaSlug: matematica
+category: Matematica nivel medio
+categorySlug: matematica-nivel-medio
+topic: Progressao aritmetica
+slug: progressao-aritmetica
+order: 11
+icon: sequence
+color: math
+difficulty: Intermediario
+readingTime: 11 min
+updatedAt: 18/07/2026
+featured: true
+tags:
+  - matematica
+  - progressao aritmetica
+  - pa
+  - sequencias
+summary: Revise razão, classificação, termo geral, soma dos termos e propriedades centrais de uma PA.
+mindMap:
+  title: Mapa mental de progressao aritmetica
+  subtitle: Diferenca constante, posicao de um termo e soma da sequencia.
+  highlights: [razao, termo geral, soma, termo medio]
+  sections:
+    - title: Ideia central
+      kind: core
+      definition: Em uma PA, a diferenca entre termos consecutivos é constante.
+      formula: 'r=a_n-a_{n-1}'
+      bullets:
+        - r positivo gera PA crescente
+        - r zero gera PA constante
+        - r negativo gera PA decrescente
+      example: 4, 7, 10, 13 tem razão 3.
+    - title: Termo geral
+      kind: base
+      definition: Permite chegar diretamente a qualquer posicao sem listar todos os termos.
+      formula: 'a_n=a_1+(n-1)r'
+      example: Na PA 5, 9, 13, o 20º termo é 81.
+    - title: Soma dos termos
+      kind: process
+      definition: A soma é o numero de termos vezes a media entre o primeiro e o ultimo.
+      formula: 'S_n=\frac{n(a_1+a_n)}{2}'
+      example: 2 + 5 + 8 + 11 + 14 = 40.
+    - title: Propriedades
+      kind: process
+      definition: Termos equidistantes dos extremos possuem a mesma soma.
+      bullets:
+        - termo central é a media dos vizinhos
+        - a_k + a_m = a_p + a_q quando k + m = p + q
+        - três termos consecutivos podem ser x-r, x, x+r
+      example: Em 3, 7, 11, temos 7 = (3 + 11)/2.
+    - title: Aplicacoes
+      kind: application
+      definition: Use PA quando uma quantidade muda por acrescimos ou reducoes fixas.
+      bullets:
+        - fileiras com quantidade crescente
+        - economia de valor fixo por periodo
+        - padrões lineares discretos
+      example: Guardar R$ 20 a mais a cada mês forma uma PA.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## O que define uma progressão aritmética
+
+<DefinitionBlock title="PA é uma sequencia de variacao constante" text="Cada termo, a partir do segundo, é obtido adicionando a mesma razão ao termo anterior. Por isso, a PA representa crescimento ou redução linear em etapas discretas." />
+
+Na sequência `4, 7, 10, 13, ...`, sempre adicionamos `3`. Logo, a razão é `r = 3`.
+
+- `r > 0`: PA crescente;
+- `r = 0`: PA constante;
+- `r < 0`: PA decrescente.
+
+<WarningBlock title="Razao é diferenca, nao divisao" text="Em uma PA, calcule termo seguinte menos termo anterior. A divisão entre termos consecutivos é usada na progressão geométrica." />
+
+## Termo geral
+
+<FormulaBlock
+  name="Termo geral da PA"
+  expression="a_n=a_1+(n-1)r"
+  description="Do primeiro termo até o termo de posição n existem n - 1 saltos de tamanho r."
+  variables={[
+    { label: "aₙ", meaning: "termo da posicao n" },
+    { label: "a₁", meaning: "primeiro termo" },
+    { label: "n", meaning: "posicao do termo" },
+    { label: "r", meaning: "razao da PA" }
+  ]}
+  example="Na PA 5, 9, 13, ..., a₁ = 5 e r = 4. Assim, a₂₀ = 5 + 19 × 4 = 81."
+  note="Se você conhece outro termo, pode usá-lo como referência: aₙ = aₖ + (n - k)r."
+  mistake="Usar n × r; a partir do primeiro termo existem apenas n - 1 intervalos."
+/>
+
+## Encontrando a razão ou a posição
+
+A razão vem da diferença entre termos consecutivos:
+
+`r = aₙ - aₙ₋₁`
+
+<ExampleBlock title="Descobrindo a posicao" text="Na PA 8, 13, 18, ..., em que posição aparece 103? Temos 103 = 8 + (n - 1) × 5. Então 95 = 5(n - 1), n - 1 = 19 e n = 20." />
+
+## Soma dos primeiros termos
+
+<FormulaBlock
+  name="Soma dos n primeiros termos"
+  expression="S_n=\frac{n(a_1+a_n)}{2}"
+  description="Emparelhando termos equidistantes, cada par tem soma a₁ + aₙ; a média dos extremos é multiplicada por n."
+  variables={[
+    { label: "Sₙ", meaning: "soma dos n primeiros termos" },
+    { label: "a₁", meaning: "primeiro termo da soma" },
+    { label: "aₙ", meaning: "ultimo termo da soma" }
+  ]}
+  example="Na PA 2, 5, 8, 11, 14, temos S₅ = 5(2 + 14)/2 = 40."
+  note="Se aₙ não for conhecido, calcule-o primeiro pelo termo geral."
+  mistake="Usar a fórmula sem confirmar quantos termos realmente entram na soma."
+/>
+
+## Propriedades úteis
+
+Em qualquer PA, um termo interno é a média aritmética de termos equidistantes dele. Para três termos consecutivos:
+
+`a₂ = (a₁ + a₃)/2`
+
+Também podemos representar três termos consecutivos como `x - r`, `x` e `x + r`. Essa escrita ajuda em problemas de soma e produto.
+
+<ExampleBlock title="Termo central" text="Se três termos consecutivos de uma PA somam 36, o termo central é 36 ÷ 3 = 12. Eles podem ser escritos como 12 - r, 12 e 12 + r." />
+
+## Interpolação aritmética
+
+Interpolar meios aritméticos é inserir termos para formar uma PA. Entre `6` e `30`, queremos inserir cinco meios. Teremos sete termos e seis intervalos:
+
+`r = (30 - 6)/6 = 4`
+
+A sequência é `6, 10, 14, 18, 22, 26, 30`.
+
+<TipBlock title="Conte os intervalos, nao apenas os termos inseridos" text="Com k meios entre dois extremos, há k + 2 termos e k + 1 intervalos." />
+
+## Quando reconhecer uma PA
+
+Procure aumentos ou reduções por uma quantidade fixa: fileiras ganhando duas cadeiras, depósitos mensais crescendo R$ 50 ou posições igualmente espaçadas. Se a mudança for por fator ou percentual constante, o modelo é uma PG, não uma PA.

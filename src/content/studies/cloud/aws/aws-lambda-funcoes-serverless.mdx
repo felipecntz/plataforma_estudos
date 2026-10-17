@@ -1,0 +1,109 @@
+---
+title: "Lambda: funções serverless na AWS"
+description: Entenda eventos, handlers, runtime, permissões, limites, custos e bons usos de AWS Lambda.
+area: Cloud
+areaSlug: cloud
+category: AWS
+categorySlug: aws
+topic: Lambda
+slug: aws-lambda-funcoes-serverless
+order: 7
+icon: code
+color: tech
+difficulty: Iniciante
+readingTime: 11 min
+updatedAt: 08/08/2026
+featured: true
+tags:
+  - aws
+  - lambda
+  - serverless
+  - eventos
+summary: Lambda executa funções sob demanda a partir de eventos, sem administrar servidores, cobrando por execução e duração.
+mindMap:
+  title: Mapa mental de Lambda
+  subtitle: Evento, função, runtime, permissão, limite e custo.
+  highlights:
+    - eventos
+    - execution role
+    - timeout
+  sections:
+    - title: Função
+      kind: core
+      definition: Unidade de código executada quando um evento aciona o Lambda.
+      bullets:
+        - handler recebe evento
+        - runtime executa linguagem
+        - timeout limita duração
+      example: Função Python processa upload de imagem no S3.
+    - title: Eventos
+      kind: base
+      definition: Serviços ou chamadas que disparam a execução.
+      bullets:
+        - API Gateway para HTTP
+        - S3 para upload
+        - EventBridge para agenda
+      example: Rodar todo dia às 8h para consolidar um relatório.
+    - title: Permissões
+      kind: process
+      definition: A função usa execution role para acessar outros serviços.
+      bullets:
+        - role define ações permitidas
+        - logs vão para CloudWatch
+        - segredo não deve ficar no código
+      example: Lambda lê S3 e grava resultado em outro bucket.
+    - title: Limites
+      kind: application
+      definition: Serverless reduz servidor, mas impõe limites de tempo, pacote, memória e cold start.
+      bullets:
+        - bom para tarefas curtas
+        - ruim para processo longo
+        - observar concorrência
+      example: Webhook simples combina bem; job de horas não combina.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Lambda executa código por evento" text="AWS Lambda permite rodar funções sem criar ou manter servidores. Você envia o código, escolhe runtime, memória, timeout e permissões; a AWS executa quando algum evento chama a função." />
+
+Lambda é ótimo para automações, webhooks, processamento de arquivos, tarefas agendadas e APIs pequenas. Ele não deve ser tratado como substituto universal de servidor. Se a aplicação precisa manter processo longo, conexão persistente complexa ou controle fino de sistema, EC2 ou containers podem ser melhores.
+
+## Anatomia de uma Lambda
+
+| Parte | Função |
+| --- | --- |
+| Handler | ponto de entrada do código |
+| Runtime | linguagem e ambiente de execução |
+| Evento | dados recebidos no disparo |
+| Timeout | tempo máximo de execução |
+| Memória | capacidade e custo base |
+| Execution role | permissões da função |
+| CloudWatch Logs | saída de logs |
+
+<TipBlock title="Macete" text="Lambda não é servidor pequeno. É uma função acionada por evento, com ciclo de vida curto e limites claros." />
+
+## Fontes de evento
+
+| Origem | Uso comum |
+| --- | --- |
+| API Gateway | endpoint HTTP |
+| S3 | processar arquivo enviado |
+| EventBridge | agenda ou evento de sistema |
+| SQS | processar fila |
+| DynamoDB Streams | reagir a mudança de dados |
+
+<ExampleBlock title="Exemplo prático" text="Quando uma imagem entra no S3, uma Lambda cria miniaturas, grava logs no CloudWatch e salva metadados em um banco." />
+
+## Cuidados importantes
+
+Cold start é o tempo extra quando a AWS precisa preparar um ambiente novo para a função. Timeout evita execução infinita. Concorrência controla quantas execuções podem rodar ao mesmo tempo. A execution role deve ter apenas permissões necessárias.
+
+<WarningBlock title="Erro comum" text="Colocar credenciais dentro do código da função. Use IAM role e serviços como Secrets Manager quando houver segredo de aplicação." />
+
+## Resumo de revisão
+
+Lambda executa funções por evento, sem servidor fixo. Pense em handler, runtime, evento, timeout, memória, logs e execution role. Use para tarefas curtas, assíncronas, agendadas ou acionadas por serviços. Evite para processos longos ou workloads que exigem controle de servidor.

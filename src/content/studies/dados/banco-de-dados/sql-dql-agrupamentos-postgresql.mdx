@@ -1,0 +1,213 @@
+---
+title: "DQL: agrupamentos, GROUP BY e HAVING"
+description: Aprofunde agregacoes, GROUP BY, HAVING, filtros com FILTER, COALESCE e exemplos de resumo analitico no PostgreSQL.
+area: Dados
+areaSlug: dados
+category: Banco de Dados
+categorySlug: banco-de-dados
+topic: DQL agrupamentos
+slug: sql-dql-agrupamentos-postgresql
+order: 36
+icon: database
+color: data
+difficulty: Intermediario
+readingTime: 18 min
+updatedAt: 01/08/2026
+featured: false
+tags:
+  - dados
+  - sql
+  - postgresql
+  - group by
+  - having
+summary: GROUP BY transforma linhas em grupos. WHERE filtra antes de agrupar; HAVING filtra depois. Agregacoes como COUNT, SUM, AVG, MIN e MAX respondem perguntas de resumo.
+mindMap:
+  title: Mapa mental de agrupamentos
+  subtitle: Resumir linhas por dimensao.
+  highlights:
+    - GROUP BY
+    - HAVING
+    - COUNT
+    - FILTER
+  sections:
+    - title: GROUP BY
+      kind: core
+      definition: Agrupa linhas que compartilham os mesmos valores.
+      example: GROUP BY cliente_id.
+    - title: Agregacoes
+      kind: process
+      definition: Calculam medidas por grupo.
+      bullets:
+        - COUNT
+        - SUM
+        - AVG
+        - MIN/MAX
+    - title: WHERE
+      kind: base
+      definition: Remove linhas antes do grupo existir.
+      example: WHERE status = 'pago'.
+    - title: HAVING
+      kind: process
+      definition: Remove grupos depois das agregacoes.
+      example: HAVING SUM(total) > 1000.
+    - title: FILTER
+      kind: application
+      definition: Agrega condicionalmente no PostgreSQL.
+      example: COUNT(*) FILTER (WHERE status = 'cancelado').
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Agrupar e trocar detalhe por resumo" text="GROUP BY junta varias linhas em grupos e permite calcular medidas como quantidade, soma, media, minimo e maximo." />
+
+Sem agrupamento, voce ve linhas. Com agrupamento, voce ve perguntas resumidas:
+
+- quanto cada cliente comprou?
+- quantos pedidos existem por status?
+- qual foi o ticket medio por mes?
+- quais categorias venderam mais de R$ 10.000?
+
+## Agregacoes principais
+
+```sql
+SELECT
+  COUNT(*) AS total_linhas,
+  COUNT(email) AS emails_preenchidos,
+  SUM(total) AS soma_total,
+  AVG(total) AS media_total,
+  MIN(total) AS menor_total,
+  MAX(total) AS maior_total
+FROM pedidos;
+```
+
+`COUNT(*)` conta linhas. `COUNT(coluna)` conta valores nao nulos.
+
+## GROUP BY simples
+
+```sql
+SELECT
+  status,
+  COUNT(*) AS quantidade,
+  SUM(total) AS valor_total
+FROM pedidos
+GROUP BY status
+ORDER BY valor_total DESC;
+```
+
+Toda coluna do `SELECT` que nao e agregada precisa aparecer no `GROUP BY`.
+
+## GROUP BY com mais dimensoes
+
+```sql
+SELECT
+  cliente_id,
+  status,
+  COUNT(*) AS quantidade,
+  SUM(total) AS valor_total
+FROM pedidos
+GROUP BY cliente_id, status
+ORDER BY cliente_id, valor_total DESC;
+```
+
+Aqui o grupo e a combinacao de `cliente_id` e `status`.
+
+## WHERE antes do GROUP BY
+
+`WHERE` filtra linhas antes de formar grupos.
+
+```sql
+SELECT
+  cliente_id,
+  SUM(total) AS total_pago
+FROM pedidos
+WHERE status = 'pago'
+GROUP BY cliente_id;
+```
+
+Essa consulta ignora pedidos nao pagos antes de somar.
+
+## HAVING depois do GROUP BY
+
+`HAVING` filtra grupos depois de calcular agregacoes.
+
+```sql
+SELECT
+  cliente_id,
+  SUM(total) AS total_pago
+FROM pedidos
+WHERE status = 'pago'
+GROUP BY cliente_id
+HAVING SUM(total) >= 1000
+ORDER BY total_pago DESC;
+```
+
+Use `HAVING` quando a condicao depende de `COUNT`, `SUM`, `AVG`, `MIN` ou `MAX`.
+
+<TipBlock title="WHERE vs HAVING" text="WHERE responde: esta linha entra no calculo? HAVING responde: este grupo calculado aparece no resultado?" />
+
+## Agregacao condicional com FILTER
+
+PostgreSQL permite filtrar dentro da agregacao:
+
+```sql
+SELECT
+  cliente_id,
+  COUNT(*) AS pedidos_total,
+  COUNT(*) FILTER (WHERE status = 'pago') AS pedidos_pagos,
+  COUNT(*) FILTER (WHERE status = 'cancelado') AS pedidos_cancelados,
+  SUM(total) FILTER (WHERE status = 'pago') AS receita_paga
+FROM pedidos
+GROUP BY cliente_id;
+```
+
+Isso costuma ficar mais claro que varios `SUM(CASE WHEN ...)`.
+
+## Agregando por data
+
+Agrupar por mes:
+
+```sql
+SELECT
+  date_trunc('month', criado_em)::date AS mes,
+  COUNT(*) AS pedidos,
+  SUM(total) AS receita
+FROM pedidos
+WHERE status = 'pago'
+GROUP BY date_trunc('month', criado_em)::date
+ORDER BY mes;
+```
+
+Agrupar por dia:
+
+```sql
+SELECT
+  criado_em::date AS dia,
+  COUNT(*) AS pedidos
+FROM pedidos
+GROUP BY criado_em::date
+ORDER BY dia DESC;
+```
+
+## COALESCE em agregacoes
+
+`SUM` pode retornar nulo quando nao ha linhas correspondentes em um `LEFT JOIN`.
+
+```sql
+SELECT
+  c.id,
+  c.nome,
+  COALESCE(SUM(p.total), 0) AS total_comprado
+FROM clientes c
+LEFT JOIN pedidos p ON p.cliente_id = c.id
+GROUP BY c.id, c.nome;
+```
+
+## Erros comuns
+
+- usar coluna no `SELECT` sem agregar nem agrupar;
+- tentar filtrar `SUM(total)` no `WHERE`;
+- esquecer que `COUNT(coluna)` ignora nulos;
+- agrupar por campo granular demais e perder o resumo;
+- ordenar por alias sem conferir se o banco aceita na posicao desejada.

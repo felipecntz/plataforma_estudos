@@ -1,0 +1,126 @@
+---
+title: Models, ORM e migrations no Django
+description: Entenda models, campos, relacionamentos, QuerySets e migrations em projetos Django com banco relacional.
+area: Programação
+areaSlug: programacao
+category: Django
+categorySlug: django
+topic: Models, ORM e migrations
+slug: django-models-orm-migrations
+order: 13
+icon: code
+color: tech
+difficulty: Intermediário
+readingTime: 15 min
+updatedAt: 01/08/2026
+featured: false
+tags:
+  - programação
+  - django
+  - orm
+  - migrations
+summary: Models descrevem tabelas e relacoes. O ORM transforma QuerySets em SQL. Migrations versionam a evolucao do esquema do banco.
+mindMap:
+  title: Mapa mental de dados no Django
+  subtitle: Models viram banco; QuerySets consultam.
+  highlights:
+    - models
+    - QuerySet
+    - migrations
+  sections:
+    - title: Model
+      kind: core
+      definition: Classe Python que representa tabela, campos e comportamento.
+      example: class Produto(models.Model).
+    - title: Relacoes
+      kind: process
+      definition: ForeignKey, OneToOneField e ManyToManyField conectam entidades.
+    - title: QuerySet
+      kind: application
+      definition: Consulta preguiçosa composta em Python.
+      example: Produto.objects.filter(ativo=True).
+    - title: Migration
+      kind: base
+      definition: Versao do esquema do banco gerada a partir dos models.
+      example: python manage.py makemigrations.
+---
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## Models
+
+```python
+from django.db import models
+
+class Categoria(models.Model):
+    nome = models.CharField(max_length=120, unique=True)
+    slug = models.SlugField(unique=True)
+
+    def __str__(self):
+        return self.nome
+
+class Produto(models.Model):
+    categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT, related_name="produtos")
+    nome = models.CharField(max_length=160)
+    preco = models.DecimalField(max_digits=10, decimal_places=2)
+    ativo = models.BooleanField(default=True)
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["nome"]
+        indexes = [models.Index(fields=["ativo"])]
+
+    def __str__(self):
+        return self.nome
+```
+
+Campos comuns:
+
+- `CharField`: texto curto;
+- `TextField`: texto longo;
+- `IntegerField`: inteiro;
+- `DecimalField`: decimal exato;
+- `BooleanField`: verdadeiro/falso;
+- `DateTimeField`: data e hora;
+- `ForeignKey`: muitos para um.
+
+## ORM e QuerySets
+
+```python
+Produto.objects.all()
+Produto.objects.filter(ativo=True)
+Produto.objects.get(pk=1)
+Produto.objects.order_by("-criado_em")
+Produto.objects.select_related("categoria")
+Produto.objects.count()
+Produto.objects.exists()
+```
+
+`QuerySet` e preguiçoso: Django monta a consulta e so vai ao banco quando precisa do resultado.
+
+## Evitando N+1
+
+Quando voce acessa relacoes em loop, use `select_related` para foreign key.
+
+```python
+produtos = Produto.objects.select_related("categoria").filter(ativo=True)
+```
+
+Para muitos-para-muitos ou relacao reversa, use `prefetch_related`.
+
+## Migrations
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+python manage.py showmigrations
+```
+
+Regra:
+
+- alterou model, rode `makemigrations`;
+- recebeu migration nova, rode `migrate`;
+- em producao, aplique migrations no deploy;
+- evite editar migration antiga sem entender impacto.
+
+<TipBlock title="Model e contrato" text="Trate model como contrato entre codigo e banco. Mudou campo ou relacao, pense em dados existentes, migration e impacto nas telas." />
+

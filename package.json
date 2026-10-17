@@ -1,0 +1,17 @@
+{
+  "name": "plataforma-estudos",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^7.0.3",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.0.9",
+    "katex": "^0.17.0"
+  }
+}

@@ -1,0 +1,159 @@
+---
+title: Operações em Python
+description: Revise soma, subtração, multiplicação, divisão, potência, resto, comparações e operadores lógicos.
+area: Programação
+areaSlug: programacao
+category: Python
+categorySlug: python
+topic: Operações
+slug: python-operacoes
+order: 4
+icon: code
+color: tech
+difficulty: Iniciante
+readingTime: 8 min
+updatedAt: 18/07/2026
+featured: false
+tags:
+  - programação
+  - python
+  - operadores
+  - operações
+summary: Operadores transformam valores, comparam dados e criam condições para o fluxo do programa.
+mindMap:
+  title: Mapa mental de operações
+  subtitle: Contas, comparações e lógica em Python.
+  highlights:
+    - aritmética
+    - comparação
+    - lógica
+  sections:
+    - title: Aritméticos
+      kind: core
+      definition: Operadores usados para fazer contas.
+      bullets:
+        - "+ soma"
+        - "- subtrai"
+        - '* multiplica'
+        - '** eleva à potência'
+      example: 2 ** 3 resulta em 8.
+    - title: Divisão
+      kind: base
+      definition: Python separa divisão real, divisão inteira e resto.
+      bullets:
+        - "/ devolve decimal"
+        - "// devolve quociente inteiro"
+        - '% devolve resto'
+      example: 7 // 2 é 3 e 7 % 2 é 1.
+    - title: Prioridade
+      kind: process
+      definition: Algumas operações são resolvidas antes de outras.
+      bullets:
+        - parênteses vencem tudo
+        - potência vem antes de multiplicação
+        - soma e subtração vêm depois
+      example: 2 + 3 * 4 é 14.
+    - title: Comparação
+      kind: process
+      definition: Comparações produzem True ou False.
+      bullets:
+        - "== compara igualdade"
+        - "!= compara diferença"
+        - '>, <, >=, <='
+      example: idade >= 18.
+    - title: Lógica
+      kind: application
+      definition: Operadores lógicos combinam condições.
+      bullets:
+        - and exige tudo verdadeiro
+        - or exige pelo menos um verdadeiro
+        - not inverte
+      example: idade >= 18 and tem_documento.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Operador transforma ou compara" text="Operadores são símbolos e palavras que fazem cálculos, combinam valores ou produzem respostas lógicas como True e False." />
+
+## Operadores aritméticos
+
+| Operador | Operação | Exemplo | Resultado |
+| --- | --- | --- | --- |
+| `+` | soma | `7 + 3` | `10` |
+| `-` | subtração | `7 - 3` | `4` |
+| `*` | multiplicação | `7 * 3` | `21` |
+| `/` | divisão real | `7 / 2` | `3.5` |
+| `//` | divisão inteira | `7 // 2` | `3` |
+| `%` | resto | `7 % 2` | `1` |
+| `**` | potência | `2 ** 3` | `8` |
+
+```python
+preco = 100
+desconto = 15
+preco_final = preco - desconto
+
+dobro = preco * 2
+quadrado = 5 ** 2
+```
+
+## Prioridade das operações
+
+Python respeita ordem de prioridade. Parênteses deixam a intenção explícita.
+
+```python
+resultado_1 = 2 + 3 * 4      # 14
+resultado_2 = (2 + 3) * 4    # 20
+```
+
+<TipBlock title="Use parênteses para comunicar" text="Mesmo quando Python já sabe a prioridade, parênteses podem deixar seu raciocínio mais fácil de ler." />
+
+## Operações com strings
+
+Alguns operadores mudam de sentido conforme o tipo.
+
+```python
+nome = "Py" + "thon"
+risada = "ha" * 3
+
+print(nome)    # Python
+print(risada)  # hahaha
+```
+
+`+` concatena strings. `*` repete uma string quando usado com inteiro.
+
+## Comparações
+
+Comparações sempre devolvem `True` ou `False`.
+
+```python
+idade = 20
+
+print(idade >= 18)  # True
+print(idade == 21)  # False
+```
+
+Não confunda `=` com `==`. O primeiro atribui; o segundo compara.
+
+<WarningBlock title="Atribuição não é comparação" text="idade = 18 guarda o valor 18. idade == 18 pergunta se idade é igual a 18." />
+
+## Operadores lógicos
+
+`and`, `or` e `not` combinam condições.
+
+```python
+idade = 20
+tem_documento = True
+
+pode_entrar = idade >= 18 and tem_documento
+precisa_ajuda = idade < 18 or not tem_documento
+```
+
+- `and`: todas as condições precisam ser verdadeiras;
+- `or`: pelo menos uma condição precisa ser verdadeira;
+- `not`: inverte o valor lógico.
+
+<ExampleBlock title="Número par" text="numero % 2 == 0 verifica se o resto da divisão por 2 é zero. Se for, o número é par." />

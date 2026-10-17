@@ -1,0 +1,189 @@
+---
+title: Fundamentos de funcoes
+description: Entenda dominio, contradominio, imagem, graficos, zeros, composicao e funcao inversa.
+area: Matematica
+areaSlug: matematica
+category: Matematica nivel medio
+categorySlug: matematica-nivel-medio
+topic: Fundamentos de funcoes
+slug: fundamentos-de-funcoes
+order: 14
+icon: mapping
+color: math
+difficulty: Intermediario
+readingTime: 13 min
+updatedAt: 18/07/2026
+featured: true
+tags:
+  - matematica
+  - funcoes
+  - dominio
+  - imagem
+summary: Construa a linguagem de funções, da lei de associação ao gráfico, composição, classificação e inversa.
+mindMap:
+  title: Mapa mental de fundamentos de funcoes
+  subtitle: Entradas, regra, saídas e leituras essenciais do gráfico.
+  highlights: [dominio, contradominio, imagem, grafico]
+  sections:
+    - title: Definicao
+      kind: core
+      definition: Função associa cada elemento do dominio a exatamente um elemento do contradominio.
+      formula: 'f:A\to B'
+      bullets:
+        - A é o dominio
+        - B é o contradominio
+        - f(x) é a imagem de x
+      example: f(x) = 2x + 1 associa 3 a 7.
+    - title: Dominio e imagem
+      kind: base
+      definition: O domínio reúne entradas permitidas; a imagem reúne saídas realmente obtidas.
+      bullets:
+        - denominador nao pode ser zero
+        - radicando de raiz par deve ser nao negativo nos reais
+        - imagem está contida no contradominio
+      example: f(x) = √x tem domínio real x ≥ 0 e imagem y ≥ 0.
+    - title: Leitura do grafico
+      kind: process
+      definition: Cada ponto (x, y) satisfaz y = f(x).
+      bullets:
+        - zero é interseção com eixo x
+        - f(0) é interseção com eixo y
+        - teste vertical verifica se a curva representa função
+        - crescimento compara saídas conforme x aumenta
+      example: Se (2, 5) está no gráfico, então f(2) = 5.
+    - title: Classificacao
+      kind: process
+      definition: Injetividade observa repetição de saídas; sobrejetividade observa cobertura do contradominio.
+      bullets:
+        - injetora não repete imagem
+        - sobrejetora atinge todo o contradominio
+        - bijetora possui as duas propriedades
+      example: f(x) = 2x em ℝ é bijetora.
+    - title: Composicao e inversa
+      kind: application
+      definition: Composição encadeia regras; inversa desfaz uma função bijetora.
+      formula: '(g\circ f)(x)=g(f(x))'
+      bullets:
+        - ordem da composição importa
+        - f⁻¹ não significa 1/f
+        - f⁻¹(f(x)) = x
+      example: f(x)=x+2 e g(x)=3x; g(f(x))=3x+6.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import GraphBlock from "../../../../components/GraphBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## O que é uma função
+
+<DefinitionBlock title="Funcao é uma regra de associacao" text="Uma função de A em B associa cada elemento do domínio A a exatamente um elemento do contradomínio B. Uma entrada não pode ficar sem saída nem possuir duas saídas diferentes." />
+
+Escrevemos `f: A → B`. Se `f(x) = 2x + 1`, então `f(3) = 2 × 3 + 1 = 7`.
+
+<WarningBlock title="Duas entradas podem ter a mesma saida" text="Isso não impede que a relação seja função. O que não pode acontecer é uma única entrada possuir duas imagens diferentes." />
+
+## Domínio, contradomínio e imagem
+
+- **Domínio:** conjunto de entradas permitidas.
+- **Contradomínio:** conjunto declarado de possíveis saídas.
+- **Imagem:** valores do contradomínio que a função realmente produz.
+
+A imagem sempre está contida no contradomínio, mas não precisa ser igual a ele.
+
+### Restrições frequentes de domínio
+
+Nos números reais:
+
+- denominadores não podem ser zero;
+- radicandos de raízes pares devem ser não negativos;
+- logaritmos exigem argumento positivo.
+
+<ExampleBlock title="Dominio de uma funcao racional" text="Para f(x) = 1/(x - 4), o valor x = 4 é proibido. O domínio é ℝ - {4}." />
+
+<ExampleBlock title="Dominio com raiz" text="Para g(x) = √(x - 2), precisamos de x - 2 ≥ 0. Portanto, o domínio é [2, +∞)." />
+
+## Lei, tabela e gráfico
+
+Uma função pode ser representada por fórmula, tabela, diagrama ou gráfico. No plano cartesiano, cada ponto `(x, y)` satisfaz `y = f(x)`.
+
+O teste da reta vertical ajuda a reconhecer um gráfico de função: qualquer reta vertical deve cortar a curva no máximo uma vez.
+
+<GraphBlock
+  title="Lendo pontos no gráfico"
+  description="Cada ponto marcado indica uma entrada x e a saída correspondente y."
+  variant="points"
+  notes={[
+    "Se o ponto (2, 5) aparece no desenho, lemos f(2) = 5.",
+    "A reta vertical pontilhada representa uma entrada fixa; ela deve encontrar o gráfico uma única vez.",
+    "Quando x aumenta, observe se os pontos sobem, descem ou alternam comportamento."
+  ]}
+/>
+
+### Tabela que vira gráfico
+
+Para `f(x) = 2x + 1`, podemos montar alguns pares:
+
+| x | f(x) | ponto |
+|---|------|-------|
+| 0 | 1 | (0, 1) |
+| 1 | 3 | (1, 3) |
+| 2 | 5 | (2, 5) |
+
+Depois, marcamos esses pontos no plano cartesiano. Se a função for do primeiro grau, eles ficam alinhados em uma reta.
+
+## Avaliação, zeros e sinal
+
+Avaliar uma função é substituir a entrada. O zero ou raiz é o valor de `x` que faz `f(x) = 0`, isto é, onde o gráfico encontra o eixo x.
+
+- interseção com eixo x: resolva `f(x) = 0`;
+- interseção com eixo y: calcule `f(0)`;
+- sinal positivo: regiões em que o gráfico está acima do eixo x;
+- sinal negativo: regiões em que está abaixo.
+
+<TipBlock title="f(x) nao significa f vezes x" text="A notação representa o valor produzido pela função para a entrada x." />
+
+## Crescimento e decrescimento
+
+Uma função é crescente em um intervalo quando entradas maiores produzem saídas maiores. É decrescente quando entradas maiores produzem saídas menores. Uma mesma função pode mudar de comportamento em intervalos diferentes.
+
+## Injetora, sobrejetora e bijetora
+
+- **Injetora:** entradas diferentes produzem imagens diferentes.
+- **Sobrejetora:** todo elemento do contradomínio é atingido.
+- **Bijetora:** é injetora e sobrejetora ao mesmo tempo.
+
+A classificação depende do domínio e do contradomínio escolhidos, não apenas da fórmula.
+
+<ExampleBlock title="O conjunto muda a classificacao" text="f(x) = x² não é injetora de ℝ em ℝ, pois f(2) = f(-2). Restringindo o domínio a [0, +∞), ela passa a ser injetora." />
+
+## Composição de funções
+
+<FormulaBlock
+  name="Composicao"
+  expression="(g\circ f)(x)=g(f(x))"
+  description="Primeiro aplique f à entrada; depois use o resultado como entrada de g."
+  variables={[
+    { label: "f", meaning: "funcao aplicada primeiro" },
+    { label: "g", meaning: "funcao aplicada ao resultado de f" }
+  ]}
+  example="Se f(x) = x + 2 e g(x) = 3x, então g(f(x)) = 3(x + 2) = 3x + 6."
+  note="Em geral, g ∘ f é diferente de f ∘ g."
+  mistake="Trocar a ordem indicada pela composição."
+/>
+
+## Função inversa
+
+A inversa desfaz a associação original. Para existir como função em todo o contradomínio, a função original deve ser bijetora.
+
+Para encontrar a lei inversa:
+
+1. escreva `y = f(x)`;
+2. troque `x` por `y` e `y` por `x`;
+3. isole `y`;
+4. declare domínio e contradomínio adequados.
+
+<ExampleBlock title="Encontrando a inversa" text="Se f(x) = 2x + 3, escreva y = 2x + 3. Trocando: x = 2y + 3. Isolando: y = (x - 3)/2. Logo, f⁻¹(x) = (x - 3)/2." />
+
+<WarningBlock title="Inversa nao é reciproca" text="f⁻¹(x) representa a função que desfaz f; não significa 1/f(x)." />

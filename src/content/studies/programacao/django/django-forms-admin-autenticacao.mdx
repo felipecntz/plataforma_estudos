@@ -1,0 +1,158 @@
+---
+title: Forms, admin e autenticacao no Django
+description: Entenda formularios, ModelForms, admin, messages, login_required e permissoes basicas em Django.
+area: Programação
+areaSlug: programacao
+category: Django
+categorySlug: django
+topic: Forms, admin e autenticacao
+slug: django-forms-admin-autenticacao
+order: 15
+icon: code
+color: tech
+difficulty: Intermediário
+readingTime: 14 min
+updatedAt: 01/08/2026
+featured: false
+tags:
+  - programação
+  - django
+  - forms
+  - admin
+  - autenticacao
+summary: Forms validam entrada, admin acelera gestão e autenticacao protege views. Esses recursos fazem Django ser produtivo em sistemas monolito.
+mindMap:
+  title: Mapa mental de recursos prontos
+  subtitle: Entrada, administracao e acesso.
+  highlights:
+    - Form
+    - Admin
+    - Auth
+  sections:
+    - title: Form
+      kind: core
+      definition: Valida dados enviados pelo usuario.
+      example: ProdutoForm(request.POST).
+    - title: ModelForm
+      kind: process
+      definition: Formulario gerado a partir de um model.
+      example: class ProdutoForm(forms.ModelForm).
+    - title: Admin
+      kind: application
+      definition: CRUD administrativo pronto para models registrados.
+      example: "@admin.register(Produto)."
+    - title: Auth
+      kind: base
+      definition: Usuarios, grupos, permissoes e controle de login.
+      example: "@login_required."
+---
+import WarningBlock from "../../../../components/WarningBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## Forms
+
+```python
+from django import forms
+from .models import Produto
+
+class ProdutoForm(forms.ModelForm):
+    class Meta:
+        model = Produto
+        fields = ["categoria", "nome", "preco", "ativo"]
+```
+
+View:
+
+```python
+from django.shortcuts import redirect, render
+from .forms import ProdutoForm
+
+def criar_produto(request):
+    if request.method == "POST":
+        form = ProdutoForm(request.POST)
+        if form.is_valid():
+            produto = form.save()
+            return redirect("produtos:detalhe", pk=produto.pk)
+    else:
+        form = ProdutoForm()
+
+    return render(request, "produtos/form.html", {"form": form})
+```
+
+Template:
+
+```html
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Salvar</button>
+</form>
+```
+
+## Admin
+
+```python
+from django.contrib import admin
+from .models import Categoria, Produto
+
+@admin.register(Categoria)
+class CategoriaAdmin(admin.ModelAdmin):
+    list_display = ["nome", "slug"]
+    search_fields = ["nome"]
+
+@admin.register(Produto)
+class ProdutoAdmin(admin.ModelAdmin):
+    list_display = ["nome", "categoria", "preco", "ativo"]
+    list_filter = ["ativo", "categoria"]
+    search_fields = ["nome"]
+```
+
+Comandos:
+
+```bash
+python manage.py createsuperuser
+python manage.py runserver
+```
+
+Depois acesse `/admin/`.
+
+## Autenticacao
+
+```python
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def minha_area(request):
+    return render(request, "conta/minha_area.html")
+```
+
+Em class-based views:
+
+```python
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
+
+class MinhaAreaView(LoginRequiredMixin, TemplateView):
+    template_name = "conta/minha_area.html"
+```
+
+## Messages
+
+```python
+from django.contrib import messages
+
+messages.success(request, "Produto salvo com sucesso.")
+messages.error(request, "Nao foi possivel salvar o produto.")
+```
+
+Template:
+
+```html
+{% for message in messages %}
+  <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+{% endfor %}
+```
+
+<WarningBlock title="POST precisa de CSRF" text="Em formularios HTML com method='post', inclua {% csrf_token %}. Isso protege contra requisicoes falsas de outros sites." />
+
+<TipBlock title="Admin nao substitui produto" text="O admin e excelente para gestao interna, mas telas usadas por clientes ou operacao diaria geralmente merecem views e templates proprios." />

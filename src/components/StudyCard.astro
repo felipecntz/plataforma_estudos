@@ -1,0 +1,17 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  meta: string;
+  accent?: string;
+}
+
+const { title, description, href, meta, accent = "var(--math)" } = Astro.props;
+---
+
+<a class="study-card" href={href} style={`border-top:4px solid ${accent};`}>
+  <div class="eyebrow">{meta}</div>
+  <h3 style="font-size:1.45rem;margin:0.45rem 0 0.55rem;">{title}</h3>
+  <p class="lede" style="font-size:0.98rem;margin:0;">{description}</p>
+</a>

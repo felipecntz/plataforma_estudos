@@ -1,0 +1,14 @@
+---
+const { slug, title, path } = Astro.props;
+---
+
+<button
+  class="ghost-button"
+  type="button"
+  data-favorite-button
+  data-favorite-slug={slug}
+  data-favorite-title={title}
+  data-favorite-path={path}
+>
+  Favoritar
+</button>

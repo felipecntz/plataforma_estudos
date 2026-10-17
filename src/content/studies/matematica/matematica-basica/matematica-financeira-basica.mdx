@@ -1,0 +1,182 @@
+---
+title: Matematica financeira basica
+description: Entenda capital, taxa, tempo, juros simples e compostos, descontos e comparacao de valores.
+area: Matematica
+areaSlug: matematica
+category: Matematica basica
+categorySlug: matematica-basica
+topic: Matematica financeira basica
+slug: matematica-financeira-basica
+order: 10
+icon: coins
+color: math
+difficulty: Iniciante
+readingTime: 14 min
+updatedAt: 18/07/2026
+featured: true
+tags:
+  - matematica
+  - matematica financeira
+  - juros simples
+  - juros compostos
+summary: Conecte porcentagem a juros, montante, descontos, inflação e comparação de propostas financeiras.
+mindMap:
+  title: Mapa mental de matematica financeira
+  subtitle: As variaveis e formulas essenciais para decisões básicas.
+  highlights: [capital, taxa, tempo, juros, montante]
+  sections:
+    - title: Linguagem financeira
+      kind: core
+      definition: O dinheiro inicial cresce ou diminui conforme uma taxa aplicada durante certo tempo.
+      bullets:
+        - C = capital inicial
+        - J = juros
+        - M = montante final
+        - i = taxa por periodo
+        - t = numero de periodos
+      example: C = 1.000; J = 100; M = 1.100.
+    - title: Juros simples
+      kind: base
+      definition: A taxa incide sempre sobre o capital inicial; os juros crescem linearmente.
+      formula: 'J=Cit \quad e \quad M=C(1+it)'
+      example: 1.000 a 2% ao mês por 3 meses gera J = 60.
+    - title: Juros compostos
+      kind: process
+      definition: Cada periodo aplica a taxa sobre o saldo acumulado; há juros sobre juros.
+      formula: 'M=C(1+i)^t'
+      example: 1.000 a 2% ao mês por 3 meses vira 1.061,21.
+    - title: Desconto e acrescimo
+      kind: process
+      definition: Use fatores multiplicativos para chegar diretamente ao novo valor.
+      bullets:
+        - 'desconto de p%: multiplicar por 1 - p'
+        - 'aumento de p%: multiplicar por 1 + p'
+        - percentuais sucessivos usam bases diferentes
+      example: 200 com 15% de desconto vira 170.
+    - title: Decisao financeira
+      kind: application
+      definition: Compare propostas na mesma unidade de tempo e considere o custo total.
+      bullets:
+        - taxa mensal nao é taxa anual
+        - confira tarifas e entrada
+        - inflacao reduz poder de compra
+        - desconto à vista pode superar rendimento futuro
+      example: 2% ao mês compostos não equivale a 24% ao ano.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## A linguagem básica
+
+<DefinitionBlock title="Matematica financeira acompanha o valor do dinheiro no tempo" text="Ela relaciona um valor inicial, uma taxa e um prazo para medir juros, descontos, crescimento e custo total." />
+
+As letras mais comuns são:
+
+- `C`: capital, principal ou valor inicial;
+- `J`: juros acumulados;
+- `M`: montante ou valor final, com `M = C + J`;
+- `i`: taxa de juros por período;
+- `t`: quantidade de períodos.
+
+Antes da conta, taxa e tempo precisam usar a mesma unidade. Uma taxa de `2% ao mês` exige tempo em meses.
+
+## Transformando a taxa
+
+Converta porcentagem para decimal antes de usar fórmulas:
+
+- `2% = 0,02`;
+- `0,5% = 0,005`;
+- `12% = 0,12`.
+
+<WarningBlock title="Nao misture taxa mensal com tempo anual" text="Converta o prazo ou encontre a taxa equivalente adequada. Apenas multiplicar uma taxa composta por 12 não produz a taxa anual equivalente." />
+
+## Juros simples
+
+Nos juros simples, a taxa incide sempre sobre o capital inicial. O acréscimo de cada período é constante.
+
+<FormulaBlock
+  name="Juros simples"
+  expression="J=C\cdot i\cdot t\qquad M=C(1+it)"
+  description="Os juros crescem linearmente porque a base de cálculo permanece igual ao capital inicial."
+  variables={[
+    { label: "C", meaning: "capital inicial" },
+    { label: "i", meaning: "taxa decimal por periodo" },
+    { label: "t", meaning: "numero de periodos" },
+    { label: "M", meaning: "capital mais juros" }
+  ]}
+  example="R$ 1.000 a 2% ao mês por 3 meses gera J = 1.000 × 0,02 × 3 = R$ 60 e M = R$ 1.060."
+  note="Cada mês acrescenta os mesmos R$ 20."
+  mistake="Usar 2 no lugar de 0,02 ou aplicar a taxa sobre um saldo acumulado."
+/>
+
+## Juros compostos
+
+Nos juros compostos, cada período começa com um novo saldo. Os juros anteriores entram na base do cálculo seguinte.
+
+<FormulaBlock
+  name="Montante em juros compostos"
+  expression="M=C(1+i)^t"
+  description="O fator 1 + i é aplicado repetidamente, produzindo crescimento exponencial."
+  variables={[
+    { label: "C", meaning: "capital inicial" },
+    { label: "i", meaning: "taxa decimal por periodo" },
+    { label: "t", meaning: "numero de capitalizacoes" }
+  ]}
+  example="R$ 1.000 a 2% ao mês por 3 meses resulta em 1.000 × 1,02³ = R$ 1.061,21."
+  note="Juros acumulados são M - C: neste caso, R$ 61,21."
+  mistake="Calcular C × i × t, que corresponde ao regime simples."
+/>
+
+### Comparação em três períodos
+
+| Mês | Juros simples | Juros compostos |
+| --- | ---: | ---: |
+| 0 | R$ 1.000,00 | R$ 1.000,00 |
+| 1 | R$ 1.020,00 | R$ 1.020,00 |
+| 2 | R$ 1.040,00 | R$ 1.040,40 |
+| 3 | R$ 1.060,00 | R$ 1.061,21 |
+
+No início a diferença é pequena, mas ela cresce com a taxa e o prazo.
+
+## Descontos e acréscimos
+
+Use fatores para ir direto ao novo preço:
+
+- desconto de `15%`: multiplique por `0,85`;
+- aumento de `15%`: multiplique por `1,15`.
+
+<ExampleBlock title="Desconto à vista" text="Um produto de R$ 800 com 12% de desconto custa 800 × 0,88 = R$ 704. O desconto em reais é R$ 96." />
+
+Percentuais sucessivos não devem ser simplesmente somados. Dois descontos de `10%` geram fator `0,90 × 0,90 = 0,81`, ou desconto total de `19%`, não `20%`.
+
+## Taxas equivalentes no regime composto
+
+Para converter uma taxa composta, preserve o fator acumulado. Uma taxa de `2% ao mês` durante 12 meses gera:
+
+`(1,02)¹² - 1 ≈ 0,2682`, isto é, aproximadamente `26,82% ao ano`.
+
+Isso mostra por que `2% ao mês` não equivale a `24% ao ano` em juros compostos.
+
+<TipBlock title="Compare propostas pelo mesmo prazo" text="Coloque taxas na mesma unidade, inclua tarifas, entrada e número de parcelas, e então compare o valor total pago ou recebido." />
+
+## Inflação e poder de compra
+
+Inflação é a alta geral de preços. Se um valor cresce `8%` enquanto os preços sobem `5%`, o ganho real é menor que `3%`, porque as taxas atuam multiplicativamente.
+
+Uma aproximação para taxas pequenas é `ganho real ≈ rendimento - inflação`. A relação mais precisa é:
+
+`taxa real = (1 + rendimento) / (1 + inflação) - 1`
+
+<ExampleBlock title="Ganho real" text="Com rendimento de 8% e inflação de 5%, a taxa real é 1,08/1,05 - 1 ≈ 2,86%." />
+
+## Checklist de decisão
+
+1. Qual é o capital ou preço inicial?
+2. A taxa está em decimal e na mesma unidade do prazo?
+3. O regime é simples ou composto?
+4. Existem entrada, tarifas ou impostos?
+5. O resultado representa juros, montante ou desconto?
+6. A resposta é coerente com a direção esperada?

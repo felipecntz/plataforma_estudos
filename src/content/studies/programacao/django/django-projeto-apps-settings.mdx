@@ -1,0 +1,127 @@
+---
+title: Projeto, apps e settings no Django
+description: Aprenda a estrutura inicial de um projeto Django monolito, a diferenca entre projeto e apps e o papel do settings.py.
+area: Programação
+areaSlug: programacao
+category: Django
+categorySlug: django
+topic: Projeto, apps e settings
+slug: django-projeto-apps-settings
+order: 12
+icon: code
+color: tech
+difficulty: Iniciante
+readingTime: 12 min
+updatedAt: 01/08/2026
+featured: false
+tags:
+  - programação
+  - django
+  - settings
+  - apps
+summary: O projeto guarda configuracoes globais; apps organizam dominios. settings.py controla apps instaladas, banco, templates, static files, idioma, middleware e seguranca.
+mindMap:
+  title: Mapa mental de projeto Django
+  subtitle: Onde cada arquivo vive.
+  highlights:
+    - config
+    - apps
+    - settings.py
+  sections:
+    - title: Projeto
+      kind: core
+      definition: Camada global com settings, urls raiz, ASGI e WSGI.
+      example: config/.
+    - title: App
+      kind: process
+      definition: Modulo de dominio dentro do monolito.
+      example: produtos, clientes, pedidos.
+    - title: settings.py
+      kind: base
+      definition: Arquivo de configuracao do Django.
+      bullets:
+        - INSTALLED_APPS
+        - DATABASES
+        - TEMPLATES
+    - title: manage.py
+      kind: application
+      definition: Entrada de comandos administrativos.
+      example: python manage.py runserver.
+---
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Criando a estrutura
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install django psycopg[binary]
+django-admin startproject config .
+python manage.py startapp core
+python manage.py startapp produtos
+```
+
+Estrutura comum:
+
+```text
+meu_projeto/
+├── manage.py
+├── config/
+│   ├── settings.py
+│   ├── urls.py
+│   ├── asgi.py
+│   └── wsgi.py
+├── core/
+├── produtos/
+├── templates/
+│   └── base.html
+└── static/
+```
+
+## Projeto vs app
+
+O projeto e a casca global. A app e um modulo.
+
+Exemplos de apps:
+
+- `core`: home, paginas gerais, utilitarios visuais;
+- `produtos`: catalogo, estoque, categorias;
+- `pedidos`: pedido, status, itens;
+- `financeiro`: cobrancas e pagamentos.
+
+<TipBlock title="Nao crie apps demais cedo" text="Uma app por dominio claro costuma bastar. Separar demais no inicio aumenta caminhos, imports e decisoes pequenas." />
+
+## settings.py
+
+Campos que voce mais olha:
+
+| Configuracao | Uso |
+| --- | --- |
+| `INSTALLED_APPS` | apps nativas, terceiros e apps locais |
+| `MIDDLEWARE` | camadas de request/response |
+| `ROOT_URLCONF` | arquivo de URLs principal |
+| `TEMPLATES` | busca de templates |
+| `DATABASES` | conexao com banco |
+| `STATIC_URL` | caminho de arquivos estaticos |
+| `LANGUAGE_CODE` | idioma |
+| `TIME_ZONE` | fuso |
+| `DEBUG` | modo desenvolvimento |
+| `ALLOWED_HOSTS` | hosts aceitos |
+
+## Registrando uma app
+
+```python
+INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "produtos",
+]
+```
+
+<WarningBlock title="settings.py nao e lugar de regra de negocio" text="Use settings.py para configurar o projeto. Regras de estoque, pedidos, clientes e permissoes especificas devem ficar nos módulos apropriados." />
+

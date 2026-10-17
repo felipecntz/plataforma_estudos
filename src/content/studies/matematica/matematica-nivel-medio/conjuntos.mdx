@@ -1,0 +1,177 @@
+---
+title: Conjuntos
+description: Domine representacao, relacoes, operacoes, intervalos e contagem de elementos em conjuntos.
+area: Matematica
+areaSlug: matematica
+category: Matematica nivel medio
+categorySlug: matematica-nivel-medio
+topic: Conjuntos
+slug: conjuntos
+order: 13
+icon: sets
+color: math
+difficulty: Intermediario
+readingTime: 12 min
+updatedAt: 18/07/2026
+featured: true
+tags:
+  - matematica
+  - conjuntos
+  - uniao
+  - intersecao
+summary: Revise elementos, subconjuntos, operações, complemento, intervalos reais e princípio da inclusão-exclusão.
+mindMap:
+  title: Mapa mental de conjuntos
+  subtitle: Linguagem, relacoes e operacoes essenciais para organizar elementos.
+  highlights: [pertinencia, inclusao, operacoes, cardinalidade]
+  sections:
+    - title: Linguagem
+      kind: core
+      definition: Conjunto é uma colecao bem definida de objetos chamados elementos.
+      bullets:
+        - x ∈ A indica pertinencia
+        - x ∉ A indica nao pertinencia
+        - n(A) indica quantidade de elementos
+      example: Se A = {2, 4, 6}, então 4 ∈ A.
+    - title: Inclusao
+      kind: base
+      definition: A está contido em B quando todo elemento de A também pertence a B.
+      formula: 'A\subseteq B'
+      bullets:
+        - conjunto vazio está contido em todo conjunto
+        - A é subconjunto de si mesmo
+        - conjuntos iguais têm exatamente os mesmos elementos
+      example: '{1, 2} ⊆ {1, 2, 3}.'
+    - title: Operacoes
+      kind: process
+      definition: União reúne; interseção conserva o comum; diferença remove.
+      bullets:
+        - A ∪ B reúne elementos de A ou B
+        - A ∩ B reúne elementos de A e B
+        - A - B conserva o que está apenas em A
+        - complemento usa o universo como referência
+      example: '{1,2,3} ∩ {2,3,4} = {2,3}.'
+    - title: Contagem
+      kind: process
+      definition: Na união, subtraia a interseção para não contar elementos duas vezes.
+      formula: 'n(A\cup B)=n(A)+n(B)-n(A\cap B)'
+      example: 20 estudam inglês, 15 espanhol e 5 ambos; 30 estudam ao menos um.
+    - title: Intervalos reais
+      kind: application
+      definition: Intervalos representam subconjuntos contínuos da reta real.
+      bullets:
+        - colchete inclui o extremo
+        - parenteses exclui o extremo
+        - infinito sempre usa parenteses
+      example: '[2, 5) significa 2 ≤ x < 5.'
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia e representação
+
+<DefinitionBlock title="Conjunto é uma colecao bem definida" text="Os objetos de um conjunto são seus elementos. Podemos representar um conjunto listando elementos, descrevendo uma propriedade ou usando um diagrama." />
+
+Exemplos:
+
+- por extensão: `A = {2, 4, 6, 8}`;
+- por propriedade: `A = {x ∈ ℕ | x é par e 2 ≤ x ≤ 8}`.
+
+A ordem e a repetição não mudam um conjunto: `{1, 2, 2, 3}` e `{3, 2, 1}` representam o mesmo conjunto `{1, 2, 3}`.
+
+## Pertinência e inclusão
+
+Pertinência relaciona elemento e conjunto:
+
+- `x ∈ A`: x pertence a A;
+- `x ∉ A`: x não pertence a A.
+
+Inclusão relaciona dois conjuntos:
+
+- `A ⊆ B`: todo elemento de A pertence a B;
+- `A ⊈ B`: existe ao menos um elemento de A que não está em B.
+
+<WarningBlock title="Nao confunda elemento com subconjunto" text="Em A = {1, {2}}, temos 1 ∈ A e {2} ∈ A. Também temos {1} ⊆ A, mas 2 isoladamente não pertence a A." />
+
+O conjunto vazio, indicado por `∅`, não possui elementos e é subconjunto de qualquer conjunto. Dois conjuntos são iguais quando possuem exatamente os mesmos elementos.
+
+## Operações entre conjuntos
+
+Considere `A = {1, 2, 3, 4}` e `B = {3, 4, 5}`.
+
+### União
+
+`A ∪ B` reúne elementos que estão em A **ou** em B, incluindo os que estão nos dois:
+
+`A ∪ B = {1, 2, 3, 4, 5}`.
+
+### Interseção
+
+`A ∩ B` mantém apenas elementos que estão em A **e** em B:
+
+`A ∩ B = {3, 4}`.
+
+Se `A ∩ B = ∅`, os conjuntos são disjuntos.
+
+### Diferença
+
+`A - B` mantém elementos que estão em A e não estão em B:
+
+`A - B = {1, 2}` e `B - A = {5}`.
+
+A diferença não é comutativa: em geral, `A - B ≠ B - A`.
+
+### Complemento
+
+Se `U` é o conjunto universo, o complemento de A contém o que está em U e não está em A:
+
+`Aᶜ = U - A`.
+
+<TipBlock title="Traduza palavras-chave" text="Ou sugere união; e sugere interseção; apenas A sugere A - B; nenhum sugere o complemento da união." />
+
+## Cardinalidade e inclusão-exclusão
+
+Cardinalidade é a quantidade de elementos, indicada por `n(A)` ou `|A|`.
+
+<FormulaBlock
+  name="Principio da inclusao-exclusao"
+  expression="n(A\cup B)=n(A)+n(B)-n(A\cap B)"
+  description="A interseção é subtraída porque foi contada uma vez em A e outra vez em B."
+  variables={[
+    { label: "n(A)", meaning: "quantidade de elementos de A" },
+    { label: "n(B)", meaning: "quantidade de elementos de B" },
+    { label: "n(A ∩ B)", meaning: "quantidade comum aos dois" }
+  ]}
+  example="20 alunos estudam inglês, 15 espanhol e 5 ambos. Ao menos um idioma: 20 + 15 - 5 = 30."
+  note="Quem pertence aos dois conjuntos entra na interseção."
+  mistake="Somar n(A) + n(B) sem descontar quem foi contado duas vezes."
+/>
+
+## Conjunto das partes
+
+O conjunto das partes `P(A)` reúne todos os subconjuntos de A. Se A possui `n` elementos, então `P(A)` possui `2ⁿ` elementos.
+
+<ExampleBlock title="Conjunto das partes" text="Se A = {a, b}, então P(A) = {∅, {a}, {b}, {a,b}}. São 2² = 4 subconjuntos." />
+
+## Intervalos reais
+
+Intervalos descrevem partes contínuas da reta:
+
+- `[2, 5]`: `2 ≤ x ≤ 5`;
+- `[2, 5)`: `2 ≤ x < 5`;
+- `(-∞, 3)`: `x < 3`;
+- `[1, +∞)`: `x ≥ 1`.
+
+Colchete inclui o extremo; parêntese exclui. O infinito nunca é atingido, então sempre aparece com parêntese.
+
+## Leis de De Morgan
+
+As negações de união e interseção trocam a operação:
+
+- `(A ∪ B)ᶜ = Aᶜ ∩ Bᶜ`;
+- `(A ∩ B)ᶜ = Aᶜ ∪ Bᶜ`.
+
+<ExampleBlock title="Leitura de De Morgan" text="Não estar em A nem em B significa estar fora da união. Isso equivale a estar fora de A e, ao mesmo tempo, fora de B." />

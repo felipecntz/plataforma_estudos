@@ -1,0 +1,263 @@
+---
+title: "DQL: joins, subqueries e CTEs"
+description: Entenda INNER JOIN, LEFT JOIN, CROSS JOIN, subqueries, EXISTS e CTEs com exemplos práticos em PostgreSQL.
+area: Dados
+areaSlug: dados
+category: Banco de Dados
+categorySlug: banco-de-dados
+topic: DQL joins, subqueries e CTEs
+slug: sql-dql-joins-subqueries-ctes-postgresql
+order: 37
+icon: database
+color: data
+difficulty: Intermediario
+readingTime: 20 min
+updatedAt: 01/08/2026
+featured: false
+tags:
+  - dados
+  - sql
+  - postgresql
+  - joins
+  - cte
+summary: Joins combinam tabelas; subqueries fazem perguntas dentro de perguntas; CTEs quebram raciocinios em etapas legiveis. INNER JOIN traz correspondencias, LEFT JOIN preserva a tabela da esquerda.
+mindMap:
+  title: Mapa mental de joins e CTEs
+  subtitle: Como combinar fontes sem perder o controle.
+  highlights:
+    - INNER JOIN
+    - LEFT JOIN
+    - EXISTS
+    - WITH
+  sections:
+    - title: INNER JOIN
+      kind: core
+      definition: Retorna apenas linhas com correspondencia dos dois lados.
+      example: pedidos com cliente existente.
+    - title: LEFT JOIN
+      kind: process
+      definition: Preserva todas as linhas da esquerda, mesmo sem correspondencia.
+      example: clientes com ou sem pedidos.
+    - title: Subquery
+      kind: process
+      definition: Consulta usada dentro de outra consulta.
+      example: WHERE total > (SELECT AVG(total) FROM pedidos).
+    - title: EXISTS
+      kind: application
+      definition: Testa se a subconsulta retorna pelo menos uma linha.
+      example: clientes que possuem pedidos pagos.
+    - title: CTE
+      kind: base
+      definition: Consulta nomeada com WITH para organizar etapas.
+      example: WITH vendas_mes AS (...).
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Por que joins importam
+
+<DefinitionBlock title="Join reconecta dados normalizados" text="Em bancos relacionais, dados ficam separados para reduzir repeticao. JOIN combina tabelas relacionadas na hora da consulta." />
+
+Exemplo mental:
+
+```text
+clientes.id        pedidos.cliente_id
+1 Ana              10 1 250.00
+2 Bruno            11 1 90.00
+```
+
+O pedido guarda `cliente_id`, mas o nome esta em `clientes`. Para mostrar pedido com cliente, usamos join.
+
+## INNER JOIN
+
+Retorna apenas correspondencias.
+
+```sql
+SELECT
+  p.id AS pedido_id,
+  c.nome AS cliente,
+  p.total,
+  p.status
+FROM pedidos p
+INNER JOIN clientes c ON c.id = p.cliente_id
+ORDER BY p.criado_em DESC;
+```
+
+Se existir pedido sem cliente correspondente, ele nao aparece. Em banco bem modelado com foreign key obrigatoria, isso normalmente nao acontece.
+
+## LEFT JOIN
+
+Preserva a tabela da esquerda.
+
+```sql
+SELECT
+  c.id,
+  c.nome,
+  COUNT(p.id) AS quantidade_pedidos
+FROM clientes c
+LEFT JOIN pedidos p ON p.cliente_id = c.id
+GROUP BY c.id, c.nome
+ORDER BY quantidade_pedidos DESC;
+```
+
+Clientes sem pedidos aparecem com `COUNT(p.id) = 0`.
+
+<WarningBlock title="Filtro no WHERE pode matar o LEFT JOIN" text="Se voce coloca WHERE p.status = 'pago', clientes sem pedidos somem. Para preservar clientes, coloque a condicao no ON ou use agregacao condicional." />
+
+Filtro no `ON`:
+
+```sql
+SELECT
+  c.id,
+  c.nome,
+  COUNT(p.id) AS pedidos_pagos
+FROM clientes c
+LEFT JOIN pedidos p
+  ON p.cliente_id = c.id
+ AND p.status = 'pago'
+GROUP BY c.id, c.nome;
+```
+
+## FULL JOIN e CROSS JOIN
+
+`FULL JOIN` preserva ambos os lados:
+
+```sql
+SELECT *
+FROM clientes c
+FULL JOIN leads l ON l.email = c.email;
+```
+
+`CROSS JOIN` gera combinacao cartesiana:
+
+```sql
+SELECT c.nome, m.mes
+FROM clientes c
+CROSS JOIN generate_series(date '2026-01-01', date '2026-12-01', interval '1 month') AS m(mes);
+```
+
+Use `CROSS JOIN` conscientemente, pois ele multiplica linhas.
+
+## Subquery escalar
+
+Retorna um valor.
+
+```sql
+SELECT
+  id,
+  total
+FROM pedidos
+WHERE total > (
+  SELECT AVG(total)
+  FROM pedidos
+  WHERE status = 'pago'
+);
+```
+
+## Subquery com IN
+
+```sql
+SELECT *
+FROM clientes
+WHERE id IN (
+  SELECT cliente_id
+  FROM pedidos
+  WHERE status = 'pago'
+);
+```
+
+Boa para leitura, mas em muitos casos `EXISTS` expressa melhor a pergunta.
+
+## EXISTS
+
+`EXISTS` testa existencia.
+
+```sql
+SELECT c.*
+FROM clientes c
+WHERE EXISTS (
+  SELECT 1
+  FROM pedidos p
+  WHERE p.cliente_id = c.id
+    AND p.status = 'pago'
+);
+```
+
+Clientes sem pedido pago:
+
+```sql
+SELECT c.*
+FROM clientes c
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM pedidos p
+  WHERE p.cliente_id = c.id
+    AND p.status = 'pago'
+);
+```
+
+## CTE com WITH
+
+CTE significa Common Table Expression. Ela nomeia uma etapa da consulta.
+
+```sql
+WITH vendas_por_cliente AS (
+  SELECT
+    cliente_id,
+    SUM(total) AS receita
+  FROM pedidos
+  WHERE status = 'pago'
+  GROUP BY cliente_id
+)
+SELECT
+  c.nome,
+  v.receita
+FROM vendas_por_cliente v
+JOIN clientes c ON c.id = v.cliente_id
+ORDER BY v.receita DESC;
+```
+
+## Varias CTEs
+
+```sql
+WITH pedidos_pagos AS (
+  SELECT *
+  FROM pedidos
+  WHERE status = 'pago'
+),
+vendas_mes AS (
+  SELECT
+    date_trunc('month', criado_em)::date AS mes,
+    SUM(total) AS receita
+  FROM pedidos_pagos
+  GROUP BY date_trunc('month', criado_em)::date
+)
+SELECT *
+FROM vendas_mes
+ORDER BY mes;
+```
+
+<TipBlock title="CTE e raciocinio por etapas" text="Quando a query começa a ficar grande, transforme blocos conceituais em CTEs com nomes bons. A consulta fica mais estudavel e menos frágil." />
+
+## LATERAL em PostgreSQL
+
+`LATERAL` permite que uma subconsulta use colunas da linha atual.
+
+```sql
+SELECT
+  c.id,
+  c.nome,
+  ultimo.id AS ultimo_pedido,
+  ultimo.total
+FROM clientes c
+LEFT JOIN LATERAL (
+  SELECT p.id, p.total
+  FROM pedidos p
+  WHERE p.cliente_id = c.id
+  ORDER BY p.criado_em DESC
+  LIMIT 1
+) ultimo ON true;
+```
+
+Isso pega o ultimo pedido de cada cliente sem precisar fazer gambiarra com agregacao.

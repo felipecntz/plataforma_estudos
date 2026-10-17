@@ -1,0 +1,114 @@
+---
+title: "EC2: servidores virtuais na AWS"
+description: Revise instâncias, AMIs, tipos de máquina, security groups, volumes EBS, acesso e escala com EC2.
+area: Cloud
+areaSlug: cloud
+category: AWS
+categorySlug: aws
+topic: EC2
+slug: aws-ec2-servidores-virtuais
+order: 4
+icon: server
+color: tech
+difficulty: Iniciante
+readingTime: 12 min
+updatedAt: 08/08/2026
+featured: true
+tags:
+  - aws
+  - ec2
+  - servidores
+  - computação
+summary: EC2 fornece máquinas virtuais configuráveis para rodar aplicações quando você precisa de controle sobre sistema, rede e runtime.
+mindMap:
+  title: Mapa mental de EC2
+  subtitle: Máquina, imagem, rede, disco, acesso e escala.
+  highlights:
+    - instância
+    - security group
+    - EBS
+  sections:
+    - title: Instância
+      kind: core
+      definition: Servidor virtual criado a partir de uma imagem e de um tipo de máquina.
+      bullets:
+        - AMI define sistema inicial
+        - instance type define CPU e memória
+        - região e AZ afetam latência
+      example: Uma `t3.micro` com Ubuntu para laboratório.
+    - title: Rede
+      kind: base
+      definition: EC2 roda dentro de VPC e subnet, com regras de entrada e saída.
+      bullets:
+        - subnet pública expõe internet
+        - subnet privada protege backend
+        - security group atua como firewall
+      example: Liberar porta 22 só para seu IP e porta 443 para usuários.
+    - title: Disco
+      kind: process
+      definition: EBS funciona como volume em bloco persistente ligado à instância.
+      bullets:
+        - root volume guarda o sistema
+        - snapshot cria backup
+        - tamanho e IOPS impactam custo
+      example: Aumentar volume EBS quando logs ou banco local crescem.
+    - title: Escala
+      kind: application
+      definition: EC2 escala com imagens, launch templates, load balancer e auto scaling.
+      bullets:
+        - AMI padroniza servidores
+        - ELB distribui tráfego
+        - Auto Scaling ajusta quantidade
+      example: Subir mais instâncias quando CPU média passa do limite.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="EC2 é servidor virtual sob demanda" text="Elastic Compute Cloud permite criar máquinas virtuais na AWS para rodar aplicações, scripts, bancos de teste, serviços internos e workloads que precisam de controle do sistema operacional." />
+
+Use EC2 quando você precisa escolher sistema, instalar pacotes, controlar runtime, abrir portas específicas, manter processos longos ou migrar uma aplicação tradicional. Se a carga for muito eventual e curta, Lambda pode ser melhor. Se a aplicação já está em container, ECS ou EKS podem fazer mais sentido em etapas futuras.
+
+## Anatomia de uma instância
+
+| Elemento | O que define |
+| --- | --- |
+| AMI | imagem inicial do sistema |
+| Instance type | CPU, memória, rede e família da máquina |
+| Key pair | chave para acesso SSH, quando aplicável |
+| Security group | regras de firewall da instância |
+| Subnet | onde a instância entra na rede |
+| EBS | volume persistente em bloco |
+| IAM role | permissões da instância para acessar outros serviços |
+
+<TipBlock title="Macete" text="EC2 não é só ligar uma máquina. Pense em imagem, rede, disco, permissão, backup, monitoramento e custo." />
+
+## Security group
+
+Security group controla tráfego permitido. Ele é stateful: se uma entrada é permitida, a resposta correspondente volta sem precisar criar regra inversa manual. Em produção, evite liberar SSH para `0.0.0.0/0`.
+
+```text
+Entrada segura comum:
+SSH 22 -> apenas seu IP
+HTTPS 443 -> público
+HTTP 80 -> público ou redirecionamento
+```
+
+## EBS e snapshots
+
+EBS é o disco persistente da EC2. O volume raiz guarda o sistema operacional. Volumes adicionais podem guardar dados. Snapshots criam backups incrementais, úteis para recuperação e criação de novas máquinas.
+
+<WarningBlock title="Erro comum" text="Tratar EC2 como computador pessoal eterno. Em cloud, servidores devem ser recriáveis por imagem, script ou infraestrutura como código." />
+
+## Quando usar EC2
+
+<ExampleBlock title="Cenário típico" text="Uma aplicação Django legada com dependências específicas pode rodar em EC2, atrás de um Load Balancer, com banco no RDS, arquivos no S3 e logs no CloudWatch." />
+
+EC2 é boa para controle. Mas controle traz operação: patch, hardening, backup, monitoramento, escala, custo e resposta a incidentes.
+
+## Resumo de revisão
+
+EC2 é computação flexível baseada em instâncias. AMI define o ponto de partida, instance type define capacidade, security group protege rede, EBS guarda disco e IAM role dá permissões. Use quando precisar de controle de servidor e planeje automação desde cedo.

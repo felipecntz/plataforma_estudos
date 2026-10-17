@@ -1,0 +1,139 @@
+---
+title: Equacao do segundo grau
+description: Identifique e resolva equacoes quadraticas por fatoracao ou formula de Bhaskara.
+area: Matematica
+areaSlug: matematica
+category: Matematica basica
+categorySlug: matematica-basica
+topic: Equacao do segundo grau
+slug: equacao-segundo-grau
+order: 8
+icon: parabola
+color: math
+difficulty: Intermediario
+readingTime: 12 min
+updatedAt: 18/07/2026
+featured: true
+tags:
+  - matematica
+  - algebra
+  - equacao segundo grau
+  - bhaskara
+summary: Revise forma geral, discriminante, Bhaskara, fatoracao, relacoes de Viete e verificacao das raizes.
+mindMap:
+  title: Mapa mental de equacao do segundo grau
+  subtitle: Coeficientes, discriminante, raizes e caminhos de resolucao.
+  highlights: [coeficientes, delta, bhaskara, fatoracao]
+  sections:
+    - title: Forma geral
+      kind: core
+      definition: A maior potencia da incognita é 2 e o coeficiente a nao pode ser zero.
+      formula: 'ax^2+bx+c=0 \quad (a\neq0)'
+      example: x² - 5x + 6 = 0.
+    - title: Discriminante
+      kind: base
+      definition: Delta antecipa quantas raizes reais a equacao possui.
+      formula: '\Delta=b^2-4ac'
+      bullets:
+        - 'Δ positivo: duas raizes reais'
+        - 'Δ zero: uma raiz real dupla'
+        - 'Δ negativo: nenhuma raiz real'
+      example: Para x² - 5x + 6, Δ = 1.
+    - title: Formula de Bhaskara
+      kind: process
+      definition: Substitua os coeficientes com seus sinais e calcule as duas possibilidades.
+      formula: 'x=\frac{-b\pm\sqrt{\Delta}}{2a}'
+      example: x² - 5x + 6 = 0 gera x = 2 ou x = 3.
+    - title: Fatoracao
+      kind: process
+      definition: Se o trinomio for fatoravel, use o produto nulo.
+      bullets:
+        - procure dois numeros com produto ac
+        - confira a soma relacionada a b
+        - cada fator igual a zero gera uma raiz
+      example: (x - 2)(x - 3) = 0.
+    - title: Relacoes entre raizes
+      kind: application
+      definition: Soma e produto ajudam a conferir ou montar uma equacao.
+      formula: 'x_1+x_2=-\frac{b}{a},\quad x_1x_2=\frac{c}{a}'
+      example: Em x² - 5x + 6, soma 5 e produto 6.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Reconhecendo uma equação quadrática
+
+<DefinitionBlock title="O segundo grau aparece no termo x²" text="Na forma geral ax² + bx + c = 0, o coeficiente a deve ser diferente de zero. Os termos b ou c podem ser zero, formando uma equação incompleta." />
+
+Antes de usar qualquer método, leve todos os termos para um lado, deixe zero no outro e identifique `a`, `b` e `c` com seus sinais.
+
+## Discriminante: o papel de delta
+
+<FormulaBlock
+  name="Discriminante"
+  expression="\Delta=b^2-4ac"
+  description="Delta é a parte da fórmula de resolução que fica dentro da raiz e indica o comportamento das soluções reais."
+  variables={[
+    { label: "a", meaning: "coeficiente de x²" },
+    { label: "b", meaning: "coeficiente de x" },
+    { label: "c", meaning: "termo independente" }
+  ]}
+  example="Em x² - 5x + 6 = 0, Δ = (-5)² - 4 × 1 × 6 = 25 - 24 = 1."
+  note="Se Δ for negativo, não há raízes no conjunto dos números reais."
+  mistake="Usar b sem o sinal: se b = -5, então b² = (-5)²."
+/>
+
+- `Δ > 0`: duas raízes reais diferentes.
+- `Δ = 0`: uma raiz real dupla.
+- `Δ < 0`: nenhuma raiz real.
+
+## Fórmula de Bhaskara
+
+<FormulaBlock
+  name="Raizes da equacao do segundo grau"
+  expression="x=\frac{-b\pm\sqrt{\Delta}}{2a}"
+  description="O símbolo ± cria duas contas: uma com soma e outra com subtração."
+  variables={[
+    { label: "Δ", meaning: "discriminante calculado antes" },
+    { label: "2a", meaning: "denominador inteiro da fracao" }
+  ]}
+  example="Para x² - 5x + 6 = 0: x = (5 ± 1)/2, então x₁ = 3 e x₂ = 2."
+  note="Use parênteses ao substituir coeficientes negativos."
+  mistake="Dividir apenas a raiz por 2a; todo o numerador -b ± √Δ deve ser dividido."
+/>
+
+## Resolução por fatoração
+
+Quando o trinômio permite, fatorar costuma ser mais rápido. Em `x² - 5x + 6 = 0`, procuramos dois números cujo produto seja `6` e cuja soma seja `-5`: `-2` e `-3`.
+
+`(x - 2)(x - 3) = 0`
+
+Pelo princípio do produto nulo, pelo menos um fator deve ser zero. Logo, `x = 2` ou `x = 3`.
+
+<TipBlock title="Veja primeiro se a fatoração é evidente" text="Bhaskara sempre funciona para coeficientes reais quando há solução real, mas reconhecer fatores pode encurtar muito a resolução." />
+
+## Equações incompletas
+
+Se `c = 0`, coloque `x` em evidência:
+
+`2x² - 8x = 0` vira `2x(x - 4) = 0`, então `x = 0` ou `x = 4`.
+
+Se `b = 0`, isole `x²`:
+
+`x² - 49 = 0` leva a `x² = 49`, então `x = 7` ou `x = -7`.
+
+<WarningBlock title="Ao extrair a raiz de x², considere os dois sinais" text="Da equação x² = 49 surgem x = ±7. Isso é diferente do valor da raiz principal √49, que é 7." />
+
+## Relações de soma e produto
+
+Para raízes `x₁` e `x₂`:
+
+- `x₁ + x₂ = -b/a`;
+- `x₁ × x₂ = c/a`.
+
+Essas relações ajudam a conferir o resultado. Em `x² - 5x + 6`, as raízes `2` e `3` somam `5` e produzem `6`.
+
+<ExampleBlock title="Verificacao final" text="Substitua cada raiz na equação original. Para x = 2: 2² - 5 × 2 + 6 = 4 - 10 + 6 = 0." />

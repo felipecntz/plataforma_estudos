@@ -1,0 +1,48 @@
+---
+import "../styles/global.css";
+import "../styles/layout.css";
+import "../styles/components.css";
+import "../styles/content.css";
+import "../styles/responsive.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Plataforma estatica de estudos com visual editorial." } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <script is:inline>
+      (() => {
+        const storageKey = "atlas-theme";
+        let savedTheme = null;
+
+        try {
+          savedTheme = localStorage.getItem(storageKey);
+        } catch {
+          // A pagina continua usando a preferencia do sistema se o storage estiver indisponivel.
+        }
+
+        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = savedTheme === "dark" || savedTheme === "light" ? savedTheme : systemTheme;
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+ </html>

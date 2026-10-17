@@ -1,0 +1,53 @@
+---
+import katex from "katex";
+
+const { title, subtitle, sections = [], highlights = [] } = Astro.props;
+
+const kindLabel = {
+  core: "Essencia",
+  base: "Base",
+  process: "Regra",
+  application: "Aplicacao"
+};
+---
+
+<section class="content-block">
+  <div class="mindmap-shell stack-md">
+    <div>
+      <div class="eyebrow">Mapa mental</div>
+      <h3 style="font-size:1.5rem;margin:0.35rem 0 0.2rem;">{title}</h3>
+      {subtitle && <p class="lede" style="font-size:0.98rem;margin:0.3rem 0 0;">{subtitle}</p>}
+      {highlights.length > 0 && (
+        <div class="tag-row" style="margin-top:0.7rem;">
+          {highlights.map((item) => <span class="tag">{item}</span>)}
+        </div>
+      )}
+    </div>
+    <div class="mindmap-grid">
+      {sections.map((section) => {
+        const formulaHtml = section.formula
+          ? katex.renderToString(section.formula, { throwOnError: false, displayMode: true })
+          : null;
+
+        return (
+          <article class:list={["mindmap-card", `mindmap-card-${section.kind}`]}>
+            <div class="eyebrow">{kindLabel[section.kind]}</div>
+            <h4 style="font-size:1.1rem;margin:0.35rem 0 0;">{section.title}</h4>
+            {section.definition && <p class="lede mindmap-copy">{section.definition}</p>}
+            {formulaHtml && <div class="mindmap-formula" set:html={formulaHtml}></div>}
+            {section.bullets && (
+              <ul class="mindmap-list">
+                {section.bullets.map((item) => <li>{item}</li>)}
+              </ul>
+            )}
+            {section.example && (
+              <div class="mindmap-example">
+                <strong>Exemplo rapido:</strong> {section.example}
+              </div>
+            )}
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>

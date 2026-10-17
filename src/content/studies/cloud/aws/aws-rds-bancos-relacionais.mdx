@@ -1,0 +1,108 @@
+---
+title: "RDS: bancos relacionais gerenciados na AWS"
+description: Revise engines, instâncias, storage, backups, Multi-AZ, réplicas e cuidados de segurança no Amazon RDS.
+area: Cloud
+areaSlug: cloud
+category: AWS
+categorySlug: aws
+topic: RDS
+slug: aws-rds-bancos-relacionais
+order: 6
+icon: database
+color: tech
+difficulty: Iniciante
+readingTime: 12 min
+updatedAt: 08/08/2026
+featured: true
+tags:
+  - aws
+  - rds
+  - banco de dados
+  - sql
+summary: RDS gerencia bancos relacionais como PostgreSQL e MySQL, reduzindo trabalho operacional de instalação, backup e manutenção.
+mindMap:
+  title: Mapa mental de RDS
+  subtitle: Engine, instância, armazenamento, disponibilidade e segurança.
+  highlights:
+    - engine
+    - backup
+    - Multi-AZ
+  sections:
+    - title: Engine
+      kind: core
+      definition: O tipo de banco relacional escolhido para a aplicação.
+      bullets:
+        - PostgreSQL
+        - MySQL ou MariaDB
+        - SQL Server, Oracle ou Aurora
+      example: PostgreSQL para aplicação transacional comum.
+    - title: Operação
+      kind: base
+      definition: RDS cuida de instalação, patches, backup e parte da disponibilidade.
+      bullets:
+        - backup automático
+        - janela de manutenção
+        - monitoramento integrado
+      example: Restaurar banco para um ponto no tempo usando backups automáticos.
+    - title: Disponibilidade
+      kind: process
+      definition: Multi-AZ cria standby para reduzir impacto de falha de zona.
+      bullets:
+        - Multi-AZ para resiliência
+        - read replica para leitura
+        - snapshot para cópia pontual
+      example: Usar réplica de leitura para relatórios pesados.
+    - title: Segurança
+      kind: application
+      definition: Banco deve ficar em subnet privada, com acesso restrito e criptografia.
+      bullets:
+        - security group fechado
+        - criptografia em repouso
+        - segredo fora do código
+      example: Aplicação na EC2 acessa RDS; internet não acessa o banco diretamente.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="RDS é banco relacional com operação gerenciada" text="Amazon Relational Database Service permite criar bancos como PostgreSQL, MySQL, MariaDB, Oracle e SQL Server sem administrar manualmente instalação, patches básicos, backups e parte da disponibilidade." />
+
+RDS não elimina o trabalho de banco de dados. Você ainda precisa modelar tabelas, criar índices, controlar queries, definir permissões, monitorar custo e planejar crescimento. O ganho é reduzir a operação de infraestrutura do banco.
+
+## O que você escolhe ao criar
+
+| Decisão | Impacto |
+| --- | --- |
+| Engine | recursos SQL, compatibilidade e operação |
+| Classe da instância | CPU, memória e custo |
+| Storage | tamanho, desempenho e crescimento |
+| Multi-AZ | maior disponibilidade |
+| Backup | recuperação em caso de erro |
+| Subnet group | onde o banco ficará na rede |
+| Security group | quem pode conectar |
+
+<TipBlock title="Macete" text="RDS é gerenciado, mas não é mágico. Query ruim, índice ausente e conexão aberta demais continuam sendo problema seu." />
+
+## Multi-AZ e réplicas
+
+Multi-AZ cria uma instância reserva em outra zona de disponibilidade para failover. O foco é disponibilidade. Read replica cria uma cópia para leitura, útil para aliviar consultas pesadas. O foco é escala de leitura.
+
+```text
+Multi-AZ -> resiliência
+Read replica -> escala de leitura
+Snapshot -> cópia em um momento específico
+Backup automático -> recuperação por janela de tempo
+```
+
+## Segurança
+
+O banco normalmente deve ficar em subnet privada. A aplicação acessa o RDS por security group. Administradores podem acessar por VPN, bastion host, Session Manager ou outra rota controlada.
+
+<WarningBlock title="Erro comum" text="Colocar RDS público por conveniência. Banco de produção exposto à internet aumenta muito a superfície de ataque." />
+
+## Resumo de revisão
+
+RDS é a escolha natural quando a aplicação precisa de banco relacional e você quer reduzir operação. Escolha engine, tamanho, storage, backup e rede com cuidado. Multi-AZ melhora disponibilidade; read replica ajuda leitura. Segurança começa com subnet privada, security group restrito e segredo fora do código.

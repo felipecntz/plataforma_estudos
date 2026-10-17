@@ -1,0 +1,189 @@
+---
+title: Funcao do primeiro grau
+description: Interprete coeficientes, grafico, zero, crescimento e sinal de uma funcao afim.
+area: Matematica
+areaSlug: matematica
+category: Matematica nivel medio
+categorySlug: matematica-nivel-medio
+topic: Funcao do primeiro grau
+slug: funcao-primeiro-grau
+order: 15
+icon: line-chart
+color: math
+difficulty: Intermediario
+readingTime: 12 min
+updatedAt: 18/07/2026
+featured: true
+tags:
+  - matematica
+  - funcao primeiro grau
+  - funcao afim
+  - reta
+summary: Entenda a reta y = ax + b por seus coeficientes, interceptos, variação, sinal e aplicações.
+mindMap:
+  title: Mapa mental de funcao do primeiro grau
+  subtitle: A reta, seus coeficientes e as principais leituras do grafico.
+  highlights: [coeficiente angular, intercepto, zero, sinal]
+  sections:
+    - title: Forma geral
+      kind: core
+      definition: Função afim possui taxa de variação constante e gráfico em forma de reta.
+      formula: 'f(x)=ax+b\quad(a\neq0)'
+      bullets:
+        - a é o coeficiente angular
+        - b é o coeficiente linear
+      example: f(x) = 2x - 6.
+    - title: Coeficientes
+      kind: base
+      definition: O coeficiente a mede a variação de y para cada unidade de x; b é f(0).
+      formula: 'a=\frac{\Delta y}{\Delta x}'
+      bullets:
+        - a positivo gera função crescente
+        - a negativo gera função decrescente
+        - ponto (0, b) está no gráfico
+      example: Em 3x + 4, a reta sobe 3 e cruza y em 4.
+    - title: Zero da funcao
+      kind: process
+      definition: É a entrada em que a reta cruza o eixo x.
+      formula: 'x_0=-\frac{b}{a}'
+      example: Para f(x) = 2x - 6, x₀ = 3.
+    - title: Construcao do grafico
+      kind: process
+      definition: Dois pontos distintos determinam uma reta.
+      bullets:
+        - use (0, b)
+        - calcule o zero quando conveniente
+        - confira a inclinação indicada por a
+      example: f(x)=2x-6 passa por (0,-6) e (3,0).
+    - title: Sinal e aplicacao
+      kind: application
+      definition: O zero divide a reta em regiões positivas e negativas.
+      bullets:
+        - compare receita e custo pelo ponto de equilibrio
+        - modele valor inicial mais taxa constante
+        - interprete unidade de a no contexto
+      example: C(x)=50+8x tem custo fixo 50 e variável 8 por unidade.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import GraphBlock from "../../../../components/GraphBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## O modelo linear
+
+<DefinitionBlock title="Funcao afim representa variacao constante" text="Sua lei é f(x) = ax + b, com a diferente de zero. O gráfico é uma reta porque a saída muda sempre pela mesma quantidade quando a entrada avança uma unidade." />
+
+<FormulaBlock
+  name="Forma da funcao afim"
+  expression="f(x)=ax+b,\quad a\neq0"
+  description="O coeficiente a controla a inclinação da reta; b indica o valor inicial f(0)."
+  variables={[
+    { label: "a", meaning: "coeficiente angular ou taxa de variacao" },
+    { label: "b", meaning: "coeficiente linear ou intercepto vertical" },
+    { label: "x", meaning: "variavel independente" }
+  ]}
+  example="Em f(x) = 3x - 6, a = 3 e b = -6."
+  note="Quando b = 0, temos uma função linear f(x) = ax, cujo gráfico passa pela origem."
+  mistake="Confundir a função f(x) = ax + b com a equação ax + b = 0; a função possui vários pares (x, y)."
+/>
+
+## Interpretando os coeficientes
+
+O coeficiente angular mede quanto `y` varia para cada unidade acrescentada a `x`:
+
+`a = Δy/Δx`
+
+- `a > 0`: função crescente;
+- `a < 0`: função decrescente;
+- quanto maior `|a|`, mais inclinada é a reta.
+
+O coeficiente linear é `f(0) = b`, portanto o gráfico cruza o eixo y no ponto `(0, b)`.
+
+<ExampleBlock title="Taxa de variacao" text="Na função f(x) = -2x + 5, cada aumento de 1 em x reduz f(x) em 2. A reta é decrescente e cruza o eixo y em (0, 5)." />
+
+## Zero ou raiz da função
+
+O zero é a entrada que produz saída zero.
+
+<FormulaBlock
+  name="Zero da funcao afim"
+  expression="x_0=-\frac{b}{a}"
+  description="Resolva ax + b = 0 para encontrar onde a reta cruza o eixo x."
+  variables={[
+    { label: "x₀", meaning: "zero da funcao" },
+    { label: "a", meaning: "coeficiente angular" },
+    { label: "b", meaning: "coeficiente linear" }
+  ]}
+  example="Para f(x) = 2x - 6, x₀ = -(-6)/2 = 3. O ponto (3, 0) pertence à reta."
+  note="O zero é uma entrada; graficamente, corresponde ao ponto (x₀, 0)."
+  mistake="Trocar o sinal de b ou esquecer de dividir por a."
+/>
+
+## Construindo o gráfico
+
+Dois pontos distintos determinam uma reta. Um roteiro rápido é:
+
+1. calcule `f(0) = b` para obter `(0, b)`;
+2. calcule o zero para obter `(x₀, 0)`;
+3. marque os pontos e trace a reta;
+4. confira se a inclinação combina com o sinal de `a`.
+
+<ExampleBlock title="Grafico de f(x) = 2x - 6" text="O intercepto vertical é (0, -6) e o zero é (3, 0). Como a = 2 > 0, a reta deve subir da esquerda para a direita." />
+
+<GraphBlock
+  title="Reta crescente: f(x) = 2x - 6"
+  description="A reta cruza o eixo y em -6, cruza o eixo x em 3 e sobe porque o coeficiente angular é positivo."
+  variant="linePositive"
+  notes={[
+    "O ponto (0, -6) vem direto do coeficiente b.",
+    "O ponto (3, 0) é o zero da função: ali f(x) deixa de ser negativa e passa a ser positiva.",
+    "Como a = 2, a cada 1 unidade que x anda para a direita, y sobe 2 unidades."
+  ]}
+/>
+
+<GraphBlock
+  title="Reta decrescente: f(x) = -2x + 5"
+  description="Quando a é negativo, a reta desce da esquerda para a direita."
+  variant="lineNegative"
+  notes={[
+    "O intercepto vertical é (0, 5), pois f(0) = 5.",
+    "O zero é x = 2,5, porque -2x + 5 = 0.",
+    "Antes do zero a função é positiva; depois do zero ela fica negativa."
+  ]}
+/>
+
+Se `b = 0`, os dois interceptos coincidem na origem. Nesse caso, escolha outro valor de x para obter o segundo ponto.
+
+## Estudo do sinal
+
+Para `f(x) = ax + b`, o zero divide a reta em dois intervalos.
+
+Se `a > 0`:
+
+- `f(x) < 0` quando `x < x₀`;
+- `f(x) = 0` quando `x = x₀`;
+- `f(x) > 0` quando `x > x₀`.
+
+Se `a < 0`, os sinais se invertem.
+
+<TipBlock title="Use o crescimento para montar o quadro de sinais" text="Depois de encontrar o zero, observe se a reta sobe ou desce. Assim você evita decorar dois casos sem lógica." />
+
+## Encontrando a lei por dois pontos
+
+Se a reta passa por `(x₁, y₁)` e `(x₂, y₂)`, com `x₁ ≠ x₂`:
+
+`a = (y₂ - y₁)/(x₂ - x₁)`
+
+Depois, substitua um ponto em `y = ax + b` para encontrar `b`.
+
+<ExampleBlock title="Lei a partir de dois pontos" text="A reta passa por (1, 4) e (3, 10). Então a = (10 - 4)/(3 - 1) = 3. Usando (1, 4): 4 = 3 × 1 + b, logo b = 1 e f(x) = 3x + 1." />
+
+## Aplicação: custo e ponto de equilíbrio
+
+Uma empresa possui custo `C(x) = 500 + 20x` e receita `R(x) = 45x`. O ponto de equilíbrio ocorre quando receita e custo são iguais:
+
+`45x = 500 + 20x` → `25x = 500` → `x = 20`.
+
+<WarningBlock title="Interprete os coeficientes com unidade" text="Nesse exemplo, 500 é custo fixo em reais e 20 é custo em reais por unidade. Um número sem sua unidade pode levar a uma conclusão incompleta." />

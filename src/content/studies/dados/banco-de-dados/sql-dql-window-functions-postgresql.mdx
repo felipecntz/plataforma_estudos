@@ -1,0 +1,307 @@
+---
+title: "DQL: window functions no PostgreSQL"
+description: Aprofunde OVER, PARTITION BY, ORDER BY, frames, rankings, acumulados, LAG, LEAD e medias moveis em PostgreSQL.
+area: Dados
+areaSlug: dados
+category: Banco de Dados
+categorySlug: banco-de-dados
+topic: DQL window functions
+slug: sql-dql-window-functions-postgresql
+order: 39
+icon: database
+color: data
+difficulty: Avancado
+readingTime: 24 min
+updatedAt: 01/08/2026
+featured: true
+tags:
+  - dados
+  - sql
+  - postgresql
+  - window functions
+  - analytics
+summary: Window functions calculam valores analiticos sem colapsar linhas. Com OVER, PARTITION BY, ORDER BY e frames, voce cria rankings, acumulados, comparacoes com linha anterior e medias moveis.
+mindMap:
+  title: Mapa mental de window functions
+  subtitle: Analise linha a linha sem perder detalhe.
+  highlights:
+    - OVER
+    - PARTITION BY
+    - ROW_NUMBER
+    - LAG
+  sections:
+    - title: OVER
+      kind: core
+      definition: Define a janela sobre a qual a funcao calcula.
+      example: SUM(total) OVER (...).
+    - title: PARTITION BY
+      kind: process
+      definition: Divide a janela em grupos independentes.
+      example: PARTITION BY cliente_id.
+    - title: ORDER BY
+      kind: process
+      definition: Define sequencia dentro da janela.
+      example: ORDER BY criado_em.
+    - title: Ranking
+      kind: application
+      definition: Numera ou ranqueia linhas por criterio.
+      bullets:
+        - row_number
+        - rank
+        - dense_rank
+    - title: Comparacao
+      kind: application
+      definition: LAG e LEAD acessam linha anterior ou proxima.
+      example: total - LAG(total) OVER (...).
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Window function calcula sem agrupar tudo" text="Uma window function calcula valores sobre um conjunto de linhas relacionadas, mas preserva uma linha de resultado para cada linha original." />
+
+Compare:
+
+- `GROUP BY` resume varias linhas em uma linha por grupo;
+- window function calcula sobre o grupo, mas mantem o detalhe.
+
+## Estrutura do OVER
+
+```sql
+funcao(...) OVER (
+  PARTITION BY coluna_de_grupo
+  ORDER BY coluna_de_ordem
+  ROWS BETWEEN ...
+)
+```
+
+Partes:
+
+- `PARTITION BY`: reinicia a janela por grupo;
+- `ORDER BY`: define sequencia;
+- frame: define quais linhas entram no calculo relativo.
+
+## Total por cliente sem perder pedidos
+
+```sql
+SELECT
+  id,
+  cliente_id,
+  total,
+  SUM(total) OVER (PARTITION BY cliente_id) AS total_cliente
+FROM pedidos
+WHERE status = 'pago'
+ORDER BY cliente_id, id;
+```
+
+Cada pedido aparece, mas junto com o total do cliente.
+
+## Percentual do total
+
+```sql
+SELECT
+  id,
+  cliente_id,
+  total,
+  total / SUM(total) OVER () AS percentual_geral
+FROM pedidos
+WHERE status = 'pago';
+```
+
+Por cliente:
+
+```sql
+SELECT
+  id,
+  cliente_id,
+  total,
+  total / SUM(total) OVER (PARTITION BY cliente_id) AS percentual_no_cliente
+FROM pedidos
+WHERE status = 'pago';
+```
+
+## ROW_NUMBER
+
+Numera linhas sem empate.
+
+```sql
+SELECT
+  id,
+  cliente_id,
+  total,
+  ROW_NUMBER() OVER (
+    PARTITION BY cliente_id
+    ORDER BY criado_em DESC
+  ) AS posicao_recencia
+FROM pedidos;
+```
+
+Pegar ultimo pedido de cada cliente:
+
+```sql
+WITH pedidos_numerados AS (
+  SELECT
+    p.*,
+    ROW_NUMBER() OVER (
+      PARTITION BY cliente_id
+      ORDER BY criado_em DESC
+    ) AS rn
+  FROM pedidos p
+)
+SELECT *
+FROM pedidos_numerados
+WHERE rn = 1;
+```
+
+## RANK e DENSE_RANK
+
+```sql
+SELECT
+  cliente_id,
+  total,
+  RANK() OVER (ORDER BY total DESC) AS rank_com_salto,
+  DENSE_RANK() OVER (ORDER BY total DESC) AS rank_sem_salto
+FROM pedidos
+WHERE status = 'pago';
+```
+
+Se dois pedidos empatam em primeiro:
+
+- `RANK`: 1, 1, 3;
+- `DENSE_RANK`: 1, 1, 2.
+
+## NTILE
+
+Divide linhas em faixas.
+
+```sql
+SELECT
+  cliente_id,
+  total,
+  NTILE(4) OVER (ORDER BY total DESC) AS quartil
+FROM pedidos
+WHERE status = 'pago';
+```
+
+Util para segmentacao simples.
+
+## LAG e LEAD
+
+`LAG` olha para tras. `LEAD` olha para frente.
+
+```sql
+SELECT
+  cliente_id,
+  criado_em::date AS data_pedido,
+  total,
+  LAG(total) OVER (
+    PARTITION BY cliente_id
+    ORDER BY criado_em
+  ) AS total_anterior
+FROM pedidos;
+```
+
+Variacao contra pedido anterior:
+
+```sql
+SELECT
+  cliente_id,
+  criado_em::date AS data_pedido,
+  total,
+  total - LAG(total) OVER (
+    PARTITION BY cliente_id
+    ORDER BY criado_em
+  ) AS variacao
+FROM pedidos;
+```
+
+## Acumulado
+
+```sql
+SELECT
+  criado_em::date AS dia,
+  total,
+  SUM(total) OVER (
+    ORDER BY criado_em
+    ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+  ) AS total_acumulado
+FROM pedidos
+WHERE status = 'pago'
+ORDER BY criado_em;
+```
+
+Por cliente:
+
+```sql
+SELECT
+  cliente_id,
+  criado_em::date AS dia,
+  total,
+  SUM(total) OVER (
+    PARTITION BY cliente_id
+    ORDER BY criado_em
+    ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+  ) AS acumulado_cliente
+FROM pedidos
+WHERE status = 'pago';
+```
+
+## Media movel
+
+```sql
+WITH vendas_dia AS (
+  SELECT
+    criado_em::date AS dia,
+    SUM(total) AS receita
+  FROM pedidos
+  WHERE status = 'pago'
+  GROUP BY criado_em::date
+)
+SELECT
+  dia,
+  receita,
+  AVG(receita) OVER (
+    ORDER BY dia
+    ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+  ) AS media_movel_7_dias
+FROM vendas_dia
+ORDER BY dia;
+```
+
+## Frame: ROWS vs RANGE
+
+`ROWS` conta linhas fisicas. `RANGE` considera valores equivalentes na ordenacao.
+
+```sql
+SUM(total) OVER (
+  ORDER BY criado_em
+  ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+)
+```
+
+Para estudos e dashboards, `ROWS` costuma ser mais previsivel quando voce quer uma janela por quantidade de linhas.
+
+<WarningBlock title="ORDER BY da janela nao e ORDER BY final" text="ORDER BY dentro de OVER define a ordem do calculo da janela. Para ordenar o resultado na tela, use ORDER BY no fim da consulta." />
+
+## WINDOW nomeada
+
+Se varias funcoes usam a mesma janela:
+
+```sql
+SELECT
+  cliente_id,
+  criado_em,
+  total,
+  SUM(total) OVER w AS acumulado,
+  AVG(total) OVER w AS media_ate_aqui
+FROM pedidos
+WINDOW w AS (
+  PARTITION BY cliente_id
+  ORDER BY criado_em
+  ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+);
+```
+
+<TipBlock title="Quando usar window" text="Use window function quando voce precisa de ranking, acumulado, comparacao com linha anterior, percentual do total ou calculo por grupo sem perder as linhas detalhadas." />

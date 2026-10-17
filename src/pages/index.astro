@@ -1,0 +1,92 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AppShell from "../components/AppShell.astro";
+import StudyCard from "../components/StudyCard.astro";
+import TopicCard from "../components/TopicCard.astro";
+import { areas } from "../data/areas";
+import { getFeaturedStudies, getStudies } from "../lib/content";
+import { withBase } from "../lib/links";
+
+const allStudies = await getStudies();
+const featured = await getFeaturedStudies();
+const recentHighlights = allStudies.slice(0, 3);
+const countLabel = (count: number, singular: string, plural: string) => `${count} ${count === 1 ? singular : plural}`;
+---
+
+<BaseLayout title="Atlas de Estudos" description="Biblioteca estatica de estudos com visual editorial premium.">
+  <AppShell currentPath={Astro.url.pathname} breadcrumbs={[{ label: "Inicio" }]}>
+    <section class="hero-card home-hero">
+      <div class="stack-md">
+        <span class="eyebrow">Estudar sem atrito</span>
+        <h1 class="display-title" style="margin:0;">Entre, navegue e revise.</h1>
+        <p class="lede">
+          Cada topico agora tem duas leituras: um resumo descritivo mais completo para entender a logica e um mapa mental enxuto para revisar o essencial.
+        </p>
+        <div class="meta-row">
+          <a class="solid-button" href={withBase("/conteudos/fracoes/")}>Comecar por fracoes</a>
+          <a class="ghost-button" href="#areas">Ver areas</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="areas" class="stack-md" style="margin-top:1.5rem;">
+      <div class="stack-sm">
+        <span class="eyebrow">Areas de estudo</span>
+        <h2 class="section-title">Escolha a trilha</h2>
+      </div>
+      <div class="cards-2">
+        {areas.map((area) => (
+          <StudyCard
+            title={area.name}
+            description={area.description}
+            href={withBase(`/areas/${area.slug}/`)}
+            meta={`${countLabel(area.stats.categories, "categoria", "categorias")} · ${countLabel(area.stats.topics, "tópico", "tópicos")}`}
+            accent={`var(--${area.color})`}
+          />
+        ))}
+      </div>
+    </section>
+
+    <section id="recentes" class="stack-md" style="margin-top:1.5rem;">
+      <div class="stack-sm">
+        <span class="eyebrow">Para revisar agora</span>
+        <h2 class="section-title">Topicos em destaque</h2>
+      </div>
+      <div class="cards-2">
+        {recentHighlights.map((study) => (
+          <TopicCard
+            title={study.data.title}
+            description={study.data.description}
+            href={withBase(`/conteudos/${study.data.slug}/`)}
+            kicker={`${study.data.area} · ${study.data.readingTime}`}
+          />
+        ))}
+      </div>
+    </section>
+
+    <section id="favoritos" class="stack-md" style="margin-top:1.5rem;">
+      <div class="stack-sm">
+        <span class="eyebrow">Atalhos locais</span>
+        <h2 class="section-title">Continue de onde parou</h2>
+      </div>
+      <div class="cards-2">
+        {featured.slice(0, 2).map((study) => (
+          <TopicCard
+            title={study.data.title}
+            description={study.data.summary ?? study.data.description}
+            href={withBase(`/conteudos/${study.data.slug}/`)}
+            kicker={`${study.data.area} / ${study.data.category}`}
+          />
+        ))}
+      </div>
+      <div class="favorites-card" style="padding:1.25rem;" data-favorites-panel>
+        <div class="eyebrow">Favoritos locais</div>
+        <p class="lede" style="margin:0.3rem 0 0;">Adicione conteudos aos favoritos em qualquer pagina para ve-los aqui.</p>
+      </div>
+      <div class="favorites-card" style="padding:1.25rem;" data-recents-panel>
+        <div class="eyebrow">Conteudos recentes</div>
+        <p class="lede" style="margin:0.3rem 0 0;">As ultimas paginas visitadas aparecerao aqui para voce retomar o estudo com um clique.</p>
+      </div>
+    </section>
+  </AppShell>
+</BaseLayout>

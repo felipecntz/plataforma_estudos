@@ -1,0 +1,552 @@
+[
+  {
+    "title": "Fracoes",
+    "description": "Revise a logica das fracoes, as operacoes principais e os macetes que evitam erros.",
+    "area": "Matematica",
+    "category": "Matematica basica",
+    "topic": "Fracoes",
+    "slug": "fracoes",
+    "tags": ["matematica", "fracoes", "operacoes"],
+    "content": "parte todo numerador denominador equivalencia comparacao mmc soma subtracao multiplicacao divisao"
+  },
+  {
+    "title": "Porcentagem",
+    "description": "Entenda a porcentagem como traducao de uma relacao e revise aumentos, descontos e variacao percentual.",
+    "area": "Matematica",
+    "category": "Matematica basica",
+    "topic": "Porcentagem",
+    "slug": "porcentagem",
+    "tags": ["matematica", "porcentagem", "variacao"],
+    "content": "parte total taxa percentual base 100 aumento desconto fator variacao"
+  },
+  {
+    "title": "Expressoes numericas",
+    "description": "Aprenda a resolver expressoes numericas respeitando agrupamentos e a ordem correta das operacoes.",
+    "area": "Matematica",
+    "category": "Matematica basica",
+    "topic": "Expressoes numericas",
+    "slug": "expressoes-numericas",
+    "tags": ["matematica", "expressoes numericas", "ordem das operacoes"],
+    "content": "parenteses colchetes chaves potencia raiz multiplicacao divisao adicao subtracao prioridade sinais"
+  },
+  {
+    "title": "Potenciacao",
+    "description": "Entenda base, expoente, propriedades das potencias e o papel dos parenteses nos sinais.",
+    "area": "Matematica",
+    "category": "Matematica basica",
+    "topic": "Potenciacao",
+    "slug": "potenciacao",
+    "tags": ["matematica", "potenciacao", "potencias", "expoentes"],
+    "content": "base expoente produto quociente potencia de potencia expoente zero negativo sinais notacao cientifica"
+  },
+  {
+    "title": "Radiciacao",
+    "description": "Compreenda raizes como operacoes inversas da potencia e simplifique radicais com seguranca.",
+    "area": "Matematica",
+    "category": "Matematica basica",
+    "topic": "Radiciacao",
+    "slug": "radiciacao",
+    "tags": ["matematica", "radiciacao", "raizes", "radicais", "propriedades"],
+    "content": "indice radicando raiz quadrada cubica exata aproximada propriedades produto quociente divisao raiz de raiz simplificacao radical expoente fracionario racionalizacao exemplos"
+  },
+  {
+    "title": "Produtos notaveis",
+    "description": "Reconheca padroes algebricos frequentes para desenvolver e fatorar expressoes com menos conta.",
+    "area": "Matematica",
+    "category": "Matematica basica",
+    "topic": "Produtos notaveis",
+    "slug": "produtos-notaveis",
+    "tags": ["matematica", "algebra", "produtos notaveis", "fatoracao"],
+    "content": "quadrado soma diferenca binomio termo misto cubo diferenca de quadrados distributiva fatoracao"
+  },
+  {
+    "title": "Equacao do primeiro grau",
+    "description": "Resolva equacoes lineares entendendo equivalencia, distributiva e verificacao da resposta.",
+    "area": "Matematica",
+    "category": "Matematica basica",
+    "topic": "Equacao do primeiro grau",
+    "slug": "equacao-primeiro-grau",
+    "tags": ["matematica", "algebra", "equacao primeiro grau", "equacao linear"],
+    "content": "igualdade balanca incognita coeficiente distributiva isolar variavel solucao verificacao"
+  },
+  {
+    "title": "Equacao do segundo grau",
+    "description": "Identifique e resolva equacoes quadraticas por fatoracao ou formula de Bhaskara.",
+    "area": "Matematica",
+    "category": "Matematica basica",
+    "topic": "Equacao do segundo grau",
+    "slug": "equacao-segundo-grau",
+    "tags": ["matematica", "algebra", "equacao segundo grau", "bhaskara"],
+    "content": "quadratica coeficientes discriminante delta bhaskara raizes fatoracao viete soma produto"
+  },
+  {
+    "title": "Regra de tres",
+    "description": "Resolva proporcoes simples e compostas identificando grandezas diretas e inversas com exemplos completos.",
+    "area": "Matematica",
+    "category": "Matematica basica",
+    "topic": "Regra de tres",
+    "slug": "regra-de-tres",
+    "tags": ["matematica", "regra de tres", "proporcao", "grandezas"],
+    "content": "simples composta direta inversa produto cruzado maquinas horas pecas operarios dias exemplos"
+  },
+  {
+    "title": "Matematica financeira basica",
+    "description": "Entenda capital, taxa, tempo, juros simples e compostos, descontos e comparacao de valores.",
+    "area": "Matematica",
+    "category": "Matematica basica",
+    "topic": "Matematica financeira basica",
+    "slug": "matematica-financeira-basica",
+    "tags": ["matematica", "matematica financeira", "juros simples", "juros compostos"],
+    "content": "capital taxa tempo juros montante desconto acrescimo inflacao rendimento taxa equivalente poder de compra"
+  },
+  {
+    "title": "Progressao aritmetica",
+    "description": "Entenda sequencias com diferenca constante, termo geral, soma dos termos e aplicacoes.",
+    "area": "Matematica",
+    "category": "Matematica nivel medio",
+    "topic": "Progressao aritmetica",
+    "slug": "progressao-aritmetica",
+    "tags": ["matematica", "progressao aritmetica", "pa", "sequencias"],
+    "content": "razao diferenca constante termo geral soma termos interpolacao aritmetica crescente decrescente"
+  },
+  {
+    "title": "Progressao geometrica",
+    "description": "Estude sequencias de razao multiplicativa, termo geral e somas finita e infinita.",
+    "area": "Matematica",
+    "category": "Matematica nivel medio",
+    "topic": "Progressao geometrica",
+    "slug": "progressao-geometrica",
+    "tags": ["matematica", "progressao geometrica", "pg", "sequencias"],
+    "content": "razao fator constante termo geral soma finita infinita convergencia crescimento exponencial decaimento"
+  },
+  {
+    "title": "Conjuntos",
+    "description": "Domine representacao, relacoes, operacoes, intervalos e contagem de elementos em conjuntos.",
+    "area": "Matematica",
+    "category": "Matematica nivel medio",
+    "topic": "Conjuntos",
+    "slug": "conjuntos",
+    "tags": ["matematica", "conjuntos", "uniao", "intersecao"],
+    "content": "elemento pertinencia subconjunto inclusao uniao intersecao diferenca complemento cardinalidade intervalos de morgan"
+  },
+  {
+    "title": "Fundamentos de funcoes",
+    "description": "Entenda dominio, contradominio, imagem, graficos, zeros, composicao e funcao inversa.",
+    "area": "Matematica",
+    "category": "Matematica nivel medio",
+    "topic": "Fundamentos de funcoes",
+    "slug": "fundamentos-de-funcoes",
+    "tags": ["matematica", "funcoes", "dominio", "imagem", "grafico"],
+    "content": "relacao dominio contradominio imagem grafico pontos tabela plano cartesiano teste reta vertical zeros sinal crescente decrescente injetora sobrejetora bijetora composicao inversa"
+  },
+  {
+    "title": "Funcao do primeiro grau",
+    "description": "Interprete coeficientes, grafico, zero, crescimento e sinal de uma funcao afim.",
+    "area": "Matematica",
+    "category": "Matematica nivel medio",
+    "topic": "Funcao do primeiro grau",
+    "slug": "funcao-primeiro-grau",
+    "tags": ["matematica", "funcao primeiro grau", "funcao afim", "reta", "grafico"],
+    "content": "coeficiente angular linear taxa variacao intercepto zero raiz crescente decrescente grafico reta pontos eixo x eixo y sinal ponto equilibrio"
+  },
+  {
+    "title": "Funcao do segundo grau",
+    "description": "Analise a parabola por coeficientes, raizes, vertice, imagem, sinal e aplicacoes.",
+    "area": "Matematica",
+    "category": "Matematica nivel medio",
+    "topic": "Funcao do segundo grau",
+    "slug": "funcao-segundo-grau",
+    "tags": ["matematica", "funcao segundo grau", "funcao quadratica", "parabola", "grafico"],
+    "content": "coeficientes concavidade abertura delta bhaskara raizes vertice eixo simetria imagem sinal maximo minimo grafico parabola pontos interceptos"
+  },
+  {
+    "title": "Conceitos básicos de Python",
+    "description": "Conheça a linguagem Python, sua história, seu criador, seu impacto e os tipos de projeto em que ela costuma brilhar.",
+    "area": "Programação",
+    "category": "Python",
+    "topic": "Conceitos básicos",
+    "slug": "python-conceitos-basicos",
+    "tags": ["programação", "python", "história", "fundamentos"],
+    "content": "Guido van Rossum história fundador linguagem alto nível interpretada multiparadigma impacto comunidade Python Software Foundation automação dados inteligência artificial web ciência ensino scripts possibilidades limitações"
+  },
+  {
+    "title": "Noções básicas da linguagem Python",
+    "description": "Entenda arquivos .py, execução, indentação, comentários, nomes, erros iniciais e a forma básica de escrever código Python.",
+    "area": "Programação",
+    "category": "Python",
+    "topic": "Noções básicas da linguagem",
+    "slug": "python-nocoes-basicas",
+    "tags": ["programação", "python", "sintaxe", "indentação"],
+    "content": "arquivos py execução print input instruções indentação blocos quatro espaços comentários nomes snake_case palavras reservadas erros NameError SyntaxError IndentationError TypeError ValueError"
+  },
+  {
+    "title": "Variáveis e tipos em Python",
+    "description": "Aprenda como Python guarda valores e revise string, int, float e booleano com exemplos simples.",
+    "area": "Programação",
+    "category": "Python",
+    "topic": "Variáveis e tipos",
+    "slug": "python-variaveis-e-tipos",
+    "tags": ["programação", "python", "variáveis", "tipos"],
+    "content": "variáveis valores tipagem dinâmica forte string str texto aspas f-string int inteiro float decimal booleano bool True False type conversão str int float bool input ValueError"
+  },
+  {
+    "title": "Operações em Python",
+    "description": "Revise soma, subtração, multiplicação, divisão, potência, resto, comparações e operadores lógicos.",
+    "area": "Programação",
+    "category": "Python",
+    "topic": "Operações",
+    "slug": "python-operacoes",
+    "tags": ["programação", "python", "operadores", "operações"],
+    "content": "operadores operações soma subtração multiplicação divisão divisão inteira resto potência prioridade parênteses comparação igualdade diferença maior menor and or not strings concatenação repetição paridade"
+  },
+  {
+    "title": "Listas, dicionários e tuplas em Python",
+    "description": "Aprenda quando usar lista, dicionário e tupla, com acesso por índice, chave, mutabilidade e exemplos.",
+    "area": "Programação",
+    "category": "Python",
+    "topic": "Listas, dicionários e tuplas",
+    "slug": "python-listas-dicionarios-tuplas",
+    "tags": ["programação", "python", "listas", "dicionários", "tuplas"],
+    "content": "coleções listas list índice fatiamento append insert extend pop remove sort sorted count index len sum min max enumerate tuplas tuple imutável coordenada desempacotamento list tuple dicionários dict chave valor get pop update items keys values in del clear mutabilidade sequência entidade campos"
+  },
+  {
+    "title": "Condicionais em Python",
+    "description": "Entenda if, elif, else, comparações, valores truthy e falsy e escolhas curtas com expressão condicional.",
+    "area": "Programação",
+    "category": "Python",
+    "topic": "Condicionais",
+    "slug": "python-condicionais",
+    "tags": ["programação", "python", "condicionais", "if"],
+    "content": "condicionais if elif else comparação condição booleano ordem condições truthy falsy vazio zero expressão condicional and or not fluxo decisão"
+  },
+  {
+    "title": "While em Python",
+    "description": "Aprenda a usar while para repetir enquanto uma condição for verdadeira, com break, continue e cuidados com laço infinito.",
+    "area": "Programação",
+    "category": "Python",
+    "topic": "While",
+    "slug": "python-while",
+    "tags": ["programação", "python", "while", "laços"],
+    "content": "while repetição laço condição verdadeira contador tentativas senha break continue laço infinito condição saída while True input controle fluxo"
+  },
+  {
+    "title": "For em Python",
+    "description": "Entenda como percorrer listas, strings, dicionários e intervalos com for, range, enumerate, zip e compreensões.",
+    "area": "Programação",
+    "category": "Python",
+    "topic": "For",
+    "slug": "python-for",
+    "tags": ["programação", "python", "for", "laços"],
+    "content": "for iterável listas strings dicionários range início fim passo enumerate índice start zip paralelo compreensões lista list comprehension percorrer coleção sequência"
+  },
+  {
+    "title": "Funções, built-ins e lambda em Python",
+    "description": "Aprenda def, parâmetros, argumentos, return, funções built-in e lambda para reaproveitar raciocínios.",
+    "area": "Programação",
+    "category": "Python",
+    "topic": "Funções, built-ins e lambda",
+    "slug": "python-funcoes-builtins-lambda",
+    "tags": ["programação", "python", "funções", "built-ins", "lambda"],
+    "content": "funções def parâmetros argumentos return None responsabilidade built-in functions print input len type int float str bool sum min max round range enumerate zip sorted lambda função anônima dobrar numero resultado key"
+  },
+  {
+    "title": "Programação orientada a objetos básica em Python",
+    "description": "Entenda classes, objetos, atributos, métodos, self, __init__, encapsulamento e uma herança simples em Python.",
+    "area": "Programação",
+    "category": "Python",
+    "topic": "POO básica",
+    "slug": "python-poo-basica",
+    "tags": ["programação", "python", "orientação a objetos", "classes"],
+    "content": "programação orientada objetos POO classe objeto instância atributo método self __init__ estado comportamento encapsulamento herança super sobrescrever Conta ContaPremium"
+  },
+  {
+    "title": "Conceitos básicos de Linux",
+    "description": "Entenda o que é Linux, como ele é usado em infraestrutura e quais comandos formam o primeiro repertório.",
+    "area": "Infraestrutura",
+    "category": "Linux",
+    "topic": "Conceitos básicos",
+    "slug": "linux-conceitos-basicos",
+    "tags": ["infraestrutura", "linux", "terminal"],
+    "content": "Linux terminal shell kernel distribuição servidores nuvem containers comandos pwd whoami hostname date clear history man help apropos root bash zsh"
+  },
+  {
+    "title": "Navegação e sistema de arquivos no Linux",
+    "description": "Aprenda pwd, ls, cd e a estrutura básica de diretórios como /etc, /var, /home, /tmp e /usr.",
+    "area": "Infraestrutura",
+    "category": "Linux",
+    "topic": "Navegação e sistema de arquivos",
+    "slug": "linux-navegacao-sistema-arquivos",
+    "tags": ["infraestrutura", "linux", "diretórios", "comandos"],
+    "content": "pwd ls cd caminhos absoluto relativo diretórios sistema arquivos /etc /var /home /tmp /usr /bin /sbin /opt ls -la ls -lh cd .. cd -"
+  },
+  {
+    "title": "Arquivos e diretórios no Linux",
+    "description": "Revise mkdir, touch, cp, mv, rm, rmdir e exemplos seguros para criar, copiar, mover e remover arquivos.",
+    "area": "Infraestrutura",
+    "category": "Linux",
+    "topic": "Arquivos e diretórios",
+    "slug": "linux-arquivos-diretorios",
+    "tags": ["infraestrutura", "linux", "arquivos", "diretórios"],
+    "content": "mkdir touch cp mv rm rmdir criar copiar mover renomear remover arquivos diretórios mkdir -p cp -r cp -i mv -i rm -i rm -ri backup bak"
+  },
+  {
+    "title": "Visualização, busca e texto no Linux",
+    "description": "Aprenda cat, less, head, tail, grep, find, wc, sort, uniq e pipes para investigar arquivos e logs.",
+    "area": "Infraestrutura",
+    "category": "Linux",
+    "topic": "Visualização, busca e texto",
+    "slug": "linux-visualizacao-busca-texto",
+    "tags": ["infraestrutura", "linux", "grep", "logs"],
+    "content": "cat less head tail tail -f grep grep -i grep -n grep -r grep -v find find -name find -type find -mtime wc sort uniq pipe logs texto buscar filtrar"
+  },
+  {
+    "title": "Permissões e usuários no Linux",
+    "description": "Entenda chmod, chown, sudo, grupos, permissões rwx e como ler ls -l.",
+    "area": "Infraestrutura",
+    "category": "Linux",
+    "topic": "Permissões e usuários",
+    "slug": "linux-permissoes-usuarios",
+    "tags": ["infraestrutura", "linux", "permissões", "usuários"],
+    "content": "permissões usuários grupos rwx read write execute chmod chown chgrp sudo root ls -l 644 600 755 700 chmod +x groups id dono grupo"
+  },
+  {
+    "title": "Processos e serviços no Linux",
+    "description": "Aprenda ps, top, htop, kill, systemctl e journalctl para observar e controlar programas em execução.",
+    "area": "Infraestrutura",
+    "category": "Linux",
+    "topic": "Processos e serviços",
+    "slug": "linux-processos-servicos",
+    "tags": ["infraestrutura", "linux", "processos", "systemctl"],
+    "content": "processos serviços PID ps aux top htop pgrep kill kill -9 pkill systemctl status start stop restart enable disable journalctl logs unidade nginx systemd"
+  },
+  {
+    "title": "Rede e diagnóstico no Linux",
+    "description": "Revise ip, ping, curl, wget, ss, dig, nslookup, traceroute e comandos úteis para diagnosticar conexão.",
+    "area": "Infraestrutura",
+    "category": "Linux",
+    "topic": "Rede e diagnóstico",
+    "slug": "linux-rede-diagnostico",
+    "tags": ["infraestrutura", "linux", "rede", "diagnóstico"],
+    "content": "rede diagnóstico ip addr ip route hostname -I ping traceroute curl wget ss ss -tulpen ss -ltnp dig nslookup getent hosts DNS HTTP portas conexão latência firewall rota"
+  },
+  {
+    "title": "Pacotes, disco e compactação no Linux",
+    "description": "Veja comandos para instalar pacotes, medir espaço em disco, localizar arquivos grandes e compactar ou extrair arquivos.",
+    "area": "Infraestrutura",
+    "category": "Linux",
+    "topic": "Pacotes, disco e compactação",
+    "slug": "linux-pacotes-disco-compactacao",
+    "tags": ["infraestrutura", "linux", "pacotes", "disco", "compactação"],
+    "content": "pacotes disco compactação apt dnf apk install remove search update df -h du -sh du max-depth lsblk find size mtime tar gzip zip unzip backup logs espaço arquivo grande"
+  },
+  {
+    "title": "Visao geral do monolito Django",
+    "description": "Entenda o fluxo principal de um projeto Django monolito e como projeto, apps, models, views, URLs e templates se conectam.",
+    "area": "Programação",
+    "category": "Django",
+    "topic": "Visao geral do monolito",
+    "slug": "django-monolito-conceitos",
+    "tags": ["programação", "django", "python", "monolito"],
+    "content": "Django framework web Python monolito MTV model template view URL apps ORM templates fluxo requisicao projeto apps settings banco admin"
+  },
+  {
+    "title": "Projeto, apps e settings no Django",
+    "description": "Aprenda a estrutura inicial de um projeto Django monolito, a diferenca entre projeto e apps e o papel do settings.py.",
+    "area": "Programação",
+    "category": "Django",
+    "topic": "Projeto, apps e settings",
+    "slug": "django-projeto-apps-settings",
+    "tags": ["programação", "django", "settings", "apps"],
+    "content": "django-admin startproject config manage.py startapp core produtos settings.py INSTALLED_APPS MIDDLEWARE DATABASES TEMPLATES STATIC_URL ALLOWED_HOSTS projeto app estrutura monolito"
+  },
+  {
+    "title": "Models, ORM e migrations no Django",
+    "description": "Entenda models, campos, relacionamentos, QuerySets e migrations em projetos Django com banco relacional.",
+    "area": "Programação",
+    "category": "Django",
+    "topic": "Models, ORM e migrations",
+    "slug": "django-models-orm-migrations",
+    "tags": ["programação", "django", "orm", "migrations"],
+    "content": "models ORM QuerySet migrations CharField DecimalField BooleanField ForeignKey select_related prefetch_related makemigrations migrate banco relacional tabelas campos"
+  },
+  {
+    "title": "Views, URLs e templates no Django",
+    "description": "Aprenda como URLs chamam views, como views renderizam templates e como organizar HTML com heranca em Django.",
+    "area": "Programação",
+    "category": "Django",
+    "topic": "Views, URLs e templates",
+    "slug": "django-views-urls-templates",
+    "tags": ["programação", "django", "views", "templates"],
+    "content": "urls.py views.py render get_object_or_404 ListView DetailView templates base.html extends block include url name Bootstrap HTML request response"
+  },
+  {
+    "title": "Forms, admin e autenticacao no Django",
+    "description": "Entenda formularios, ModelForms, admin, messages, login_required e permissoes basicas em Django.",
+    "area": "Programação",
+    "category": "Django",
+    "topic": "Forms, admin e autenticacao",
+    "slug": "django-forms-admin-autenticacao",
+    "tags": ["programação", "django", "forms", "admin", "autenticacao"],
+    "content": "forms ModelForm form.is_valid form.save csrf_token admin ModelAdmin createsuperuser login_required LoginRequiredMixin messages permissões autenticação usuário grupo"
+  },
+  {
+    "title": "PostgreSQL, static files e deploy no Django",
+    "description": "Configure PostgreSQL, entenda static/media files, comandos essenciais, testes e fluxo de deploy de um monolito Django.",
+    "area": "Programação",
+    "category": "Django",
+    "topic": "PostgreSQL, static e deploy",
+    "slug": "django-postgresql-static-deploy",
+    "tags": ["programação", "django", "postgresql", "deploy"],
+    "content": "PostgreSQL psycopg DATABASES static files media collectstatic migrate check deploy gunicorn nginx DEBUG ALLOWED_HOSTS SECRET_KEY produção"
+  },
+  {
+    "title": "Visao geral e historia dos bancos de dados",
+    "description": "Entenda o que e um banco de dados, por que ele existe, como evoluiu e quais conceitos aparecem em quase todo SGBD.",
+    "area": "Dados",
+    "category": "Banco de Dados",
+    "topic": "Visao geral e historia",
+    "slug": "banco-de-dados-visao-geral-historia",
+    "tags": ["dados", "banco de dados", "sql", "sgbd"],
+    "content": "banco de dados SGBD historia arquivos hierarquico rede relacional NoSQL SQL tabelas linhas colunas chave primaria estrangeira indice transacao"
+  },
+  {
+    "title": "SGBDs famosos e usos",
+    "description": "Compare os SGBDs mais conhecidos, onde aparecem no mercado e como escolher uma tecnologia conforme o problema.",
+    "area": "Dados",
+    "category": "Banco de Dados",
+    "topic": "SGBDs famosos e usos",
+    "slug": "banco-de-dados-sgbds-famosos-usos",
+    "tags": ["dados", "sgbd", "postgresql", "sql server", "mysql", "oracle"],
+    "content": "PostgreSQL SQL Server MySQL MariaDB Oracle SQLite MongoDB Redis Cassandra Neo4j SGBD relacional NoSQL usos mercado web Microsoft enterprise"
+  },
+  {
+    "title": "PostgreSQL: fundamentos",
+    "description": "Conheca schemas, tabelas, tipos, chaves, restricoes, indices e o fluxo basico para trabalhar com PostgreSQL.",
+    "area": "Dados",
+    "category": "Banco de Dados",
+    "topic": "PostgreSQL fundamentos",
+    "slug": "postgresql-fundamentos",
+    "tags": ["dados", "postgresql", "sql", "tipos"],
+    "content": "PostgreSQL schema public tabela tipos integer bigint numeric text boolean date timestamp timestamptz uuid jsonb primary key foreign key unique check index"
+  },
+  {
+    "title": "DDL: estrutura do banco no PostgreSQL",
+    "description": "Aprenda CREATE, ALTER, DROP, TRUNCATE, schemas, tabelas, restricoes e indices com sintaxe PostgreSQL.",
+    "area": "Dados",
+    "category": "Banco de Dados",
+    "topic": "DDL PostgreSQL",
+    "slug": "sql-ddl-postgresql",
+    "tags": ["dados", "sql", "postgresql", "ddl"],
+    "content": "DDL CREATE ALTER DROP TRUNCATE CREATE TABLE CREATE SCHEMA ALTER TABLE ADD COLUMN DROP COLUMN constraints primary key foreign key check unique index view"
+  },
+  {
+    "title": "DML: manipulacao de dados no PostgreSQL",
+    "description": "Use INSERT, UPDATE, DELETE, UPSERT e RETURNING para manipular registros com seguranca.",
+    "area": "Dados",
+    "category": "Banco de Dados",
+    "topic": "DML PostgreSQL",
+    "slug": "sql-dml-postgresql",
+    "tags": ["dados", "sql", "postgresql", "dml"],
+    "content": "DML INSERT UPDATE DELETE UPSERT ON CONFLICT RETURNING VALUES SET WHERE EXCLUDED manipulação dados registros linhas"
+  },
+  {
+    "title": "DQL: SELECT, filtros e ordem do SQL",
+    "description": "Aprenda a estrutura do SELECT, WHERE, ORDER BY, LIMIT, DISTINCT e a diferenca entre ordem de sintaxe e ordem logica de execucao.",
+    "area": "Dados",
+    "category": "Banco de Dados",
+    "topic": "DQL SELECT e filtros",
+    "slug": "sql-dql-select-filtros-postgresql",
+    "tags": ["dados", "sql", "postgresql", "dql", "select"],
+    "content": "DQL SELECT FROM JOIN WHERE GROUP BY HAVING SELECT DISTINCT ORDER BY LIMIT OFFSET ordem sintaxe ordem logica execução WHERE ILIKE BETWEEN IN CASE DISTINCT ON"
+  },
+  {
+    "title": "DQL: agrupamentos, GROUP BY e HAVING",
+    "description": "Aprofunde agregacoes, GROUP BY, HAVING, filtros com FILTER, COALESCE e exemplos de resumo analitico no PostgreSQL.",
+    "area": "Dados",
+    "category": "Banco de Dados",
+    "topic": "DQL agrupamentos",
+    "slug": "sql-dql-agrupamentos-postgresql",
+    "tags": ["dados", "sql", "postgresql", "group by", "having"],
+    "content": "GROUP BY HAVING agregações COUNT SUM AVG MIN MAX FILTER WHERE grupos COALESCE date_trunc receita pedidos por status cliente mes"
+  },
+  {
+    "title": "DQL: joins, subqueries e CTEs",
+    "description": "Entenda INNER JOIN, LEFT JOIN, CROSS JOIN, subqueries, EXISTS e CTEs com exemplos práticos em PostgreSQL.",
+    "area": "Dados",
+    "category": "Banco de Dados",
+    "topic": "DQL joins, subqueries e CTEs",
+    "slug": "sql-dql-joins-subqueries-ctes-postgresql",
+    "tags": ["dados", "sql", "postgresql", "joins", "cte"],
+    "content": "INNER JOIN LEFT JOIN FULL JOIN CROSS JOIN ON WHERE subquery IN EXISTS NOT EXISTS WITH CTE LATERAL relacionamento tabelas clientes pedidos"
+  },
+  {
+    "title": "DQL: funcoes PostgreSQL",
+    "description": "Revise funcoes de texto, numeros, datas, nulos, condicionais, agregacao, arrays e JSONB no PostgreSQL.",
+    "area": "Dados",
+    "category": "Banco de Dados",
+    "topic": "DQL funcoes PostgreSQL",
+    "slug": "sql-dql-funcoes-postgresql",
+    "tags": ["dados", "sql", "postgresql", "funcoes"],
+    "content": "funções PostgreSQL COALESCE NULLIF lower upper trim length concat split_part replace date_trunc extract interval round CASE cast array_agg string_agg jsonb"
+  },
+  {
+    "title": "DQL: window functions no PostgreSQL",
+    "description": "Aprofunde OVER, PARTITION BY, ORDER BY, frames, rankings, acumulados, LAG, LEAD e medias moveis em PostgreSQL.",
+    "area": "Dados",
+    "category": "Banco de Dados",
+    "topic": "DQL window functions",
+    "slug": "sql-dql-window-functions-postgresql",
+    "tags": ["dados", "sql", "postgresql", "window functions", "analytics"],
+    "content": "window functions OVER PARTITION BY ORDER BY ROW_NUMBER RANK DENSE_RANK NTILE LAG LEAD SUM OVER acumulado media movel frame ROWS RANGE WINDOW"
+  },
+  {
+    "title": "DCL: permissoes no PostgreSQL",
+    "description": "Entenda roles, usuarios, GRANT, REVOKE, permissoes por schema e boas praticas de acesso no PostgreSQL.",
+    "area": "Dados",
+    "category": "Banco de Dados",
+    "topic": "DCL PostgreSQL",
+    "slug": "sql-dcl-postgresql",
+    "tags": ["dados", "sql", "postgresql", "dcl", "permissoes"],
+    "content": "DCL role roles user usuario CREATE ROLE LOGIN GRANT REVOKE USAGE schema SELECT INSERT UPDATE DELETE privileges permissoes readonly app_user"
+  },
+  {
+    "title": "TCL: transacoes no PostgreSQL",
+    "description": "Aprenda BEGIN, COMMIT, ROLLBACK, SAVEPOINT, isolamento e o papel das transacoes na consistencia dos dados.",
+    "area": "Dados",
+    "category": "Banco de Dados",
+    "topic": "TCL PostgreSQL",
+    "slug": "sql-tcl-postgresql",
+    "tags": ["dados", "sql", "postgresql", "tcl", "transacoes"],
+    "content": "TCL transações BEGIN COMMIT ROLLBACK SAVEPOINT ACID atomicidade consistencia isolamento durabilidade READ COMMITTED REPEATABLE READ SERIALIZABLE FOR UPDATE locks"
+  },
+  {
+    "title": "Diferencas entre PostgreSQL, SQL Server, MySQL e Oracle",
+    "description": "Compare conceitos, sintaxes e recursos importantes entre os principais SGBDs relacionais do mercado.",
+    "area": "Dados",
+    "category": "Banco de Dados",
+    "topic": "Diferencas entre SGBDs",
+    "slug": "sql-diferencas-sgbds",
+    "tags": ["dados", "sql", "postgresql", "sql server", "mysql", "oracle"],
+    "content": "PostgreSQL SQL Server MySQL Oracle diferenças LIMIT TOP FETCH FIRST AUTO_INCREMENT IDENTITY sequence ILIKE LIKE DATEADD SYSDATE ON CONFLICT MERGE RETURNING OUTPUT PL SQL T SQL JSONB"
+  },
+  {
+    "title": "Visão geral da Cloud",
+    "description": "Entenda o que é computação em nuvem, por que ela existe e quais conceitos sustentam qualquer provedor.",
+    "area": "Cloud",
+    "category": "Cloud Computing",
+    "topic": "Visão geral da cloud",
+    "slug": "cloud-visao-geral",
+    "tags": ["cloud", "infraestrutura", "arquitetura", "custos"],
+    "content": "cloud computacao em nuvem sob demanda elasticidade escalabilidade regiao zona disponibilidade iaas paas saas cloud publica privada hibrida multicloud pay as you go sla seguranca responsabilidade compartilhada custo arquitetura"
+  },
+  {
+    "title": "AWS: serviços e conceitos essenciais",
+    "description": "Resumo dos principais serviços da AWS e dos conceitos que sustentam arquitetura, segurança, custos e operação.",
+    "area": "Cloud",
+    "category": "AWS",
+    "topic": "Serviços e conceitos essenciais",
+    "slug": "aws-servicos-conceitos",
+    "tags": ["aws", "cloud", "ec2", "s3", "iam", "vpc"],
+    "content": "AWS Amazon Web Services IAM VPC EC2 S3 RDS Lambda CloudWatch Route 53 CloudFront EBS EFS DynamoDB Aurora Redshift ECS EKS security group NACL NAT Gateway KMS Secrets Manager CloudTrail CloudFormation Cost Explorer Budgets regioes availability zones"
+  }
+]

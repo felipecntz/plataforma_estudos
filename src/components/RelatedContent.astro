@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { withBase } from "../lib/links";
+
+const { items } = Astro.props as { items: CollectionEntry<"studies">[] };
+---
+
+<section class="stack-md" style="margin-top:2rem;">
+  <div>
+    <span class="eyebrow">Conteudos relacionados</span>
+    <h2 style="font-size:1.7rem;margin:0.3rem 0 0;">Continue a trilha</h2>
+  </div>
+  <div class="cards-2">
+    {items.map((item) => (
+      <a class="topic-card" href={withBase(`/conteudos/${item.data.slug}/`)}>
+        <span class="eyebrow">{item.data.area} / {item.data.category}</span>
+        <h3 style="font-size:1.2rem;margin:0.35rem 0;">{item.data.title}</h3>
+        <p class="lede" style="font-size:0.95rem;margin:0;">{item.data.description}</p>
+      </a>
+    ))}
+  </div>
+</section>

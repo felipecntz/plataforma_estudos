@@ -1,0 +1,104 @@
+---
+title: Conceitos básicos de Linux
+description: Entenda o que é Linux, como ele é usado em infraestrutura e quais comandos formam o primeiro repertório.
+area: Infraestrutura
+areaSlug: infraestrutura
+category: Linux
+categorySlug: linux
+topic: Conceitos básicos
+slug: linux-conceitos-basicos
+order: 1
+icon: terminal
+color: tech
+difficulty: Iniciante
+readingTime: 6 min
+updatedAt: 19/07/2026
+featured: true
+tags:
+  - infraestrutura
+  - linux
+  - terminal
+summary: Linux é a base de muitos servidores; o terminal permite consultar, operar e automatizar o sistema com comandos curtos.
+mindMap:
+  title: Mapa mental de Linux
+  subtitle: O primeiro mapa para entender terminal, shell e comandos.
+  highlights:
+    - terminal
+    - shell
+    - comandos
+  sections:
+    - title: Linux
+      kind: core
+      definition: Sistema operacional muito usado em servidores, containers, nuvem e dispositivos embarcados.
+      bullets:
+        - estável e flexível
+        - forte em automação
+        - comum em infraestrutura
+      example: Ubuntu, Debian, Rocky Linux e Alpine são distribuições.
+    - title: Terminal
+      kind: base
+      definition: Interface textual para enviar comandos ao sistema.
+      bullets:
+        - rápido para tarefas repetidas
+        - útil em servidores remotos
+        - combina comandos em fluxos
+      example: pwd mostra a pasta atual.
+    - title: Shell
+      kind: base
+      definition: Programa que interpreta comandos digitados no terminal.
+      bullets:
+        - bash e zsh são comuns
+        - aceita variáveis
+        - permite scripts
+      example: echo "$USER" mostra o usuário atual.
+    - title: Manual
+      kind: process
+      definition: O próprio sistema traz ajuda para muitos comandos.
+      bullets:
+        - man abre manual
+        - --help mostra opções
+        - q sai do manual
+      example: man ls.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Linux é infraestrutura na prática" text="Linux é uma família de sistemas operacionais muito usada em servidores, nuvem, containers, automação e segurança. Para operar Linux bem, o terminal é o caminho mais importante." />
+
+## Conceitos rápidos
+
+| Conceito | Resumo |
+| --- | --- |
+| Kernel | núcleo que conversa com hardware e recursos do sistema |
+| Distribuição | Linux empacotado com ferramentas, instalador e gerenciador de pacotes |
+| Shell | programa que interpreta comandos |
+| Terminal | janela ou sessão onde você digita comandos |
+| Root | usuário administrador do sistema |
+
+## Primeiros comandos
+
+```bash
+pwd          # mostra o diretório atual
+whoami       # mostra o usuário atual
+hostname     # mostra o nome da máquina
+date         # mostra data e hora
+clear        # limpa a tela
+history      # lista comandos recentes
+```
+
+## Ajuda no próprio sistema
+
+```bash
+man ls
+ls --help
+apropos network
+```
+
+`man` abre o manual. `--help` costuma mostrar uma ajuda curta. `apropos` pesquisa comandos relacionados a um termo.
+
+<ExampleBlock title="Operação simples" text="Para descobrir onde você está e quem está usando a sessão, rode pwd e whoami. Em servidor remoto, isso evita agir no lugar errado." />
+
+<TipBlock title="Comece lendo antes de alterar" text="Em infraestrutura, prefira comandos de consulta primeiro. Entenda o estado atual antes de instalar, mover, apagar ou reiniciar serviços." />

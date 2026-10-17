@@ -1,0 +1,152 @@
+---
+title: Condicionais em Python
+description: Entenda if, elif, else, comparações, valores truthy e falsy e escolhas curtas com expressão condicional.
+area: Programação
+areaSlug: programacao
+category: Python
+categorySlug: python
+topic: Condicionais
+slug: python-condicionais
+order: 6
+icon: code
+color: tech
+difficulty: Iniciante
+readingTime: 8 min
+updatedAt: 18/07/2026
+featured: false
+tags:
+  - programação
+  - python
+  - condicionais
+  - if
+summary: Condicionais permitem que o programa escolha caminhos diferentes conforme uma condição.
+mindMap:
+  title: Mapa mental de condicionais
+  subtitle: Como o Python escolhe blocos com if, elif e else.
+  highlights:
+    - if
+    - elif
+    - else
+  sections:
+    - title: if
+      kind: core
+      definition: Executa um bloco se a condição for verdadeira.
+      bullets:
+        - usa dois-pontos
+        - bloco indentado
+        - condição gera bool
+      example: if nota >= 7.
+    - title: elif
+      kind: process
+      definition: Testa uma nova condição quando as anteriores falham.
+      bullets:
+        - pode aparecer várias vezes
+        - ordem importa
+        - só um caminho é escolhido
+      example: elif nota >= 5.
+    - title: else
+      kind: process
+      definition: Executa quando nenhum teste anterior foi verdadeiro.
+      bullets:
+        - não recebe condição
+        - fica no fim
+        - cobre o caso restante
+      example: 'else: print("Reprovado").'
+    - title: Truthy
+      kind: base
+      definition: Python interpreta alguns valores como verdadeiros ou falsos em condições.
+      bullets:
+        - vazio é falso
+        - zero é falso
+        - valores preenchidos tendem a ser verdadeiros
+      example: if nome verifica se a string não está vazia.
+    - title: Expressão curta
+      kind: application
+      definition: Forma compacta para escolhas simples com dois resultados.
+      bullets:
+        - boa para regra pequena
+        - não substitui lógica complexa
+        - melhora quando lida facilmente
+      example: status = "ok" if nota >= 7 else "rever".
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Condicional escolhe caminho" text="Uma condicional permite executar um bloco de código apenas quando uma condição é verdadeira. É assim que o programa deixa de ser uma linha reta e passa a tomar decisões." />
+
+## if, elif e else
+
+Python avalia as condições de cima para baixo e executa apenas o primeiro bloco compatível.
+
+```python
+nota = 8.5
+
+if nota >= 9:
+    conceito = "Excelente"
+elif nota >= 7:
+    conceito = "Aprovado"
+else:
+    conceito = "Em recuperação"
+
+print(conceito)
+```
+
+`if` abre a primeira condição. `elif` testa alternativas. `else` cobre o caso restante.
+
+## Ordem das condições
+
+A ordem importa. Coloque condições mais específicas antes de condições mais amplas.
+
+```python
+idade = 70
+
+if idade >= 60:
+    print("Idoso")
+elif idade >= 18:
+    print("Adulto")
+```
+
+Se a regra de adulto viesse antes, uma pessoa de 70 anos seria classificada como adulta antes de chegar ao teste de idoso.
+
+## Valores verdadeiros e falsos
+
+Além de `False`, valores como `0`, `0.0`, `""`, `[]`, `()` e `{}` são considerados falsos em contexto lógico.
+
+```python
+nome = ""
+
+if nome:
+    print(f"Olá, {nome}!")
+else:
+    print("Nome não informado.")
+```
+
+Essa leitura é comum para verificar se uma coleção ou string possui conteúdo.
+
+## Expressão condicional
+
+Quando há apenas dois resultados simples, dá para usar uma forma curta:
+
+```python
+idade = 20
+status = "adulto" if idade >= 18 else "menor de idade"
+```
+
+<WarningBlock title="Não compacte regra grande" text="Se a decisão tiver muitas condições, efeitos ou etapas, use if, elif e else em blocos. Código curto demais pode ficar mais difícil de entender." />
+
+## Condições compostas
+
+Use `and`, `or` e `not` para combinar regras.
+
+```python
+idade = 20
+tem_documento = True
+
+if idade >= 18 and tem_documento:
+    print("Entrada liberada")
+```
+
+<TipBlock title="Leia como frase" text="Uma boa condição costuma soar bem em português: se idade é maior ou igual a 18 e tem documento, então liberar entrada." />

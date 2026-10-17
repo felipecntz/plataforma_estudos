@@ -1,0 +1,262 @@
+---
+title: "DQL: funcoes PostgreSQL"
+description: Revise funcoes de texto, numeros, datas, nulos, condicionais, agregacao, arrays e JSONB no PostgreSQL.
+area: Dados
+areaSlug: dados
+category: Banco de Dados
+categorySlug: banco-de-dados
+topic: DQL funcoes PostgreSQL
+slug: sql-dql-funcoes-postgresql
+order: 38
+icon: database
+color: data
+difficulty: Intermediario
+readingTime: 18 min
+updatedAt: 01/08/2026
+featured: false
+tags:
+  - dados
+  - sql
+  - postgresql
+  - funcoes
+summary: Funcoes deixam consultas mais expressivas. No PostgreSQL, voce usa funcoes para texto, datas, nulos, condicionais, conversoes, agregacoes, JSONB e arrays.
+mindMap:
+  title: Mapa mental de funcoes SQL
+  subtitle: Transformar valores dentro da consulta.
+  highlights:
+    - COALESCE
+    - date_trunc
+    - concat
+    - jsonb
+  sections:
+    - title: Nulos
+      kind: core
+      definition: COALESCE substitui nulo pelo primeiro valor disponível.
+      example: COALESCE(nome_social, nome).
+    - title: Texto
+      kind: process
+      definition: Funcoes limpam, juntam e padronizam strings.
+      bullets:
+        - lower
+        - trim
+        - concat
+    - title: Datas
+      kind: process
+      definition: Funcoes extraem, truncam e calculam intervalos.
+      example: date_trunc('month', criado_em).
+    - title: Condicional
+      kind: base
+      definition: CASE cria regras dentro da consulta.
+      example: CASE WHEN total >= 1000 THEN 'alto' END.
+    - title: JSONB
+      kind: application
+      definition: PostgreSQL consulta campos JSON com operadores próprios.
+      example: dados->>'canal'.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Funcoes transformam valores" text="Funcoes SQL calculam, formatam, classificam ou extraem informacoes durante a consulta, sem precisar exportar os dados para outra ferramenta." />
+
+## Nulos
+
+`NULL` significa ausencia de valor. Ele nao e zero, string vazia nem falso.
+
+```sql
+SELECT
+  nome,
+  COALESCE(nome_social, nome) AS nome_exibicao
+FROM clientes;
+```
+
+`NULLIF` transforma igualdade em nulo:
+
+```sql
+SELECT
+  total,
+  desconto,
+  total / NULLIF(desconto, 0) AS proporcao
+FROM pedidos;
+```
+
+Isso evita divisao por zero.
+
+## Texto
+
+```sql
+SELECT
+  lower(email) AS email_normalizado,
+  upper(nome) AS nome_maiusculo,
+  trim(nome) AS nome_sem_espacos,
+  length(nome) AS tamanho_nome
+FROM clientes;
+```
+
+Concatenar:
+
+```sql
+SELECT
+  concat(nome, ' <', email, '>') AS contato
+FROM clientes;
+```
+
+Extrair partes:
+
+```sql
+SELECT
+  split_part(email, '@', 2) AS dominio
+FROM clientes;
+```
+
+Substituir:
+
+```sql
+SELECT replace(documento, '.', '') AS documento_limpo
+FROM clientes;
+```
+
+## Datas e intervalos
+
+Data atual:
+
+```sql
+SELECT current_date, now();
+```
+
+Truncar para mes:
+
+```sql
+SELECT date_trunc('month', criado_em)::date AS mes
+FROM pedidos;
+```
+
+Extrair partes:
+
+```sql
+SELECT
+  extract(year FROM criado_em) AS ano,
+  extract(month FROM criado_em) AS mes,
+  extract(dow FROM criado_em) AS dia_semana
+FROM pedidos;
+```
+
+Calcular idade de registro:
+
+```sql
+SELECT
+  id,
+  now() - criado_em AS idade_do_pedido
+FROM pedidos;
+```
+
+Filtrar ultimos 30 dias:
+
+```sql
+SELECT *
+FROM pedidos
+WHERE criado_em >= now() - interval '30 days';
+```
+
+## Numeros
+
+```sql
+SELECT
+  total,
+  round(total, 2) AS total_arredondado,
+  ceil(total) AS teto,
+  floor(total) AS piso,
+  abs(total) AS absoluto
+FROM pedidos;
+```
+
+## CASE
+
+```sql
+SELECT
+  id,
+  total,
+  CASE
+    WHEN total >= 1000 THEN 'A'
+    WHEN total >= 300 THEN 'B'
+    ELSE 'C'
+  END AS curva
+FROM pedidos;
+```
+
+Com agregacao:
+
+```sql
+SELECT
+  COUNT(*) FILTER (WHERE total >= 1000) AS pedidos_grandes,
+  COUNT(*) FILTER (WHERE total < 1000) AS pedidos_menores
+FROM pedidos;
+```
+
+## Conversoes
+
+Cast com `::`:
+
+```sql
+SELECT
+  criado_em::date AS data,
+  total::numeric(12,2) AS total_formatado
+FROM pedidos;
+```
+
+Cast com `CAST`:
+
+```sql
+SELECT CAST('2026-08-01' AS date) AS data;
+```
+
+## Arrays
+
+```sql
+SELECT
+  cliente_id,
+  array_agg(id ORDER BY criado_em DESC) AS pedidos
+FROM pedidos
+GROUP BY cliente_id;
+```
+
+Transformar linhas em texto:
+
+```sql
+SELECT
+  cliente_id,
+  string_agg(status, ', ' ORDER BY status) AS status_encontrados
+FROM pedidos
+GROUP BY cliente_id;
+```
+
+## JSONB
+
+Suponha uma coluna `dados jsonb`.
+
+```sql
+SELECT
+  id,
+  dados->>'canal' AS canal,
+  (dados->>'valor')::numeric AS valor
+FROM eventos;
+```
+
+Filtrar por campo JSON:
+
+```sql
+SELECT *
+FROM eventos
+WHERE dados->>'canal' = 'email';
+```
+
+Verificar se contem estrutura:
+
+```sql
+SELECT *
+FROM eventos
+WHERE dados @> '{"origem": "campanha"}';
+```
+
+<TipBlock title="JSONB com moderação" text="JSONB e ótimo para atributos flexiveis, mas dados centrais e relacionamentos fortes geralmente merecem colunas e tabelas próprias." />

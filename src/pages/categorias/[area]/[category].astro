@@ -1,0 +1,85 @@
+---
+import AreaLayout from "../../../layouts/AreaLayout.astro";
+import TopicCard from "../../../components/TopicCard.astro";
+import StudyCard from "../../../components/StudyCard.astro";
+import { navigation } from "../../../data/navigation";
+import { getArea, getCategory, getStudiesByCategory } from "../../../lib/content";
+import { withBase } from "../../../lib/links";
+
+export async function getStaticPaths() {
+  return navigation.flatMap((item) =>
+    item.categories.map((category) => ({
+      params: { area: item.slug, category: category.slug }
+    }))
+  );
+}
+
+const { area, category } = Astro.params;
+const areaMeta = getArea(area!);
+const categoryMeta = getCategory(area!, category!);
+const studies = await getStudiesByCategory(area!, category!);
+
+if (!areaMeta || !categoryMeta) {
+  throw new Error("Categoria nao encontrada");
+}
+---
+
+<AreaLayout
+  title={categoryMeta.name}
+  description={categoryMeta.description}
+  breadcrumbs={[
+    { label: "Inicio", href: withBase("/") },
+    { label: areaMeta.name, href: withBase(`/areas/${areaMeta.slug}/`) },
+    { label: categoryMeta.name }
+  ]}
+>
+  <section class="hero-grid">
+    <article class="hero-card">
+      <div class="stack-sm">
+        <span class="eyebrow">Categoria</span>
+        <h2 class="section-title">Ordem de estudo sugerida para {categoryMeta.name}</h2>
+        <p class="lede">Cada pagina foi desenhada para leitura curta, consulta rapida e crescimento incremental por novos arquivos.</p>
+      </div>
+    </article>
+    <article class="hero-card area-accent-hero" style={`--area-soft:var(--${areaMeta.color}-soft);`}>
+      <div class="stack-sm">
+        <span class="eyebrow">Caminho</span>
+        <p class="lede" style="margin:0;">1. Base visual. 2. Definicao. 3. Formula ou processo. 4. Exemplo aplicado.</p>
+      </div>
+    </article>
+  </section>
+
+  <section class="stack-md">
+    <div class="stack-sm">
+      <span class="eyebrow">Topicos da categoria</span>
+      <h2 class="section-title">Conteudos prontos para navegar</h2>
+    </div>
+    <div class="cards-2">
+      {studies.map((study, index) => (
+        <TopicCard
+          title={study.data.title}
+          description={study.data.description}
+          href={withBase(`/conteudos/${study.data.slug}/`)}
+          kicker={`Passo ${index + 1}`}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="cards-2">
+    <StudyCard
+      title="Resumo da trilha"
+      description="Leituras curtas, cards consistentes e componentes editoriais para manter a identidade da plataforma."
+      href={withBase(`/areas/${areaMeta.slug}/`)}
+      meta="Visao geral"
+      accent={`var(--${areaMeta.color})`}
+    />
+    <StudyCard
+      title="Voltar para a area"
+      description={`Revise todas as categorias e conecte ${categoryMeta.name} com os demais assuntos de ${areaMeta.name}.`}
+      href={withBase(`/areas/${areaMeta.slug}/`)}
+      meta={areaMeta.name}
+      accent={`var(--${areaMeta.color})`}
+    />
+  </section>
+</AreaLayout>

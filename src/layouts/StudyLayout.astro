@@ -1,0 +1,116 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "./BaseLayout.astro";
+import AppShell from "../components/AppShell.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import TableOfContents from "../components/TableOfContents.astro";
+import FavoriteButton from "../components/FavoriteButton.astro";
+import RelatedContent from "../components/RelatedContent.astro";
+import MindMap from "../components/MindMap.astro";
+import { withBase } from "../lib/links";
+
+interface Props {
+  entry: CollectionEntry<"studies">;
+  related: CollectionEntry<"studies">[];
+  prev?: CollectionEntry<"studies">;
+  next?: CollectionEntry<"studies">;
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { entry, related, prev, next, headings } = Astro.props;
+const data = entry.data;
+const breadcrumbs = [
+  { label: "Inicio", href: withBase("/") },
+  { label: data.area, href: withBase(`/areas/${data.areaSlug}/`) },
+  { label: data.category, href: withBase(`/categorias/${data.areaSlug}/${data.categorySlug}/`) },
+  { label: data.title }
+];
+---
+
+<BaseLayout title={`${data.title} | Plataforma de Estudos`} description={data.description}>
+  <AppShell currentPath={Astro.url.pathname} breadcrumbs={breadcrumbs}>
+    <article class="content-panel panel">
+      <header class="content-header stack-md">
+        <Breadcrumbs items={breadcrumbs} />
+        <div class="meta-row">
+          <span class="tag">{data.area}</span>
+          <span class="tag">{data.category}</span>
+          <span class="tag">{data.difficulty}</span>
+        </div>
+        <div class="stack-sm">
+          <span class="eyebrow">Conteudo de estudo</span>
+          <h1 class="section-title">{data.title}</h1>
+          <p class="lede">{data.description}</p>
+        </div>
+        <div class="meta-row">
+          <span class="tag">Leitura {data.readingTime}</span>
+          <span class="tag">Atualizado em {data.updatedAt}</span>
+          <FavoriteButton slug={data.slug} title={data.title} path={Astro.url.pathname} />
+        </div>
+      </header>
+
+      <div class="content-container main-content">
+        <div class="study-switcher-shell">
+          <div class="view-toggle" role="tablist" aria-label="Alternar visualizacao do topico">
+            <button class="view-toggle-button active" type="button" data-view-toggle="summary" role="tab" aria-selected="true">
+              Resumo
+            </button>
+            <button class="view-toggle-button" type="button" data-view-toggle="mindmap" role="tab" aria-selected="false">
+              Mapa mental
+            </button>
+          </div>
+
+          <section class="prose-shell prose" data-view-panel="summary">
+            <slot />
+          </section>
+
+          <section class="prose-shell" data-view-panel="mindmap" hidden>
+            <div class="stack-md">
+              <div class="study-mode-intro">
+                <span class="eyebrow">Revisao rapida</span>
+                <h2 class="section-title">Mapa mental enxuto do topico</h2>
+                <p class="lede">
+                  Esta visao resume o essencial para revisao curta. O que for periferico fica no resumo descritivo.
+                </p>
+              </div>
+              {data.mindMap ? (
+                <MindMap
+                  title={data.mindMap.title}
+                  subtitle={data.mindMap.subtitle}
+                  sections={data.mindMap.sections}
+                  highlights={data.mindMap.highlights}
+                />
+              ) : (
+                <div class="info-card">
+                  <strong>Mapa mental indisponivel</strong>
+                  <p class="lede" style="margin:0.35rem 0 0;">Adicione `mindMap` no frontmatter para habilitar esta visao.</p>
+                </div>
+              )}
+            </div>
+          </section>
+
+          <div class="prose-shell">
+          <RelatedContent items={related} />
+          <div class="footer-nav">
+            <a class="info-card" href={prev ? withBase(`/conteudos/${prev.data.slug}/`) : withBase(`/categorias/${data.areaSlug}/${data.categorySlug}/`)}>
+              <span class="eyebrow">{prev ? "Anterior" : "Voltar"}</span>
+              <strong>{prev ? prev.data.title : data.category}</strong>
+            </a>
+            <a class="info-card" href={withBase(`/categorias/${data.areaSlug}/${data.categorySlug}/`)}>
+              <span class="eyebrow">Categoria</span>
+              <strong>{data.category}</strong>
+            </a>
+            <a class="info-card" href={next ? withBase(`/conteudos/${next.data.slug}/`) : withBase(`/areas/${data.areaSlug}/`)}>
+              <span class="eyebrow">{next ? "Proximo" : "Area"}</span>
+              <strong>{next ? next.data.title : data.area}</strong>
+            </a>
+          </div>
+        </div>
+        </div>
+        <aside class="toc-shell">
+          <TableOfContents headings={headings} />
+        </aside>
+      </div>
+    </article>
+  </AppShell>
+</BaseLayout>

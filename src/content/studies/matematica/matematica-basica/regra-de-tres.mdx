@@ -1,0 +1,189 @@
+---
+title: Regra de tres
+description: Resolva proporcoes simples e compostas identificando grandezas diretas e inversas com exemplos completos.
+area: Matematica
+areaSlug: matematica
+category: Matematica basica
+categorySlug: matematica-basica
+topic: Regra de tres
+slug: regra-de-tres
+order: 9
+icon: proportion
+color: math
+difficulty: Iniciante
+readingTime: 13 min
+updatedAt: 18/07/2026
+featured: true
+tags:
+  - matematica
+  - regra de tres
+  - proporcao
+  - grandezas
+summary: Aprenda a reconhecer proporcionalidade direta e inversa e resolva regras de três simples e compostas.
+mindMap:
+  title: Mapa mental de regra de tres
+  subtitle: Organize grandezas, classifique relações e monte a proporção correta.
+  highlights: [direta, inversa, simples, composta]
+  sections:
+    - title: Antes da conta
+      kind: core
+      definition: Regra de tres só se aplica quando existe proporcionalidade entre as grandezas.
+      bullets:
+        - alinhe valores da mesma grandeza
+        - mantenha unidades compativeis
+        - identifique o valor desconhecido
+      example: quilometros com quilometros; horas com horas.
+    - title: Proporcao direta
+      kind: base
+      definition: Uma grandeza aumenta ou diminui na mesma direcao da outra.
+      formula: '\frac{a}{b}=\frac{c}{x}'
+      bullets:
+        - mais produto exige mais materia-prima
+        - razao entre valores correspondentes é constante
+      example: 3 cadernos custam 24; 5 custam 40.
+    - title: Proporcao inversa
+      kind: process
+      definition: Uma grandeza aumenta enquanto a outra diminui na proporcao correspondente.
+      formula: 'a\cdot b=c\cdot x'
+      bullets:
+        - mais trabalhadores, menos tempo
+        - inverta uma coluna antes de montar a proporcao
+      example: 6 pessoas fazem em 10 dias; 12 fazem em 5.
+    - title: Regra composta
+      kind: process
+      definition: Relacione cada grandeza com a coluna da incognita, uma por vez.
+      bullets:
+        - escolha a grandeza de referencia
+        - marque cada relacao como direta ou inversa
+        - inverta apenas as colunas inversas
+        - monte uma unica igualdade
+      example: mais maquinas e mais horas produzem mais pecas.
+    - title: Conferencia
+      kind: application
+      definition: Estime a direção da resposta antes de calcular.
+      bullets:
+        - se tudo favorece aumento, x deve aumentar
+        - confira unidades
+        - desconfie de relacao que nao é proporcional
+      example: dobrar velocidade reduz pela metade o tempo, para distância fixa.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## O que a regra de três resolve
+
+<DefinitionBlock title="Regra de tres organiza uma proporcao" text="Ela encontra um valor desconhecido quando grandezas relacionadas variam de modo proporcional. Antes da multiplicação cruzada, é essencial descobrir se a relação é direta ou inversa." />
+
+Nem toda relação entre números é proporcional. Dobrar a idade de uma pessoa, por exemplo, não dobra necessariamente sua altura. A técnica só funciona quando a proporção faz sentido no contexto.
+
+## Preparação antes da conta
+
+1. Identifique as grandezas envolvidas.
+2. Coloque valores da mesma grandeza na mesma coluna.
+3. Converta unidades incompatíveis.
+4. Compare cada grandeza com aquela que contém `x`.
+5. Classifique a relação como direta ou inversa.
+
+<WarningBlock title="Nao use produto cruzado automaticamente" text="Primeiro confirme a proporcionalidade e a direção da relação. Uma tabela bem montada com relação errada ainda produz uma resposta errada." />
+
+## Regra de três simples direta
+
+Duas grandezas são diretamente proporcionais quando aumentam ou diminuem juntas, mantendo a mesma razão.
+
+<FormulaBlock
+  name="Proporcao direta"
+  expression="\frac{a}{b}=\frac{c}{x}\quad\Longrightarrow\quad ax=bc"
+  description="Valores correspondentes ficam alinhados. O produto dos extremos é igual ao produto dos meios."
+  variables={[
+    { label: "a, c", meaning: "valores de uma grandeza" },
+    { label: "b, x", meaning: "valores correspondentes da outra" }
+  ]}
+  example="Se 3 cadernos custam R$ 24, 5 cadernos custam R$ 40."
+  note="Mais cadernos significam maior custo, mantendo o preço unitário."
+  mistake="Misturar linhas correspondentes ou unidades diferentes."
+/>
+
+### Exemplo: preço de cadernos
+
+Se `3` cadernos custam `R$ 24`, quanto custam `5`?
+
+| Cadernos | Preço |
+| --- | --- |
+| 3 | 24 |
+| 5 | x |
+
+Como mais cadernos custam mais, a relação é direta:
+
+`3/5 = 24/x` → `3x = 120` → `x = 40`.
+
+<ExampleBlock title="Resposta" text="Cinco cadernos custam R$ 40. A conferência pelo preço unitário confirma: R$ 24 ÷ 3 = R$ 8 e 5 × R$ 8 = R$ 40." />
+
+## Regra de três simples inversa
+
+Duas grandezas são inversamente proporcionais quando uma aumenta e a outra diminui de forma que o produto permaneça constante.
+
+### Exemplo: pessoas e tempo
+
+Se `6` pessoas concluem uma tarefa em `10` dias, em quantos dias `12` pessoas, com a mesma produtividade, concluem a mesma tarefa?
+
+| Pessoas | Dias |
+| --- | --- |
+| 6 | 10 |
+| 12 | x |
+
+Mais pessoas exigem menos dias, então a relação é inversa. Podemos usar o produto constante:
+
+`6 × 10 = 12 × x` → `60 = 12x` → `x = 5`.
+
+<ExampleBlock title="Leitura do resultado" text="Dobrar a equipe de 6 para 12 reduz o tempo pela metade, de 10 para 5 dias, sob a hipótese de produtividade constante." />
+
+<TipBlock title="Faça uma previsão antes" text="Se a equipe aumentou, o tempo precisa diminuir. Essa previsão detecta rapidamente uma inversão esquecida." />
+
+## Regra de três composta
+
+Ela envolve três ou mais grandezas. Compare cada coluna com a coluna que contém a incógnita, mantendo as demais temporariamente fixas.
+
+### Exemplo 1: máquinas, horas e peças
+
+Quatro máquinas, trabalhando `6` horas, produzem `1.200` peças. Quantas peças `6` máquinas produzem em `8` horas, no mesmo ritmo?
+
+| Máquinas | Horas | Peças |
+| --- | --- | --- |
+| 4 | 6 | 1.200 |
+| 6 | 8 | x |
+
+Em relação às peças:
+
+- mais máquinas produzem mais: direta;
+- mais horas produzem mais: direta.
+
+`x/1200 = (6/4) × (8/6)`
+
+`x/1200 = 2` → `x = 2.400` peças.
+
+### Exemplo 2: operários, dias e jornada
+
+Oito operários, trabalhando `6` horas por dia, terminam um serviço em `15` dias. Quantos dias `12` operários, trabalhando `5` horas por dia, levarão?
+
+| Operários | Horas/dia | Dias |
+| --- | --- | --- |
+| 8 | 6 | 15 |
+| 12 | 5 | x |
+
+Em relação aos dias:
+
+- mais operários reduzem os dias: inversa;
+- mais horas por dia reduzem os dias: inversa.
+
+`x/15 = (8/12) × (6/5)`
+
+`x/15 = 4/5` → `x = 12` dias.
+
+<ExampleBlock title="Conferencia pela carga total" text="No primeiro cenário há 8 × 6 × 15 = 720 horas de trabalho. No segundo, 12 × 5 × 12 = 720. A carga total coincide." />
+
+## Quando não usar
+
+Não use regra de três se houver taxa variável, valor fixo somado, crescimento exponencial ou qualquer relação não proporcional. Uma corrida de táxi com bandeirada fixa, por exemplo, não tem preço diretamente proporcional à distância desde zero.

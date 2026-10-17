@@ -1,0 +1,168 @@
+---
+title: Variáveis e tipos em Python
+description: Aprenda como Python guarda valores e revise string, int, float e booleano com exemplos simples.
+area: Programação
+areaSlug: programacao
+category: Python
+categorySlug: python
+topic: Variáveis e tipos
+slug: python-variaveis-e-tipos
+order: 3
+icon: code
+color: tech
+difficulty: Iniciante
+readingTime: 10 min
+updatedAt: 18/07/2026
+featured: false
+tags:
+  - programação
+  - python
+  - variáveis
+  - tipos
+summary: Variáveis associam nomes a valores; tipos dizem que tipo de operação faz sentido com cada valor.
+mindMap:
+  title: Mapa mental de variáveis e tipos
+  subtitle: Os quatro tipos básicos para começar a escrever programas úteis.
+  highlights:
+    - str
+    - int
+    - float
+    - bool
+  sections:
+    - title: Variável
+      kind: core
+      definition: Um nome associado a um valor em memória.
+      bullets:
+        - não precisa declarar tipo antes
+        - o tipo vem do valor atribuído
+        - nomes devem revelar intenção
+      example: idade = 25.
+    - title: String
+      kind: base
+      definition: Texto delimitado por aspas simples ou duplas.
+      bullets:
+        - tipo str
+        - aceita f-strings
+        - é imutável
+      example: nome = "Ana".
+    - title: Inteiro
+      kind: base
+      definition: Número sem parte decimal.
+      bullets:
+        - tipo int
+        - pode ser positivo, negativo ou zero
+        - usado em contagens
+      example: quantidade = 12.
+    - title: Decimal
+      kind: base
+      definition: Número com parte decimal.
+      bullets:
+        - tipo float
+        - usado em medidas e taxas
+        - pode ter aproximações internas
+      example: altura = 1.75.
+    - title: Booleano
+      kind: process
+      definition: Valor lógico verdadeiro ou falso.
+      bullets:
+        - True ou False
+        - resultado de comparações
+        - controla decisões
+      example: aprovado = media >= 7.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Variável é um nome para um valor" text="Em Python, uma variável associa um identificador a um objeto. Você não declara o tipo antes; o tipo é definido pelo valor atribuído." />
+
+```python
+nome = "Lia"
+idade = 28
+altura = 1.68
+estuda_python = True
+```
+
+Python tem tipagem dinâmica: o tipo é verificado durante a execução. Também tem tipagem forte: ele não mistura tipos incompatíveis de forma silenciosa.
+
+## Tipos básicos
+
+| Tipo | Representa | Exemplos |
+| --- | --- | --- |
+| `str` | texto | `"Python"`, `'Olá'` |
+| `int` | inteiro | `10`, `-3`, `0` |
+| `float` | decimal | `3.14`, `-0.5` |
+| `bool` | lógico | `True`, `False` |
+
+A função `type()` mostra o tipo de um valor:
+
+```python
+quantidade = 12
+print(type(quantidade))  # <class 'int'>
+```
+
+## Strings
+
+Strings guardam texto. Podem usar aspas simples ou duplas.
+
+```python
+nome = "Ravi"
+curso = 'Python'
+```
+
+Uma f-string insere valores dentro de um texto:
+
+```python
+pontos = 95
+mensagem = f"{nome} fez {pontos} pontos."
+print(mensagem)
+```
+
+Strings são sequências. `nome[0]` acessa o primeiro caractere e `nome.lower()` cria uma versão em minúsculas.
+
+## Int e float
+
+`int` representa números inteiros. É comum em contagens, idades, quantidades e índices.
+
+```python
+tentativas = 3
+saldo_de_pontos = 120
+```
+
+`float` representa números com parte decimal. É comum em médias, preços, medidas e taxas.
+
+```python
+preco = 49.90
+media = 8.75
+```
+
+<WarningBlock title="Float pode ter aproximação" text="Números decimais em computadores podem ter pequenas imprecisões internas. Para dinheiro em sistemas reais, existem técnicas e tipos mais adequados." />
+
+## Booleanos
+
+Booleanos representam verdade ou falsidade:
+
+```python
+maior_de_idade = idade >= 18
+tem_acesso = True
+```
+
+Eles são essenciais para condicionais e laços, porque ajudam o programa a escolher caminhos.
+
+## Conversão de tipos
+
+As funções `str`, `int`, `float` e `bool` criam ou convertem valores:
+
+```python
+texto_idade = input("Idade: ")
+idade = int(texto_idade)
+print(f"No próximo ano você terá {idade + 1} anos.")
+```
+
+`input()` sempre devolve string. Se o usuário digitar `20`, Python recebe `"20"`, e não `20`.
+
+<WarningBlock title="Nem todo texto vira número" text="int('dez') gera ValueError. Em programas reais, valide a entrada antes de confiar na conversão." />
+
+<TipBlock title="Nome bom reduz erro" text="Prefira nomes como quantidade_alunos, preco_final e esta_aprovado. Eles tornam o tipo provável e a intenção mais clara." />

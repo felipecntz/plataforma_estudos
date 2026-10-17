@@ -1,0 +1,19 @@
+---
+const { headings } = Astro.props as { headings: { depth: number; slug: string; text: string }[] };
+---
+
+<details class="toc-card toc-details" open>
+  <summary class="toc-summary">
+    <span class="eyebrow">Sumario</span>
+    <span class="toc-summary-label">Ver secoes</span>
+  </summary>
+  <nav aria-label="Sumario" style="padding:0 1rem 1rem;">
+    <div class="stack-sm" style="margin-top:0.4rem;">
+      {headings.length ? headings.filter((item) => item.depth <= 3).map((item) => (
+        <a href={`#${item.slug}`} style={`padding-left:${(item.depth - 2) * 0.8}rem;`} class="nav-link">
+          {item.text}
+        </a>
+      )) : <span class="tag">Sem secoes adicionais</span>}
+    </div>
+  </nav>
+</details>

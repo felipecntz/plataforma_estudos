@@ -1,0 +1,109 @@
+---
+title: "AWS: visão geral e ordem de estudo"
+description: Entenda como estudar AWS por famílias de serviços, sem concentrar EC2, Lambda, S3, RDS e IAM em uma única página.
+area: Cloud
+areaSlug: cloud
+category: AWS
+categorySlug: aws
+topic: Visão geral e ordem de estudo
+slug: aws-servicos-conceitos
+order: 2
+icon: cloud
+color: tech
+difficulty: Iniciante
+readingTime: 7 min
+updatedAt: 08/08/2026
+featured: true
+tags:
+  - aws
+  - cloud
+  - arquitetura
+  - ordem de estudo
+summary: AWS deve ser estudada por fundamentos e depois por serviços separados, começando por IAM, EC2, S3, RDS e Lambda.
+mindMap:
+  title: Mapa mental da AWS
+  subtitle: Ordem de estudo para não misturar fundamentos, serviços e operação.
+  highlights:
+    - IAM primeiro
+    - EC2 e Lambda computam
+    - S3 e RDS guardam dados
+  sections:
+    - title: Fundamentos
+      kind: core
+      definition: Antes dos serviços, entenda conta, região, zona, rede, identidade e cobrança.
+      bullets:
+        - conta isola recursos e custos
+        - região define localização
+        - IAM controla acesso
+      example: Escolha uma região, organize tags e configure permissões antes de publicar recursos.
+    - title: Identidade
+      kind: base
+      definition: IAM decide quem pode executar ações sobre recursos.
+      bullets:
+        - usuários para pessoas
+        - roles para serviços
+        - policies para permissões
+      example: Uma EC2 acessa S3 usando role, sem guardar chave fixa no servidor.
+    - title: Computação
+      kind: process
+      definition: EC2 dá controle de servidor; Lambda executa funções sem administrar máquina.
+      bullets:
+        - EC2 para runtime controlado
+        - Lambda para eventos curtos
+        - containers ficam em estudo posterior
+      example: API tradicional em EC2; automação de imagem em Lambda.
+    - title: Dados
+      kind: application
+      definition: S3 armazena objetos; RDS gerencia bancos relacionais.
+      bullets:
+        - S3 não é disco local
+        - RDS reduz operação do banco
+        - backup e criptografia são essenciais
+      example: Fotos no S3 e pedidos no PostgreSQL gerenciado pelo RDS.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="AWS é um conjunto de blocos de arquitetura" text="A Amazon Web Services oferece serviços para identidade, rede, computação, armazenamento, bancos, segurança, observabilidade e custos. O estudo fica mais claro quando cada serviço importante ganha sua própria página." />
+
+Esta página é apenas o mapa de orientação. Os serviços principais foram separados para evitar uma revisão longa demais em uma única tela. A sequência recomendada é: fundamentos de cloud, visão geral da AWS, IAM, EC2, S3, RDS e Lambda.
+
+## Conceitos que vêm antes dos serviços
+
+| Conceito | O que significa |
+| --- | --- |
+| Conta AWS | limite administrativo e financeiro onde recursos são criados |
+| Região | localização geográfica, como `us-east-1` ou `sa-east-1` |
+| Availability Zone | datacenter isolado dentro de uma região |
+| IAM | identidade, permissões, roles e políticas |
+| VPC | rede virtual privada onde muitos recursos se conectam |
+| ARN | identificador único de recursos AWS |
+| Tags | etiquetas para custo, ambiente, dono e finalidade |
+
+<TipBlock title="Ordem mental" text="Antes de pensar em servidor, pense em conta, região, identidade e rede. Muita arquitetura ruim nasce porque esses fundamentos ficam para depois." />
+
+## Sequência de estudo sugerida
+
+| Ordem | Tópico | Pergunta principal |
+| --- | --- | --- |
+| 1 | IAM | Quem pode fazer o quê? |
+| 2 | EC2 | Quando preciso controlar um servidor? |
+| 3 | S3 | Como guardar arquivos e objetos com segurança? |
+| 4 | RDS | Quando usar banco relacional gerenciado? |
+| 5 | Lambda | Quando executar código sem servidor fixo? |
+
+<ExampleBlock title="Exemplo de arquitetura pequena" text="Uma aplicação web pode ter usuários e roles no IAM, servidores EC2 em subnets privadas, imagens no S3, banco PostgreSQL no RDS e funções Lambda para tarefas assíncronas." />
+
+## O que fica para depois
+
+Depois da base, avance para VPC em detalhe, Load Balancer, Auto Scaling, CloudFront, Route 53, CloudWatch, CloudTrail, KMS, Secrets Manager, DynamoDB, ECS/EKS e CloudFormation. Esses temas também devem virar páginas próprias quando o conteúdo crescer.
+
+<WarningBlock title="Erro comum" text="Tentar decorar uma lista gigante de serviços. O melhor estudo é entender a função de cada família e aprofundar um serviço por página." />
+
+## Resumo de revisão
+
+AWS deve ser estudada por blocos. IAM cuida de identidade e permissão. EC2 entrega servidores virtuais. S3 guarda objetos. RDS opera bancos relacionais. Lambda executa funções por evento. A visão geral mostra o caminho, mas cada serviço importante precisa de página própria com resumo e mapa mental.

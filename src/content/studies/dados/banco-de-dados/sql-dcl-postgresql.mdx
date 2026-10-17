@@ -1,0 +1,174 @@
+---
+title: "DCL: permissoes no PostgreSQL"
+description: Entenda roles, usuarios, GRANT, REVOKE, permissoes por schema e boas praticas de acesso no PostgreSQL.
+area: Dados
+areaSlug: dados
+category: Banco de Dados
+categorySlug: banco-de-dados
+topic: DCL PostgreSQL
+slug: sql-dcl-postgresql
+order: 40
+icon: database
+color: data
+difficulty: Intermediario
+readingTime: 12 min
+updatedAt: 01/08/2026
+featured: false
+tags:
+  - dados
+  - sql
+  - postgresql
+  - dcl
+  - permissoes
+summary: DCL controla acesso. Em PostgreSQL, roles representam usuarios ou grupos, GRANT concede permissoes e REVOKE remove. O ideal e dar o minimo acesso necessario.
+mindMap:
+  title: Mapa mental de DCL
+  subtitle: Quem pode fazer o que no banco.
+  highlights:
+    - ROLE
+    - GRANT
+    - REVOKE
+    - least privilege
+  sections:
+    - title: Role
+      kind: core
+      definition: Identidade ou grupo de permissoes no PostgreSQL.
+      example: CREATE ROLE app_readonly LOGIN PASSWORD '...'.
+    - title: GRANT
+      kind: process
+      definition: Concede privilegios.
+      example: GRANT SELECT ON clientes TO analista.
+    - title: REVOKE
+      kind: process
+      definition: Remove privilegios.
+      example: REVOKE DELETE ON pedidos FROM app_user.
+    - title: Schema
+      kind: base
+      definition: Permissao de schema permite usar objetos dentro dele.
+      example: GRANT USAGE ON SCHEMA public.
+    - title: Minimo acesso
+      kind: application
+      definition: Cada usuario recebe somente o necessario.
+      bullets:
+        - leitura separada de escrita
+        - sem superuser para app
+        - auditoria
+---
+import WarningBlock from "../../../../components/WarningBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## O que e DCL
+
+DCL significa Data Control Language. Ela controla permissoes.
+
+Comandos principais:
+
+- `GRANT`: concede acesso;
+- `REVOKE`: remove acesso.
+
+No PostgreSQL, o conceito central e `ROLE`. Uma role pode funcionar como usuario, grupo ou ambos.
+
+## Criando roles
+
+Role de leitura:
+
+```sql
+CREATE ROLE analista_readonly
+LOGIN
+PASSWORD 'senha_forte_aqui';
+```
+
+Role de aplicacao:
+
+```sql
+CREATE ROLE app_user
+LOGIN
+PASSWORD 'senha_forte_aqui';
+```
+
+Grupo sem login:
+
+```sql
+CREATE ROLE equipe_dados;
+GRANT equipe_dados TO analista_readonly;
+```
+
+## Permissao no schema
+
+Antes de ler tabelas em um schema, a role precisa conseguir usar o schema.
+
+```sql
+GRANT USAGE ON SCHEMA public TO analista_readonly;
+```
+
+## Permissao em tabelas
+
+Somente leitura:
+
+```sql
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO analista_readonly;
+```
+
+Leitura e escrita para aplicacao:
+
+```sql
+GRANT SELECT, INSERT, UPDATE, DELETE
+ON ALL TABLES IN SCHEMA public
+TO app_user;
+```
+
+Permissao em uma tabela:
+
+```sql
+GRANT SELECT ON clientes TO analista_readonly;
+GRANT SELECT, INSERT ON pedidos TO app_user;
+```
+
+## Sequences e identity
+
+Quando tabelas usam sequences, a role pode precisar de permissao nelas.
+
+```sql
+GRANT USAGE, SELECT
+ON ALL SEQUENCES IN SCHEMA public
+TO app_user;
+```
+
+## Permissoes futuras
+
+Para novas tabelas criadas depois:
+
+```sql
+ALTER DEFAULT PRIVILEGES IN SCHEMA public
+GRANT SELECT ON TABLES TO analista_readonly;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA public
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO app_user;
+```
+
+## REVOKE
+
+Remover permissao:
+
+```sql
+REVOKE DELETE ON pedidos FROM app_user;
+```
+
+Remover tudo:
+
+```sql
+REVOKE ALL PRIVILEGES ON clientes FROM analista_readonly;
+```
+
+## Boas praticas
+
+- nao use superuser na aplicacao;
+- separe usuarios de leitura e escrita;
+- evite compartilhar senha entre pessoas;
+- use roles de grupo para padronizar acesso;
+- registre quem tem acesso a dados sensiveis;
+- revise permissoes periodicamente.
+
+<WarningBlock title="Permissao demais vira risco silencioso" text="Um usuario de relatorio nao precisa de DELETE. Uma aplicacao comum nao precisa ser dona do banco nem superuser." />
+
+<TipBlock title="Modelo simples" text="Crie uma role readonly para consultas, uma role app para a aplicação e mantenha administracao separada. Isso ja evita muitos acidentes." />

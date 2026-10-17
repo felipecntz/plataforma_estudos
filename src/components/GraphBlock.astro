@@ -1,0 +1,100 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  variant: "points" | "linePositive" | "lineNegative" | "parabolaUp" | "parabolaDown";
+  notes: string[];
+}
+
+const { title, description, variant, notes } = Astro.props;
+
+const drawings = {
+  points: {
+    path: "M70 205 C120 170, 160 155, 205 112 S285 65, 350 48",
+    markers: [
+      { x: 105, y: 178, label: "(1, 2)" },
+      { x: 205, y: 112, label: "(2, 5)" },
+      { x: 315, y: 67, label: "(3, 8)" }
+    ],
+    helper: { x1: 205, y1: 132, x2: 205, y2: 112, label: "x = 2" }
+  },
+  linePositive: {
+    path: "M75 222 L345 58",
+    markers: [
+      { x: 105, y: 204, label: "(0, -6)" },
+      { x: 225, y: 132, label: "(3, 0)" }
+    ],
+    helper: { x1: 225, y1: 214, x2: 225, y2: 132, label: "zero" }
+  },
+  lineNegative: {
+    path: "M75 48 L345 190",
+    markers: [
+      { x: 115, y: 69, label: "(0, 5)" },
+      { x: 235, y: 132, label: "(2,5; 0)" }
+    ],
+    helper: { x1: 235, y1: 214, x2: 235, y2: 132, label: "zero" }
+  },
+  parabolaUp: {
+    path: "M90 46 C120 80, 126 132, 145 132 C170 132, 180 190, 220 190 C260 190, 270 132, 295 132 C314 132, 322 80, 350 46",
+    markers: [
+      { x: 145, y: 132, label: "x1 = 1" },
+      { x: 220, y: 190, label: "V(2, -1)" },
+      { x: 295, y: 132, label: "x2 = 3" }
+    ],
+    helper: { x1: 220, y1: 36, x2: 220, y2: 214, label: "eixo" }
+  },
+  parabolaDown: {
+    path: "M78 214 C126 58, 180 26, 220 64 C270 110, 315 190, 352 214",
+    markers: [
+      { x: 140, y: 86, label: "subindo" },
+      { x: 220, y: 64, label: "maximo" },
+      { x: 300, y: 164, label: "descendo" }
+    ],
+    helper: { x1: 220, y1: 36, x2: 220, y2: 214, label: "vertice" }
+  }
+}[variant];
+---
+
+<section class="content-block graph-block">
+  <div class="graph-copy">
+    <div class="eyebrow">Grafico comentado</div>
+    <h3>{title}</h3>
+    <p class="lede">{description}</p>
+    <ul>
+      {notes.map((note) => <li>{note}</li>)}
+    </ul>
+  </div>
+  <figure class="graph-figure" aria-label={title}>
+    <svg viewBox="0 0 420 260" role="img">
+      <title>{title}</title>
+      <desc>{description}</desc>
+      <line class="graph-grid-line" x1="44" y1="60" x2="388" y2="60" />
+      <line class="graph-grid-line" x1="44" y1="132" x2="388" y2="132" />
+      <line class="graph-grid-line" x1="44" y1="204" x2="388" y2="204" />
+      <line class="graph-grid-line" x1="116" y1="32" x2="116" y2="224" />
+      <line class="graph-grid-line" x1="220" y1="32" x2="220" y2="224" />
+      <line class="graph-grid-line" x1="324" y1="32" x2="324" y2="224" />
+      <line class="graph-axis" x1="44" y1="132" x2="388" y2="132" />
+      <line class="graph-axis" x1="62" y1="32" x2="62" y2="224" />
+      <text class="graph-axis-label" x="390" y="128">x</text>
+      <text class="graph-axis-label" x="70" y="38">y</text>
+      <line
+        class="graph-helper"
+        x1={drawings.helper.x1}
+        y1={drawings.helper.y1}
+        x2={drawings.helper.x2}
+        y2={drawings.helper.y2}
+      />
+      <text class="graph-helper-label" x={drawings.helper.x1 + 8} y={drawings.helper.y1 + 18}>
+        {drawings.helper.label}
+      </text>
+      <path class="graph-path" d={drawings.path} />
+      {drawings.markers.map((marker) => (
+        <>
+          <circle class="graph-point" cx={marker.x} cy={marker.y} r="5" />
+          <text class="graph-point-label" x={marker.x + 9} y={marker.y - 8}>{marker.label}</text>
+        </>
+      ))}
+    </svg>
+  </figure>
+</section>

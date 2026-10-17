@@ -1,0 +1,172 @@
+---
+title: Funções, built-ins e lambda em Python
+description: Aprenda def, parâmetros, argumentos, return, funções built-in e lambda para reaproveitar raciocínios.
+area: Programação
+areaSlug: programacao
+category: Python
+categorySlug: python
+topic: Funções, built-ins e lambda
+slug: python-funcoes-builtins-lambda
+order: 9
+icon: code
+color: tech
+difficulty: Iniciante
+readingTime: 11 min
+updatedAt: 18/07/2026
+featured: false
+tags:
+  - programação
+  - python
+  - funções
+  - built-ins
+  - lambda
+summary: Funções agrupam responsabilidades, built-ins aceleram tarefas comuns e lambda expressa regras curtas.
+mindMap:
+  title: Mapa mental de funções
+  subtitle: Como criar, chamar e reaproveitar blocos de lógica.
+  highlights:
+    - def
+    - return
+    - built-ins
+  sections:
+    - title: Função
+      kind: core
+      definition: Bloco nomeado que executa uma responsabilidade.
+      bullets:
+        - criada com def
+        - pode receber parâmetros
+        - pode devolver resultado
+      example: def calcular_media(notas).
+    - title: return
+      kind: process
+      definition: Encerra a função e devolve um valor.
+      bullets:
+        - sem return retorna None
+        - facilita testes
+        - separa cálculo de exibição
+      example: return soma / quantidade.
+    - title: Argumentos
+      kind: base
+      definition: Valores passados para a função na chamada.
+      bullets:
+        - posicionais
+        - nomeados
+        - valores padrão
+      example: apresentar(nome="Iara").
+    - title: Built-ins
+      kind: application
+      definition: Funções disponíveis sem importação.
+      bullets:
+        - print, input e len
+        - sum, min e max
+        - range, enumerate e zip
+      example: sum(notas) soma os itens.
+    - title: Lambda
+      kind: application
+      definition: Função anônima de uma expressão.
+      bullets:
+        - útil como argumento
+        - boa para regra curta
+        - não substitui def em lógica grande
+      example: 'dobrar = lambda numero: numero * 2.'
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Função dá nome a um raciocínio" text="Uma função reúne instruções que cumprem uma responsabilidade. Ela evita repetição, melhora a leitura e facilita testar partes pequenas do programa." />
+
+## Criando função com def
+
+```python
+def calcular_media(notas):
+    if not notas:
+        return 0.0
+    return sum(notas) / len(notas)
+
+
+media = calcular_media([8.0, 7.5, 9.0])
+print(media)
+```
+
+`notas` é parâmetro na definição. A lista `[8.0, 7.5, 9.0]` é argumento na chamada.
+
+## return
+
+`return` encerra a função e devolve um resultado.
+
+```python
+def dobro(numero):
+    return numero * 2
+```
+
+Sem `return` explícito, a função devolve `None`.
+
+## Argumentos posicionais, nomeados e padrões
+
+```python
+def apresentar(nome, saudacao="Olá"):
+    return f"{saudacao}, {nome}!"
+
+
+print(apresentar("Iara"))
+print(apresentar(nome="Iara", saudacao="Bem-vinda"))
+```
+
+Valores padrão são úteis para comportamentos comuns.
+
+<WarningBlock title="Cuidado com padrão mutável" text="Evite listas e dicionários como valores padrão de parâmetros. Use None e crie a coleção dentro da função quando precisar." />
+
+## Built-in functions
+
+Built-ins são funções disponíveis sem importar nada.
+
+| Função | Finalidade |
+| --- | --- |
+| `print()` | exibir valores |
+| `input()` | ler texto digitado |
+| `len()` | contar itens |
+| `type()` | inspecionar tipo |
+| `int()`, `float()`, `str()`, `bool()` | converter ou criar valores |
+| `sum()`, `min()`, `max()` | agregar números |
+| `round()` | arredondar |
+| `range()` | produzir intervalos |
+| `enumerate()` | percorrer com índice |
+| `zip()` | combinar iteráveis |
+| `sorted()` | ordenar |
+
+Não use nomes como `list`, `str`, `sum` ou `max` para variáveis. Isso esconde a função original no escopo atual.
+
+## Lambda
+
+`lambda` cria uma função anônima de uma expressão só.
+
+```python
+dobrar = lambda numero: numero * 2
+
+resultado = dobrar(5)
+
+print(resultado)
+```
+
+Nesse exemplo, `dobrar` recebe uma função curta que pega `numero` e devolve `numero * 2`. Quando chamamos `dobrar(5)`, o resultado é `10`.
+
+Lambda também aparece bastante como argumento de outras funções:
+
+```python
+pessoas = [
+    {"nome": "Ivo", "idade": 31},
+    {"nome": "Eva", "idade": 24},
+]
+
+por_idade = sorted(pessoas, key=lambda pessoa: pessoa["idade"])
+```
+
+Nesse segundo caso, a lambda informa qual campo deve orientar a ordenação.
+
+<ExampleBlock title="Quando usar lambda" text="Use lambda quando a regra for curta e aparecer como argumento de outra função. Se precisar de várias linhas ou nome próprio, use def." />
+
+<TipBlock title="Uma função, uma responsabilidade" text="Prefira funções pequenas que recebem dados e devolvem resultados. Nomes como calcular_media e validar_senha comunicam intenção." />

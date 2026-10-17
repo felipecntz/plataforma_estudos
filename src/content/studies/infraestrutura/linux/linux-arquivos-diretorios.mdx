@@ -1,0 +1,125 @@
+---
+title: Arquivos e diretórios no Linux
+description: Revise mkdir, touch, cp, mv, rm, rmdir e exemplos seguros para criar, copiar, mover e remover arquivos.
+area: Infraestrutura
+areaSlug: infraestrutura
+category: Linux
+categorySlug: linux
+topic: Arquivos e diretórios
+slug: linux-arquivos-diretorios
+order: 3
+icon: terminal
+color: tech
+difficulty: Iniciante
+readingTime: 8 min
+updatedAt: 19/07/2026
+featured: false
+tags:
+  - infraestrutura
+  - linux
+  - arquivos
+  - diretórios
+summary: Comandos de arquivo criam, copiam, movem e removem itens; use opções interativas quando houver risco.
+mindMap:
+  title: Mapa mental de arquivos
+  subtitle: Operações básicas para manipular arquivos e pastas.
+  highlights:
+    - mkdir
+    - cp
+    - rm
+  sections:
+    - title: Criar
+      kind: core
+      definition: mkdir cria diretórios e touch cria arquivos vazios ou atualiza data.
+      bullets:
+        - mkdir -p cria pais
+        - touch cria arquivo
+        - basename mostra nome final
+      example: mkdir -p logs/2026.
+    - title: Copiar
+      kind: process
+      definition: cp copia arquivos e diretórios.
+      bullets:
+        - cp origem destino
+        - cp -r copia diretório
+        - cp -i pergunta antes de sobrescrever
+      example: cp app.conf app.conf.bak.
+    - title: Mover
+      kind: process
+      definition: mv move ou renomeia arquivos.
+      bullets:
+        - mv antigo novo
+        - mv arquivo pasta/
+        - mv -i reduz risco
+      example: mv teste.log logs/.
+    - title: Remover
+      kind: application
+      definition: rm remove arquivos e pode apagar diretórios com -r.
+      bullets:
+        - rm arquivo remove arquivo
+        - rmdir remove pasta vazia
+        - rm -ri pergunta recursivamente
+      example: rm -i arquivo.tmp.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Operações de arquivo mudam o sistema" text="Criar, copiar, mover e remover arquivos são tarefas simples, mas em infraestrutura elas podem afetar serviços. Use caminhos claros e confira o alvo." />
+
+## Criar arquivos e pastas
+
+```bash
+mkdir logs
+mkdir -p backups/2026/julho
+touch app.log
+```
+
+`mkdir -p` cria diretórios intermediários se eles ainda não existirem.
+
+## Copiar
+
+```bash
+cp app.conf app.conf.bak
+cp -r site site-backup
+cp -i nginx.conf /tmp/nginx.conf
+```
+
+`-r` copia diretórios. `-i` pergunta antes de sobrescrever.
+
+## Mover e renomear
+
+```bash
+mv antigo.txt novo.txt
+mv app.log logs/
+mv -i config.yml config.yml.old
+```
+
+O mesmo comando `mv` serve para renomear e mover.
+
+## Remover
+
+```bash
+rm arquivo.tmp
+rm -i arquivo.tmp
+rmdir pasta-vazia
+rm -ri pasta-com-arquivos
+```
+
+<WarningBlock title="rm não manda para lixeira" text="Em servidores, rm geralmente remove de verdade. Evite comandos amplos, caminhos soltos e remoção recursiva sem conferir o alvo." />
+
+## Exemplos de operação
+
+```bash
+mkdir -p /tmp/revisao-linux
+cp /etc/hosts /tmp/revisao-linux/hosts.bak
+ls -lh /tmp/revisao-linux
+rm -i /tmp/revisao-linux/hosts.bak
+```
+
+<ExampleBlock title="Backup antes de editar" text="Antes de alterar um arquivo de configuração, copie para nome.bak. Se a edição der errado, você tem uma referência imediata." />
+
+<TipBlock title="Use -i quando estiver aprendendo" text="cp -i, mv -i e rm -i tornam comandos destrutivos mais conversacionais. É um freio simples enquanto você ganha segurança." />

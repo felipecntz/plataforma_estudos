@@ -1,0 +1,16 @@
+---
+const { currentPath } = Astro.props;
+---
+
+<div class="stack-sm">
+  <label class="visually-hidden" for="global-search">Buscar conteudos</label>
+  <input
+    id="global-search"
+    class="search-input"
+    type="search"
+    placeholder="Buscar por topico, area, tag ou trecho..."
+    data-search-input
+    data-current-path={currentPath}
+  />
+  <div class="search-results" data-search-results hidden></div>
+</div>

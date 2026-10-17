@@ -1,0 +1,131 @@
+---
+title: Visualização, busca e texto no Linux
+description: Aprenda cat, less, head, tail, grep, find, wc, sort, uniq e pipes para investigar arquivos e logs.
+area: Infraestrutura
+areaSlug: infraestrutura
+category: Linux
+categorySlug: linux
+topic: Visualização, busca e texto
+slug: linux-visualizacao-busca-texto
+order: 4
+icon: terminal
+color: tech
+difficulty: Iniciante
+readingTime: 9 min
+updatedAt: 19/07/2026
+featured: false
+tags:
+  - infraestrutura
+  - linux
+  - grep
+  - logs
+summary: Grande parte do trabalho em Linux é ler arquivos, filtrar linhas e combinar comandos com pipes.
+mindMap:
+  title: Mapa mental de texto
+  subtitle: Comandos para ler, buscar e resumir arquivos.
+  highlights:
+    - grep
+    - find
+    - pipe
+  sections:
+    - title: Ver
+      kind: core
+      definition: Comandos de leitura mostram conteúdo sem editar arquivos.
+      bullets:
+        - cat mostra tudo
+        - less navega por páginas
+        - head e tail mostram pontas
+      example: tail -f app.log.
+    - title: Buscar texto
+      kind: process
+      definition: grep filtra linhas que combinam com um padrão.
+      bullets:
+        - grep -i ignora caixa
+        - grep -n mostra linha
+        - grep -r busca recursivo
+      example: grep -n ERROR app.log.
+    - title: Buscar arquivo
+      kind: process
+      definition: find localiza arquivos por nome, tipo, tamanho ou data.
+      bullets:
+        - -name filtra nome
+        - -type f busca arquivos
+        - -mtime filtra por data
+      example: find /var/log -name "*.log".
+    - title: Pipes
+      kind: application
+      definition: O pipe envia a saída de um comando para outro.
+      bullets:
+        - combina filtros
+        - reduz ruído
+        - cria investigações rápidas
+      example: ps aux | grep nginx.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="Investigar é filtrar" text="Em Linux, muitos problemas aparecem em arquivos de texto: logs, configurações e saídas de comandos. Saber filtrar é mais importante que decorar tudo." />
+
+## Ver conteúdo
+
+```bash
+cat arquivo.txt
+less arquivo.txt
+head -20 arquivo.txt
+tail -50 arquivo.txt
+tail -f app.log
+```
+
+`less` é melhor para arquivos grandes. `tail -f` acompanha logs em tempo real.
+
+## Buscar texto com grep
+
+```bash
+grep "ERROR" app.log
+grep -i "timeout" app.log
+grep -n "listen" nginx.conf
+grep -r "DB_HOST" /etc
+```
+
+Opções úteis:
+
+| Opção | Uso |
+| --- | --- |
+| `-i` | ignora maiúsculas e minúsculas |
+| `-n` | mostra número da linha |
+| `-r` | busca recursivamente |
+| `-v` | inverte o filtro |
+
+## Buscar arquivos com find
+
+```bash
+find /var/log -type f -name "*.log"
+find . -type f -size +100M
+find . -type f -mtime -1
+```
+
+## Pipes
+
+```bash
+ps aux | grep nginx
+cat app.log | grep ERROR | wc -l
+history | tail -20
+```
+
+O pipe `|` conecta comandos. A saída do primeiro vira entrada do segundo.
+
+## Ordenar e contar
+
+```bash
+wc -l app.log
+sort nomes.txt
+sort nomes.txt | uniq
+sort nomes.txt | uniq -c
+```
+
+<ExampleBlock title="Contar erros em log" text="grep ERROR app.log | wc -l filtra linhas com ERROR e conta quantas linhas sobraram." />
+
+<TipBlock title="Prefira less em arquivo grande" text="cat em arquivo enorme joga tudo na tela. less permite navegar, buscar com /texto e sair com q." />

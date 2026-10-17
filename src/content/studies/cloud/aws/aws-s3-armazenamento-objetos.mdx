@@ -1,0 +1,110 @@
+---
+title: "S3: armazenamento de objetos na AWS"
+description: Entenda buckets, objetos, chaves, versionamento, políticas, classes de armazenamento e usos comuns do S3.
+area: Cloud
+areaSlug: cloud
+category: AWS
+categorySlug: aws
+topic: S3
+slug: aws-s3-armazenamento-objetos
+order: 5
+icon: database
+color: tech
+difficulty: Iniciante
+readingTime: 11 min
+updatedAt: 08/08/2026
+featured: true
+tags:
+  - aws
+  - s3
+  - armazenamento
+  - objetos
+summary: S3 armazena objetos em buckets e é usado para arquivos, backups, logs, sites estáticos e bases analíticas.
+mindMap:
+  title: Mapa mental de S3
+  subtitle: Bucket, objeto, acesso, versionamento e custo.
+  highlights:
+    - bucket
+    - objeto
+    - policy
+  sections:
+    - title: Estrutura
+      kind: core
+      definition: S3 guarda objetos dentro de buckets, identificados por chaves.
+      bullets:
+        - bucket é o contêiner
+        - objeto é arquivo mais metadados
+        - key é o caminho lógico
+      example: "`relatorios/2026/janeiro.csv` é uma chave de objeto."
+    - title: Acesso
+      kind: base
+      definition: Permissões combinam IAM, bucket policy, ACLs legadas e bloqueio público.
+      bullets:
+        - bloquear público por padrão
+        - liberar por policy específica
+        - preferir acesso temporário
+      example: Gerar URL pré-assinada para download temporário.
+    - title: Proteção
+      kind: process
+      definition: Versionamento, criptografia e lifecycle ajudam a proteger e controlar dados.
+      bullets:
+        - versionamento recupera alterações
+        - criptografia protege repouso
+        - lifecycle reduz custo
+      example: Mover logs antigos para classe de arquivamento.
+    - title: Usos
+      kind: application
+      definition: S3 é base comum para arquivos de aplicação, data lake, backup e site estático.
+      bullets:
+        - imagens e documentos
+        - logs e exportações
+        - frontend estático
+      example: Hospedar `dist/` de um site estático em S3 com CloudFront.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Ideia central
+
+<DefinitionBlock title="S3 guarda objetos, não discos" text="Simple Storage Service é armazenamento de objetos. Ele não funciona como uma pasta local montada em um servidor comum; cada item é um objeto acessado por chave dentro de um bucket." />
+
+S3 é um dos serviços mais usados da AWS porque serve para muitos cenários: imagens, documentos, backups, logs, exportações, data lakes e sites estáticos. Ele é durável, integrado com vários serviços e precisa de atenção forte a permissões.
+
+## Bucket, objeto e chave
+
+| Conceito | Resumo |
+| --- | --- |
+| Bucket | contêiner onde objetos são armazenados |
+| Objeto | arquivo mais metadados |
+| Key | nome/caminho lógico do objeto |
+| Prefixo | início da key usado para organizar |
+| Metadata | informações associadas ao objeto |
+
+<TipBlock title="Macete" text="S3 parece pasta, mas não é sistema de arquivos tradicional. `pastas` são prefixos nas chaves dos objetos." />
+
+## Segurança de acesso
+
+O padrão mental deve ser bloquear acesso público e liberar somente o necessário. Use IAM para permissões de identidades, bucket policy para regras do bucket e URLs pré-assinadas quando alguém precisa acessar um objeto por tempo limitado.
+
+```text
+Boas perguntas:
+Quem precisa ler?
+Quem precisa escrever?
+Por quanto tempo?
+De qual origem?
+O dado precisa ser público mesmo?
+```
+
+<WarningBlock title="Erro comum" text="Deixar bucket público para resolver download rápido. Para arquivos privados, use autenticação na aplicação ou URL pré-assinada com expiração." />
+
+## Versionamento e lifecycle
+
+Versionamento guarda versões antigas de objetos, ajudando contra exclusão acidental e sobrescrita indevida. Lifecycle move ou remove objetos conforme regras, reduzindo custo quando dados ficam antigos.
+
+<ExampleBlock title="Exemplo realista" text="Logs diários podem ficar 30 dias em classe padrão, depois migrar para uma classe mais barata e finalmente expirar depois de um ano." />
+
+## Resumo de revisão
+
+S3 armazena objetos em buckets. A key organiza o caminho lógico. Segurança depende de IAM, bucket policy e bloqueio público. Versionamento protege contra alterações acidentais. Lifecycle controla custo. Use S3 para arquivos e objetos, não como disco local de EC2.

@@ -1,0 +1,62 @@
+---
+import { navigation } from "../data/navigation";
+import { withBase } from "../lib/links";
+
+const { currentPath } = Astro.props as { currentPath: string };
+---
+
+<aside class="sidebar panel" aria-label="Navegacao principal">
+  <div class="stack-sm sidebar-top">
+    <div class="sidebar-top-row">
+      <div>
+        <div class="eyebrow">Navegacao</div>
+        <h2 style="margin:0.2rem 0 0;font-size:1.25rem;">Topicos</h2>
+      </div>
+      <button class="icon-button mobile-only" type="button" data-drawer-close aria-label="Fechar menu">×</button>
+    </div>
+  </div>
+  <div class="sidebar-scroll">
+    {navigation.map((group) => {
+      const areaActive = currentPath.includes(`/areas/${group.slug}/`) || currentPath.includes(`/categorias/${group.slug}/`) || group.categories.some((category) => category.topics.some((topic) => currentPath.includes(`/conteudos/${topic.slug}/`)));
+      return (
+        <div class="sidebar-group" data-group={group.slug}>
+          <button class:list={["sidebar-toggle", { active: areaActive }]} type="button" data-sidebar-toggle data-key={`area:${group.slug}`}>
+            <span>{group.icon} {group.area}</span>
+            <span class="toggle-indicator" aria-hidden="true">+</span>
+          </button>
+          <div class="sidebar-children" data-sidebar-panel={`area:${group.slug}`}>
+            {group.categories.length === 0 && (
+              <div class="sidebar-empty">Sem conteudos publicados</div>
+            )}
+            {group.categories.map((category) => {
+              const categoryActive = currentPath.includes(`/categorias/${group.slug}/${category.slug}/`) || category.topics.some((topic) => currentPath.includes(`/conteudos/${topic.slug}/`));
+              return (
+                <div class="stack-sm">
+                  <button
+                    class:list={["sidebar-toggle sidebar-subtoggle", { active: categoryActive }]}
+                    type="button"
+                    data-sidebar-toggle
+                    data-key={`category:${group.slug}:${category.slug}`}
+                  >
+                    <span>{category.name}</span>
+                    <span class="toggle-indicator" aria-hidden="true">+</span>
+                  </button>
+                  <div class="sidebar-children" data-sidebar-panel={`category:${group.slug}:${category.slug}`}>
+                    <a class:list={["nav-link nav-link-category", { active: currentPath.includes(`/categorias/${group.slug}/${category.slug}/`) }]} href={withBase(`/categorias/${group.slug}/${category.slug}/`)}>
+                      <span>Ver categoria</span>
+                    </a>
+                    {category.topics.map((topic) => (
+                      <a class:list={["nav-link", { active: currentPath.includes(`/conteudos/${topic.slug}/`) }]} href={withBase(`/conteudos/${topic.slug}/`)}>
+                        <span>{topic.title}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</aside>
