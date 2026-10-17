@@ -860,6 +860,18 @@ O conteúdo não precisa ser aprofundado.
 
 Preparar o projeto para publicação como site estático.
 
+### Publicação oficial
+
+O repositório oficial é público e deve receber os commits deste projeto:
+
+- conta GitHub: `felipecntz`;
+- repositório: `https://github.com/felipecntz/plataforma_estudos`;
+- branch de publicação: `main`;
+- site publicado: `https://felipecntz.github.io/plataforma_estudos/`.
+
+Antes de enviar alterações, executar `npm run build`. Depois do commit, enviar para `origin/main`.
+O workflow `.github/workflows/deploy-pages.yml` publica automaticamente o conteúdo de `dist/` no GitHub Pages a cada push na `main`. Não publicar manualmente arquivos de `dist/`, pois eles são gerados durante o workflow.
+
 Documentar opções como:
 
 - Nginx;
