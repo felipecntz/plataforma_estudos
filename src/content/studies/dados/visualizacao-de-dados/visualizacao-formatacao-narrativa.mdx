@@ -38,15 +38,25 @@ mindMap:
       definition: Contraste, texto alternativo e rótulos atendem mais leitores.
       bullets: [não dependa só de cor, leia em cinza]
 ---
+import ChartExample from "../../../../components/ChartExample.astro";
+
 ## Título, anotação e contexto
 
 Troque títulos genéricos por uma frase que responda à pergunta: “Conversão caiu 1,2 p.p. após mudança no checkout”. Subtítulo informa período, população e fonte. Uma anotação aponta evento relevante; não use dezenas de chamadas competindo.
 
+<ChartExample kind="column" title="Leste lidera receita; Norte pede investigação" question="Receita por região, no mesmo período e com o eixo iniciado em zero." insight="Um único destaque em Leste orienta a leitura. O título entrega o achado e sugere a próxima pergunta: por que Norte ficou atrás?" />
+
+Se o mesmo desenho se chamasse “Gráfico 1”, a pessoa teria de descobrir sozinha o achado. Se todas as colunas fossem igualmente saturadas, o foco desapareceria. Escreva primeiro a conclusão que os números sustentam, depois escolha título, cor e anotação.
+
 Paleta categórica separa grupos; sequencial representa baixo–alto; divergente representa valores em torno de zero ou meta. Reserve uma cor para foco e use neutros no restante. Acessibilidade deve sobreviver a daltonismo e impressão em cinza.
+
+Para um mapa de calor, uma escala sequencial deixa “mais” progressivamente mais escuro. Em resultados acima e abaixo da meta, uma escala divergente coloca a meta no centro. Para tipos de produto, use cores categóricas com rótulos; não imponha ordem falsa a categorias nominais.
 
 ## Formatação técnica
 
 Mostre `R$ 1,2 mi` quando precisão não muda a decisão. Use unidade no título ou eixo, datas legíveis e fonte. Em barras, mantenha zero; em linhas, escala focada pode ser útil quando a distância estiver clara.
+
+Escreva `4,2%` para uma taxa e `+0,7 p.p.` para a diferença entre taxas: são conceitos distintos. Evite eixo duplo salvo quando a relação for central e a escala estiver explicitamente anotada. Em gráficos interativos, tooltip complementa; a informação essencial deve continuar visível sem hover.
 
 | Elemento | Pergunta |
 | --- | --- |
@@ -58,3 +68,7 @@ Mostre `R$ 1,2 mi` quando precisão não muda a decisão. Use unidade no título
 ## Case: relatório executivo
 
 Comece com três achados, siga com evidência e termine com decisão recomendada. O detalhe fica em uma página de exploração; a reunião discute ação, não apenas o que o gráfico mostra.
+
+### Antes de publicar
+
+Leia o gráfico em voz alta para alguém que não montou o relatório. Pergunte o que ele conclui em cinco segundos, qual unidade vê e que ação considera. Se a resposta divergir do objetivo, revise hierarquia, escala ou título antes de polir efeitos visuais.

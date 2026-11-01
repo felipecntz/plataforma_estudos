@@ -38,9 +38,17 @@ mindMap:
       definition: Codifique valor por local, normalizando por população ou área.
       bullets: [pontos, coroplético, fluxo]
 ---
+import ChartExample from "../../../../components/ChartExample.astro";
+
 ## Dispersão, bolhas e correlação
 
 Scatterplot mostra forma, direção, agrupamentos e extremos. Use linha de tendência apenas se ajudar a pergunta e mostre densidade quando houver sobreposição. Bolhas acrescentam uma terceira medida, mas área é difícil de comparar: prefira poucos pontos e rótulos.
+
+<ChartExample kind="scatter" title="Preço e demanda por loja" question="Preço maior aparece junto de menos unidades vendidas?" insight="Há associação negativa nos pontos, com uma loja fora do padrão. Antes de reduzir preços, controle mix, região, promoção e sazonalidade." />
+
+Cada ponto é uma loja. Pontos agrupados sugerem padrão; um ponto isolado pode revelar erro ou oportunidade. Em grandes volumes, transparência, amostragem ou hexbin evitam sobreposição.
+
+<ChartExample kind="bubble" title="Canais por custo, retorno e investimento" question="Qual canal combina retorno alto e custo aceitável? Área da bolha = verba." insight="D tem retorno mais alto com verba menor; C concentra verba maior e retorno intermediário. O próximo passo é testar se aumentar D mantém a eficiência." />
 
 Uma matriz resume várias associações. Use escala divergente centrada em zero e explique que correlação não implica causalidade.
 
@@ -49,3 +57,7 @@ Uma matriz resume várias associações. Use escala divergente centrada em zero 
 Mapa de pontos serve para localização; coroplético pinta regiões por valor. Para comparar regiões de tamanhos diferentes, use taxa por população, densidade ou outra base; contagens favorecem regiões maiores. Forneça nomes, legenda, fonte e período.
 
 <p><strong>Case de saúde pública:</strong> casos absolutos mostram carga; casos por 100 mil habitantes mostram risco relativo. O painel deve oferecer as duas visões para não confundir população com incidência.</p>
+
+## Case de negócio: expansão regional
+
+Uma rede de lojas pode mapear pontos de venda sobre bairros, cruzar vendas por habitante e renda local, e comparar regiões em um scatterplot. O mapa aponta **onde** investigar; o gráfico de dispersão testa se faturamento acompanha potencial de mercado. Regiões densas parecem grandes em contagem absoluta, então a taxa por população evita priorização equivocada.

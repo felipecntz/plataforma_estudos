@@ -38,9 +38,15 @@ mindMap:
       definition: Filtros e drill-down respondem perguntas reais.
       bullets: [estado inicial, filtros visíveis, performance]
 ---
+import ChartExample from "../../../../components/ChartExample.astro";
+
 ## Tipos e arquitetura
 
 Operacional acompanha eventos; analítico investiga tendências e segmentos; executivo resume direção e risco. Comece com período, atualização e filtros. Depois, poucos KPIs com valor, comparação e meta; em seguida, tendência, diagnóstico e tabela para ação.
+
+<ChartExample kind="waterfall" title="O que mudou na receita?" question="Da base de 52 ao total final de 83, quais movimentos explicam a diferença?" insight="Novos clientes adicionam 25, churn retira 12 e upsell adiciona 18. A cascata explica a ponte entre dois totais; trate perdas com cor distinta." />
+
+Uma cascata é útil para reconciliação financeira. O dashboard deve ligar cada barra a uma definição auditável: “novos” são contas que não existiam na base; “churn” mede saída; “upsell” mede expansão na base retida.
 
 | Contexto | Visuais | Impacto |
 | --- | --- | --- |
@@ -57,3 +63,14 @@ Filtros precisam de estado inicial útil, indicação de seleção e opção de 
 <p><strong>Case:</strong> um dashboard de suporte combina cartões de SLA, heatmap por hora, barras por canal e boxplot de duração. O impacto é localizar a fila, explicar sua causa e priorizar escala.</p>
 
 <p><strong>Atenção:</strong> mais gráficos não significam mais análise. Documente fórmula, filtros, fonte, timezone, granularidade e responsável de cada KPI.</p>
+
+## Cases documentados de negócio
+
+Os números dos gráficos desta plataforma são demonstrativos. Estes casos abaixo são relatos publicados pelas próprias organizações e mostram decisões e impactos reais da visualização:
+
+- **Atendimento — Verizon.** A empresa relata que dashboards ajudaram a analisar comportamento de chamadas, capacidade e sentimento. Segundo o [case publicado pela Tableau](https://www.tableau.com/solutions/customer/verizon-reduces-calls-enhances-customer-experience-with-tableau), o volume de chamadas caiu 43% e o tempo de análise de atendimento caiu 50%. Um painel operacional poderia combinar linha de chamadas, heatmap por horário e distribuição do tempo de espera para orientar roteamento.
+- **Vendas globais — Specialized.** A [história de cliente da Tableau](https://www.tableau.com/solutions/customer/specialized-chooses-tableau-online-quickly-and-securely-scale-global-sales) descreve redução da criação do relatório semanal de um dia para menos de uma hora. Barras por país e linhas de tendência permitem comparar mercados em vez de consolidar planilhas manualmente.
+- **Cadeia de suprimentos — Seattle Children’s.** O [case da Tableau](https://www.tableau.com/solutions/customer/seattle-childrens-accesses-fast-reliable-supply-chain-data) descreve painéis para acompanhar estoque, entregas e risco de expiração; a organização relata economia anual de US$ 100 mil associada a fluxo de demanda. Barras de itens críticos e séries de consumo ajudam a priorizar reposição.
+- **Finanças — Microsoft.** Segundo a [história publicada pela Microsoft](https://www.microsoft.com/en/customers/story/18703-microsoft-microsoft-fabric), relatórios executivos passaram a chegar cinco horas mais cedo após mudanças na plataforma de dados que alimenta dashboards. A visualização torna o desvio visível; a preparação confiável dos dados é parte do resultado.
+
+Esses casos não implicam que um tipo de gráfico, isoladamente, causou o ganho. O efeito depende da qualidade dos dados, do processo e da ação que a equipe tomou após ler o painel.

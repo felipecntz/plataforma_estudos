@@ -41,6 +41,7 @@ mindMap:
 import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
 import TipBlock from "../../../../components/TipBlock.astro";
 import WarningBlock from "../../../../components/WarningBlock.astro";
+import ChartExample from "../../../../components/ChartExample.astro";
 
 ## Visualizar é codificar uma comparação
 
@@ -64,3 +65,21 @@ Comece pela pergunta: comparar categorias, mostrar evolução, explicar composi�
 Destaque uma mensagem; use meta, período anterior ou média como referência. Ordene barras quando a ordem importa, rotule unidades e mostre fonte e atualização. Cuidado com eixo de barras cortado, 3D e escalas misturadas: eles inflacionam diferenças.
 
 <WarningBlock title="Case: fila de atendimento" text="Uma linha de volume por hora mostra quando a fila cresce; uma barra por canal mostra onde está o volume; um boxplot mostra consistência. Um gráfico sozinho não responde todas as perguntas." />
+
+## Três perguntas, três desenhos
+
+Uma rede de varejo pode ter muitos registros, mas precisa de poucas respostas: qual canal trouxe mais pedidos, se a receita mudou e se preço e volume se movem juntos. O desenho muda porque a comparação muda.
+
+<ChartExample kind="bar" title="Pedidos por canal" question="Qual canal merece investigação primeiro?" insight="Busca lidera com 64 pedidos no exemplo. A barra destaca o ranking; não indica sozinha lucro ou custo de aquisição." />
+
+Barras usam comprimento em uma escala comum. Ordená-las faz o ranking aparecer imediatamente. Se a decisão é de verba, troque pedidos por margem ou retorno antes de alocar recursos.
+
+<ChartExample kind="line" title="Receita ao longo dos meses" question="O crescimento é contínuo ou houve uma mudança de ritmo?" insight="A série sobe de 32 para 78, com pausas em março e maio. Marque campanhas e compare com o ano anterior antes de atribuir causa." />
+
+Linha respeita a ordem temporal. A curva conecta pontos; por isso, confirme se os períodos têm intervalos regulares e se datas sem dados não foram preenchidas como zero.
+
+<ChartExample kind="scatter" title="Preço e unidades vendidas" question="Preços maiores estão associados a volumes menores?" insight="Os pontos sugerem associação negativa. Segmentos, promoção e sazonalidade ainda podem explicar o padrão; o desenho não prova causalidade." />
+
+## O que evitar na primeira versão
+
+Se o leitor precisa consultar legenda para cada ponto, há séries demais. Se todos os gráficos ganham cor forte, nenhum tem foco. Se o eixo perde unidade, a leitura vira adivinhação. Comece com título que faça uma pergunta, um gráfico que a responda e uma frase curta de interpretação.

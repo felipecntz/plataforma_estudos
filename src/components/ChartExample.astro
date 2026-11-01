@@ -1,0 +1,265 @@
+---
+type ChartKind = "bar" | "column" | "grouped" | "stacked" | "line" | "area" | "histogram" | "pie" | "donut" | "box" | "scatter" | "bubble" | "heatmap" | "treemap" | "waterfall";
+
+interface Props {
+  kind: ChartKind;
+  title: string;
+  question: string;
+  insight: string;
+  unit?: string;
+}
+
+const { kind, title, question, insight, unit = "" } = Astro.props;
+const plot = { left: 66, right: 594, top: 26, bottom: 246, width: 528, height: 220 };
+const grid = [0, 25, 50, 75, 100];
+const colors = ["#087f76", "#ce7043", "#536fd9", "#a378cf", "#d5a847"];
+const horizontal = kind === "bar";
+const vertical = ["column", "grouped", "stacked", "histogram", "waterfall"].includes(kind);
+const plotted = vertical || ["line", "area", "scatter", "bubble"].includes(kind);
+
+const categoryData: Record<string, { labels: string[]; values: number[] }> = {
+  bar: { labels: ["Busca", "E-mail", "Social", "Direto"], values: [64, 48, 36, 24] },
+  column: { labels: ["Norte", "Sul", "Leste", "Oeste"], values: [42, 58, 74, 51] },
+  histogram: { labels: ["0–1", "1–2", "2–3", "3–4", "4–5", "5+"], values: [6, 22, 38, 24, 8, 2] },
+  waterfall: { labels: ["Base", "+ Novos", "− Churn", "+ Upsell", "Final"], values: [52, 25, -12, 18, 83] }
+};
+const category = categoryData[kind];
+const xForIndex = (index: number, total: number) => plot.left + (index + 0.5) * plot.width / total;
+const yForValue = (value: number) => plot.bottom - value * plot.height / 100;
+const timeLabels = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul"];
+const timeSeries = [32, 40, 38, 54, 51, 72, 78];
+const timePoints = timeSeries.map((value, index) => `${plot.left + index * plot.width / 6},${yForValue(value)}`).join(" ");
+const scatter = [[12, 78], [20, 73], [27, 69], [34, 65], [39, 60], [47, 57], [55, 48], [59, 55], [66, 43], [73, 36], [81, 30], [88, 23]];
+const scatterX = (x: number) => plot.left + x * plot.width / 100;
+const scatterY = (y: number) => yForValue(y);
+const bubble = [
+  { x: 22, y: 32, size: 11, label: "A" }, { x: 36, y: 64, size: 19, label: "B" },
+  { x: 62, y: 52, size: 28, label: "C" }, { x: 83, y: 79, size: 14, label: "D" }
+];
+const slices = [46, 28, 17, 9];
+const sliceLabels = ["Busca", "Direto", "Social", "Outros"];
+const polar = (radius: number, angle: number) => ({ x: 300 + radius * Math.cos(angle), y: 145 + radius * Math.sin(angle) });
+let angle = -Math.PI / 2;
+const arcs = slices.map((value, index) => {
+  const start = angle;
+  angle += value / 100 * Math.PI * 2;
+  const from = polar(92, start);
+  const to = polar(92, angle);
+  const innerFrom = polar(49, start);
+  const innerTo = polar(49, angle);
+  const ring = kind === "donut";
+  const d = ring
+    ? `M ${from.x} ${from.y} A 92 92 0 ${value > 50 ? 1 : 0} 1 ${to.x} ${to.y} L ${innerTo.x} ${innerTo.y} A 49 49 0 ${value > 50 ? 1 : 0} 0 ${innerFrom.x} ${innerFrom.y} Z`
+    : `M 300 145 L ${from.x} ${from.y} A 92 92 0 ${value > 50 ? 1 : 0} 1 ${to.x} ${to.y} Z`;
+  return { d, value, color: colors[index], label: sliceLabels[index] };
+});
+const heat = [
+  [12, 23, 46, 68, 54, 30], [8, 20, 42, 75, 69, 35],
+  [10, 29, 51, 81, 72, 41], [13, 24, 48, 73, 62, 34]
+];
+const groups = [
+  { label: "Norte", first: 40, second: 59 }, { label: "Sul", first: 52, second: 61 },
+  { label: "Leste", first: 47, second: 76 }, { label: "Oeste", first: 36, second: 53 }
+];
+const stacked = [
+  { label: "Jan", first: 35, second: 21, third: 11 }, { label: "Fev", first: 39, second: 23, third: 12 },
+  { label: "Mar", first: 43, second: 24, third: 13 }, { label: "Abr", first: 46, second: 28, third: 15 }
+];
+const boxes = [
+  { label: "A", min: 8, q1: 14, median: 20, q3: 29, max: 51, outlier: 72 },
+  { label: "B", min: 12, q1: 24, median: 33, q3: 49, max: 75, outlier: 88 }
+];
+---
+
+<figure class="chart-example" data-chart-kind={kind}>
+  <figcaption class="chart-caption">
+    <span class="chart-kicker">{kind === "box" ? "Boxplot" : kind === "scatter" ? "Scatter plot" : kind === "pie" ? "Pizza" : kind === "histogram" ? "Histograma" : kind === "waterfall" ? "Cascata" : kind === "heatmap" ? "Mapa de calor" : kind === "treemap" ? "Treemap" : kind === "donut" ? "Rosca" : kind === "bubble" ? "Bolhas" : kind === "grouped" ? "Colunas agrupadas" : kind === "stacked" ? "Colunas empilhadas" : kind === "area" ? "Área" : kind === "line" ? "Linha" : kind === "column" ? "Colunas" : "Barras"}</span>
+    <h3>{title}</h3>
+    <p>{question}</p>
+  </figcaption>
+  <div class="chart-stage">
+    <svg viewBox="0 0 640 300" role="img" aria-label={`${title}. ${insight}`} preserveAspectRatio="xMidYMid meet">
+      <title>{title}</title>
+      <desc>{question} {insight} Dados demonstrativos.</desc>
+      {plotted && <>
+        {grid.map((tick) => <>
+          <line class="grid-line" x1={plot.left} x2={plot.right} y1={yForValue(tick)} y2={yForValue(tick)} />
+          <text class="tick-label" x="55" y={yForValue(tick) + 4} text-anchor="end">{tick}</text>
+        </>)}
+        <line class="axis-line" x1={plot.left} x2={plot.right} y1={plot.bottom} y2={plot.bottom} />
+      </>}
+      {horizontal && category.labels.map((label, index) => {
+        const y = 38 + index * 52;
+        const width = category.values[index] * 4.1;
+        return <>
+          <text class="axis-label" x="77" y={y + 17}>{label}</text>
+          <rect x="160" y={y} width="410" height="26" rx="6" fill="var(--chart-track)" />
+          <rect x="160" y={y} width={width} height="26" rx="6" fill={index === 0 ? colors[0] : colors[2]} />
+          <text class="value-label" x={Math.min(160 + width + 8, 570)} y={y + 18}>{category.values[index]}</text>
+        </>;
+      })}
+      {horizontal && <>
+        {grid.map((tick) => <>
+          <line class="grid-line" x1={160 + tick * 4.1} x2={160 + tick * 4.1} y1="35" y2="250" />
+          <text class="tick-label" x={160 + tick * 4.1} y="274" text-anchor="middle">{tick}</text>
+        </>)}
+      </>}
+      {kind === "column" && category.labels.map((label, index) => {
+        const x = xForIndex(index, 4);
+        const y = yForValue(category.values[index]);
+        return <>
+          <rect x={x - 27} y={y} width="54" height={plot.bottom - y} rx="5" fill={index === 2 ? colors[1] : colors[0]} />
+          <text class="value-label" x={x} y={y - 9} text-anchor="middle">{category.values[index]}</text>
+          <text class="axis-label" x={x} y="270" text-anchor="middle">{label}</text>
+        </>;
+      })}
+      {kind === "histogram" && category.labels.map((label, index) => {
+        const x = plot.left + index * 88;
+        const y = yForValue(category.values[index] * 2.2);
+        return <>
+          <rect x={x + 1} y={y} width="86" height={plot.bottom - y} fill={index === 2 ? colors[1] : colors[0]} />
+          <text class="value-label" x={x + 44} y={y - 8} text-anchor="middle">{category.values[index]}</text>
+          <text class="axis-label" x={x + 44} y="270" text-anchor="middle">{label}</text>
+        </>;
+      })}
+      {kind === "grouped" && groups.map((group, index) => {
+        const x = xForIndex(index, 4);
+        return <>
+          <rect x={x - 31} y={yForValue(group.first)} width="29" height={plot.bottom - yForValue(group.first)} rx="3" fill={colors[2]} />
+          <rect x={x + 2} y={yForValue(group.second)} width="29" height={plot.bottom - yForValue(group.second)} rx="3" fill={colors[0]} />
+          <text class="axis-label" x={x} y="270" text-anchor="middle">{group.label}</text>
+        </>;
+      })}
+      {kind === "stacked" && stacked.map((group, index) => {
+        const x = xForIndex(index, 4) - 26;
+        return <>
+          <rect x={x} y={yForValue(group.first)} width="52" height={plot.bottom - yForValue(group.first)} fill={colors[0]} />
+          <rect x={x} y={yForValue(group.first + group.second)} width="52" height={group.second * 2.2} fill={colors[2]} />
+          <rect x={x} y={yForValue(group.first + group.second + group.third)} width="52" height={group.third * 2.2} fill={colors[1]} />
+          <text class="value-label" x={x + 26} y={yForValue(group.first + group.second + group.third) - 8} text-anchor="middle">{group.first + group.second + group.third}</text>
+          <text class="axis-label" x={x + 26} y="270" text-anchor="middle">{group.label}</text>
+        </>;
+      })}
+      {(kind === "line" || kind === "area") && <>
+        {kind === "area" && <polygon points={`${plot.left},${plot.bottom} ${timePoints} ${plot.right},${plot.bottom}`} fill={colors[0]} opacity="0.18" />}
+        <polyline points={timePoints} fill="none" stroke={colors[0]} stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+        {timeSeries.map((value, index) => <>
+          <circle cx={plot.left + index * plot.width / 6} cy={yForValue(value)} r="5" fill={colors[0]} stroke="var(--chart-surface)" stroke-width="2" />
+          <text class="axis-label" x={plot.left + index * plot.width / 6} y="270" text-anchor="middle">{timeLabels[index]}</text>
+        </>)}
+        <text class="value-label" x={plot.right - 8} y={yForValue(78) - 14} text-anchor="end">78</text>
+      </>}
+      {kind === "scatter" && <>
+        <line x1={scatterX(10)} y1={scatterY(80)} x2={scatterX(90)} y2={scatterY(22)} stroke={colors[1]} stroke-width="2" stroke-dasharray="6 5" />
+        {scatter.map(([x, y]) => <circle cx={scatterX(x)} cy={scatterY(y)} r="6" fill={colors[0]} opacity="0.85" />)}
+        <text class="axis-label" x="330" y="283" text-anchor="middle">Preço médio (R$)</text>
+        <text class="axis-label" x="83" y="42">Unidades vendidas</text>
+      </>}
+      {kind === "bubble" && <>
+        {bubble.map((point, index) => <>
+          <circle cx={scatterX(point.x)} cy={scatterY(point.y)} r={point.size} fill={colors[index]} opacity="0.78" />
+          <text class="bubble-label" x={scatterX(point.x)} y={scatterY(point.y) + 4} text-anchor="middle">{point.label}</text>
+        </>)}
+        <text class="axis-label" x="330" y="283" text-anchor="middle">CAC (R$)</text>
+        <text class="axis-label" x="83" y="42">Retorno (%)</text>
+      </>}
+      {(kind === "pie" || kind === "donut") && <>
+        {arcs.map((arc) => <path d={arc.d} fill={arc.color} stroke="var(--chart-surface)" stroke-width="3" />)}
+        {kind === "donut" && <>
+          <text class="donut-main" x="300" y="144" text-anchor="middle">100%</text>
+          <text class="axis-label" x="300" y="163" text-anchor="middle">do total</text>
+        </>}
+        {arcs.map((arc, index) => <>
+          <rect x="420" y={61 + index * 34} width="11" height="11" rx="3" fill={arc.color} />
+          <text class="axis-label" x="439" y={71 + index * 34}>{arc.label} · {arc.value}%</text>
+        </>)}
+      </>}
+      {kind === "box" && <>
+        {grid.map((tick) => <>
+          <line class="grid-line" x1="85" x2="555" y1={yForValue(tick)} y2={yForValue(tick)} />
+          <text class="tick-label" x="72" y={yForValue(tick) + 4} text-anchor="end">{tick}</text>
+        </>)}
+        {boxes.map((box, index) => {
+          const x = 226 + index * 190;
+          return <>
+            <line x1={x} y1={yForValue(box.min)} x2={x} y2={yForValue(box.max)} stroke={colors[index]} stroke-width="2" />
+            <line x1={x - 20} y1={yForValue(box.min)} x2={x + 20} y2={yForValue(box.min)} stroke={colors[index]} stroke-width="2" />
+            <line x1={x - 20} y1={yForValue(box.max)} x2={x + 20} y2={yForValue(box.max)} stroke={colors[index]} stroke-width="2" />
+            <rect x={x - 38} y={yForValue(box.q3)} width="76" height={yForValue(box.q1) - yForValue(box.q3)} fill={colors[index]} opacity="0.25" stroke={colors[index]} stroke-width="3" />
+            <line x1={x - 38} y1={yForValue(box.median)} x2={x + 38} y2={yForValue(box.median)} stroke={colors[index]} stroke-width="4" />
+            <circle cx={x} cy={yForValue(box.outlier)} r="5" fill={colors[index]} />
+            <text class="value-label" x={x + 45} y={yForValue(box.median) + 4}>mediana {box.median}</text>
+            <text class="axis-label" x={x} y="270" text-anchor="middle">Parceiro {box.label}</text>
+          </>;
+        })}
+      </>}
+      {kind === "heatmap" && <>
+        {heat.map((row, rowIndex) => row.map((value, colIndex) => <>
+          <rect x={151 + colIndex * 71} y={45 + rowIndex * 51} width="64" height="43" rx="7" fill={colors[0]} opacity={0.14 + value / 100 * 0.86} />
+          <text class:list={["heat-label", { "heat-label-dark": value < 52 }]} x={183 + colIndex * 71} y={72 + rowIndex * 51} text-anchor="middle">{value}</text>
+        </>))}
+        {["Seg", "Ter", "Qua", "Qui"].map((label, index) => <text class="axis-label" x="140" y={71 + index * 51} text-anchor="end">{label}</text>)}
+        {["8h", "10h", "12h", "14h", "16h", "18h"].map((label, index) => <text class="axis-label" x={183 + index * 71} y="275" text-anchor="middle">{label}</text>)}
+      </>}
+      {kind === "treemap" && <>
+        <rect x="65" y="30" width="300" height="220" rx="5" fill={colors[0]} />
+        <rect x="370" y="30" width="205" height="130" rx="5" fill={colors[2]} />
+        <rect x="370" y="165" width="121" height="85" rx="5" fill={colors[1]} />
+        <rect x="496" y="165" width="79" height="85" rx="5" fill={colors[3]} />
+        <text class="tile-label" x="90" y="68">Produto A · 50%</text>
+        <text class="tile-label" x="388" y="68">B · 25%</text>
+        <text class="tile-label" x="379" y="198">C · 15%</text>
+        <text class="tile-label" x="503" y="198">D · 10%</text>
+      </>}
+      {kind === "waterfall" && <>
+        {category.labels.map((label, index) => {
+          const starts = [0, 52, 65, 65, 0];
+          const heights = [52, 25, 12, 18, 83];
+          const x = xForIndex(index, 5) - 25;
+          const bottom = starts[index];
+          return <>
+            <rect x={x} y={yForValue(bottom + heights[index])} width="50" height={heights[index] * 2.2} rx="3" fill={index === 2 ? colors[1] : index === 4 ? colors[2] : colors[0]} />
+            <text class="value-label" x={x + 25} y={yForValue(bottom + heights[index]) - 8} text-anchor="middle">{index === 4 ? 83 : category.values[index]}</text>
+            <text class="axis-label" x={x + 25} y="270" text-anchor="middle">{label}</text>
+          </>;
+        })}
+      </>}
+    </svg>
+  </div>
+  <div class="chart-swipe" aria-hidden="true">Deslize o gráfico para ver todos os dados <span>→</span></div>
+  <div class="chart-insight"><span>Como ler</span><p>{insight}</p></div>
+  <p class="chart-source">Dados demonstrativos para estudo · {unit ? `unidade: ${unit}` : "valores ilustrativos"}</p>
+</figure>
+
+<style>
+  .chart-example { --chart-track: #e4ebe8; --chart-surface: #fffdf9; margin: 1.5rem 0 2rem; border: 1px solid var(--border); border-radius: 1.25rem; overflow: hidden; background: var(--chart-surface); box-shadow: var(--shadow-sm); }
+  .chart-caption { padding: 1.3rem 1.5rem 0.55rem; }
+  .chart-kicker { color: var(--data); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+  .chart-caption h3 { margin: 0.35rem 0; font-size: 1.25rem; }
+  .chart-caption p { margin: 0; color: var(--text-soft); font-size: 0.9rem; line-height: 1.5; }
+  .chart-stage { padding: 0.3rem 1rem 0; }
+  svg { display: block; width: 100%; height: auto; min-height: 210px; font-family: var(--font-body); }
+  .grid-line { stroke: var(--border); stroke-width: 1; }
+  .axis-line { stroke: var(--text-faint); stroke-width: 1.2; }
+  .tick-label, .axis-label { fill: var(--text-soft); font-size: 12px; font-weight: 600; }
+  .value-label { fill: var(--text); font-size: 13px; font-weight: 800; }
+  .bubble-label, .heat-label, .tile-label { fill: white; font-size: 13px; font-weight: 800; }
+  .heat-label-dark { fill: #123d3b; }
+  .donut-main { fill: var(--text); font-size: 22px; font-weight: 800; }
+  .chart-insight { display: grid; grid-template-columns: auto 1fr; gap: 0.75rem; align-items: start; margin: 0 1.5rem 0.65rem; padding: 0.85rem 1rem; border-radius: 0.75rem; background: var(--data-soft); }
+  .chart-swipe { display: none; }
+  .chart-insight span { color: var(--data); font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+  .chart-insight p { margin: 0; color: var(--text); font-size: 0.86rem; line-height: 1.5; }
+  .chart-source { padding: 0 1.5rem 1.1rem; margin: 0; font-size: 0.72rem; color: var(--text-faint); }
+  :global(:root[data-theme="dark"]) .chart-example { --chart-track: #28383a; --chart-surface: #1c2325; }
+  @media (max-width: 540px) {
+    .chart-example { margin-inline: -1rem; }
+    .chart-caption { padding: 1rem 1rem 0.4rem; }
+    .chart-stage { padding: 0; overflow-x: auto; }
+    svg { min-width: 490px; }
+    .chart-swipe { display: flex; justify-content: space-between; gap: 0.5rem; padding: 0.25rem 1rem 0.55rem; color: var(--text-soft); font-size: 0.72rem; }
+    .chart-swipe span { color: var(--data); font-weight: 800; }
+    .chart-insight { margin: 0.3rem 0.8rem 0.5rem; grid-template-columns: 1fr; gap: 0.2rem; }
+    .chart-source { padding: 0 1rem 0.9rem; }
+  }
+</style>

@@ -38,9 +38,19 @@ mindMap:
       definition: Mostra cada observação e evita resumo excessivo.
       example: Tempos por equipe.
 ---
+import ChartExample from "../../../../components/ChartExample.astro";
+
 ## Histograma, densidade e boxplot
 
 Histograma conta valores em faixas; faixas largas escondem picos e estreitas criam ruído. Boxplot mostra mediana, quartis e pontos extremos, sendo ótimo para comparar tempo por canal. Violino revela forma e dois picos, mas exige amostra suficiente. Strip plot mostra cada observação e é útil em grupos pequenos.
+
+<ChartExample kind="histogram" title="Prazo de entrega dos pedidos" question="Quantos pedidos chegam em cada faixa de dias?" insight="A faixa de 2 a 3 dias concentra 38 pedidos. A cauda acima de 4 dias pode ser pequena em volume, mas muito importante para reclamações." />
+
+No histograma, barras encostam porque representam intervalos de uma variável numérica. Em barras por categoria, existe separação. Mude a largura das faixas e veja se a forma da distribuição permanece.
+
+<ChartExample kind="box" title="Tempo de entrega por transportadora" question="Qual parceiro tem centro menor e qual varia mais?" insight="A tem mediana 20; B, 33. A caixa de B é maior e revela mais variação. Os pontos altos pedem investigação de rotas ou incidentes." />
+
+Na caixa, linha interna é mediana; bordas são Q1 e Q3; hastes resumem a faixa; ponto isolado sinaliza possível outlier. As convenções de haste variam entre ferramentas, por isso documente a regra adotada.
 
 Um outlier pode ser erro, fraude, incidente ou segmento raro. Não remova automaticamente: marque a origem, compare com a regra de negócio e reporte a análise com e sem o ponto quando a decisão for sensível.
 
@@ -53,3 +63,5 @@ Um outlier pode ser erro, fraude, incidente ou segmento raro. Não remova automa
 ## Case: tempo de entrega
 
 Uma média de dois dias pode ocultar pedidos expressos e atrasados. Histograma mostra a cauda; boxplots por transportadora revelam instabilidade; pontos encontram datas de incidente.
+
+Se um parceiro tiver média melhor, mas cauda longa, o SLA pode piorar mesmo com o “tempo típico” baixo. Analise também percentil 90/95 e taxa de atraso; depois segmente por rota, tipo de frete e semana.

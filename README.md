@@ -230,6 +230,12 @@ O componente `MindMap.astro` recebe um objeto com:
 
 O exemplo demonstrativo atual esta em `src/data/mindmap.ts`.
 
+## Exemplos visuais de gráficos
+
+As páginas de Visualização de dados usam `src/components/ChartExample.astro` para renderizar exemplos SVG estáticos. O componente aceita `kind`, `title`, `question`, `insight` e, opcionalmente, `unit`. Os tipos disponíveis são `bar`, `column`, `grouped`, `stacked`, `line`, `area`, `histogram`, `pie`, `donut`, `box`, `scatter`, `bubble`, `heatmap`, `treemap` e `waterfall`.
+
+Os números dos gráficos são demonstrativos e servem para ensinar leitura e escolha visual. Cases documentados de empresas aparecem com links para suas fontes na página de dashboards.
+
 ## Busca
 
 - A busca e local, sem backend.

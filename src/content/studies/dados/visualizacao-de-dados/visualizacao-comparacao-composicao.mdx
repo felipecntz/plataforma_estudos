@@ -38,13 +38,23 @@ mindMap:
       definition: Área representa parte do todo em hierarquias.
       bullets: [bom panorama, ruim para diferenças próximas]
 ---
+import ChartExample from "../../../../components/ChartExample.astro";
+
 ## Barras e colunas
 
 Barras horizontais funcionam para nomes longos e rankings. Colunas funcionam para poucas categorias. Ordene por valor, use uma cor para foco e neutros para contexto. Mantenha o zero quando o comprimento representa quantidade.
 
+<ChartExample kind="bar" title="Pedidos por canal de aquisição" question="Qual canal concentra pedidos?" insight="Busca lidera, mas não conclua que é o melhor canal sem considerar custo e margem. A ação é calcular retorno por canal." />
+
+<ChartExample kind="column" title="Receita por região" question="Qual região ficou abaixo das demais?" insight="Norte ficou em 42 e Leste em 74. O zero torna a diferença proporcional; investigue cobertura de lojas e tamanho de mercado antes de avaliar a equipe." />
+
 ## Agrupadas, empilhadas e 100%
 
 Agrupadas respondem “qual região vendeu mais em cada trimestre?”. Empilhadas respondem “qual é o total e como ele se divide?”. A versão 100% compara participação, mas esconde volume. Use poucas séries e legenda na ordem visual.
+
+<ChartExample kind="grouped" title="Trimestre anterior e atual por região" question="Qual região melhorou entre os dois períodos? Azul = anterior; verde = atual." insight="Leste sobe de 47 para 76, o maior avanço do conjunto. Compare crescimento percentual além da diferença absoluta antes de premiar uma região." />
+
+<ChartExample kind="stacked" title="Composição mensal das vendas" question="O total cresceu e qual segmento contribuiu? Verde = produto A; azul = B; laranja = C." insight="O total cresce de 67 para 89. As partes de baixo são fáceis de comparar; as superiores exigem rótulo ou gráfico separado para análise precisa." />
 
 | Objetivo | Escolha | Risco |
 | --- | --- | --- |
@@ -55,6 +65,16 @@ Agrupadas respondem “qual região vendeu mais em cada trimestre?”. Empilhada
 
 Pizza ou donut funcionam para poucas partes com diferenças grandes. Treemap explora portfólio, armazenamento ou orçamento; não é ideal para comparar áreas próximas.
 
+<ChartExample kind="pie" title="Participação dos canais" question="Como 100% das visitas se distribuem?" insight="Busca representa 46% do total. Pizza funciona com quatro partes; para comparar 28% e 17% precisamente, use barras." />
+
+<ChartExample kind="donut" title="Mix de receita" question="Qual é a parte de cada canal no faturamento?" insight="A rosca deixa espaço para o total, mas os arcos continuam menos precisos que barras. Mostre valores absolutos junto aos percentuais quando o volume importar." />
+
+<ChartExample kind="treemap" title="Portfólio por contribuição" question="Quais produtos concentram 100% da receita?" insight="A ocupa metade da área. Treemap é útil para exploração de portfólio; compare categorias próximas com barras e não atribua precisão a áreas pequenas." />
+
 ## Case: orçamento de marketing
 
 Uma barra mostra investimento por canal; uma barra 100% compara mix entre regiões; um KPI de retorno completa a decisão. Não misture investimento absoluto e participação no mesmo eixo sem explicar a unidade.
+
+### Decisão aplicada
+
+Se o canal Busca leva a maior fatia de investimento e também a maior receita, o próximo passo é dividir lucro incremental por investimento. Um gráfico de composição mostra **onde** o dinheiro está; a decisão de realocar pede também **eficiência**. Um canal menor pode ter retorno melhor.
