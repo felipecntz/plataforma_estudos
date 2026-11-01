@@ -1,0 +1,70 @@
+---
+title: Medidas de tendência central
+description: Aprenda média, mediana, moda e médias ponderadas, com critérios para escolher e analisar cada medida.
+area: Dados
+areaSlug: dados
+category: Estatística
+categorySlug: estatistica
+topic: Medidas de tendência central
+slug: estatistica-tendencia-central
+order: 2
+icon: sigma
+color: stats
+difficulty: Iniciante
+readingTime: 11 min
+updatedAt: 01/11/2026
+featured: false
+tags: [estatística, média, mediana, moda, média ponderada]
+summary: O centro resume um conjunto, mas cada medida responde a uma pergunta diferente e reage de modo distinto a valores extremos.
+mindMap:
+  title: Centro dos dados
+  subtitle: Escolha a medida conforme a forma e o uso dos dados.
+  highlights: [média, mediana, moda, ponderada]
+  sections:
+    - title: Média
+      kind: core
+      formula: '\bar{x}=\frac{\sum_{i=1}^{n}x_i}{n}'
+      bullets: [usa todos os valores, sensível a extremos]
+      example: 2, 4 e 6 → média 4.
+    - title: Mediana
+      kind: base
+      definition: Valor central após ordenar os dados.
+      bullets: [robusta a extremos, boa para renda e tempo]
+    - title: Moda
+      kind: process
+      definition: Categoria ou valor mais frequente.
+      bullets: [pode haver mais de uma, funciona para categorias]
+    - title: Ponderada
+      kind: application
+      formula: '\bar{x}_p=\frac{\sum w_ix_i}{\sum w_i}'
+      example: Nota final com pesos de prova e projeto.
+---
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## O centro é uma decisão de resumo
+
+Quando alguém pergunta “qual é o valor típico?”, a resposta depende do objetivo. Média é o equilíbrio aritmético; mediana é o meio ordenado; moda é o padrão mais repetido. Calcule mais de uma quando a distribuição puder ser assimétrica.
+
+<FormulaBlock name="Média aritmética" expression="\bar{x}=\frac{x_1+x_2+\cdots+x_n}{n}" description="Soma todos os valores e divide pelo número de observações." variables={[{label:"xᵢ",meaning:"observação"},{label:"n",meaning:"quantidade de observações"}]} example="Vendas 10, 20 e 30: (10 + 20 + 30)/3 = 20." mistake="Dividir pelo número errado ou misturar unidades." />
+
+## Mediana e moda
+
+Ordene os valores. Com quantidade ímpar, a mediana é o valor central; com quantidade par, é a média dos dois centrais. A mediana é útil em salários, preços e tempos de resposta porque um caso muito alto não arrasta o centro tanto quanto a média.
+
+<ExampleBlock title="Por que a mediana pode ser melhor?" text="Tempos 4, 5, 5, 6 e 60 minutos: média = 16 minutos, mediana = 5. Se 60 foi uma falha isolada, a mediana representa melhor o atendimento típico; a média revela o impacto total da falha." />
+
+Moda é o valor mais frequente. Em uma loja, tamanho M pode ser a moda das peças vendidas; em um formulário, a moda mostra a resposta mais comum. Ela pode ser bimodal ou inexistente quando todos os valores aparecem uma vez.
+
+## Média ponderada
+
+Quando observações têm importância ou volume diferente, use pesos. A média de preço por item deve pesar cada preço pela quantidade vendida; a média de uma nota final deve usar o peso definido para cada prova.
+
+<FormulaBlock name="Média ponderada" expression="\bar{x}_p=\frac{\sum_{i=1}^{n}w_ix_i}{\sum_{i=1}^{n}w_i}" description="Multiplica cada valor por seu peso e divide pela soma dos pesos." variables={[{label:"xᵢ",meaning:"valor"},{label:"wᵢ",meaning:"peso ou quantidade"}]} example="Projeto 8 com peso 2 e prova 6 com peso 3: (16 + 18)/5 = 6,8." note="Confirme se os pesos são proporções ou contagens." />
+
+<TipBlock title="Como analisar" text="Compare média e mediana. Média maior que mediana sugere cauda à direita; média menor sugere cauda à esquerda. Investigue os extremos antes de chamar o resultado de típico." />
+
+## Case: preço de imóveis
+
+Para comunicar o preço “típico” de uma região, a mediana costuma ser mais honesta que a média quando poucos imóveis de luxo elevam o valor. Para prever receita, a média pode continuar necessária porque o total financeiro é influenciado pelos valores extremos.

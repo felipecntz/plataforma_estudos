@@ -1,0 +1,60 @@
+---
+title: Gráficos de comparação e composição
+description: Use barras, colunas, agrupadas, empilhadas, 100% e treemap para comparar categorias e partes do total.
+area: Dados
+areaSlug: dados
+category: Visualização de dados
+categorySlug: visualizacao-de-dados
+topic: Comparação e composição
+slug: visualizacao-comparacao-composicao
+order: 2
+icon: chart
+color: data
+difficulty: Iniciante
+readingTime: 13 min
+updatedAt: 01/11/2026
+featured: false
+tags: [barras, colunas, composição, treemap, ranking]
+summary: Barras são a base para rankings; variações agrupadas e empilhadas respondem perguntas diferentes.
+mindMap:
+  title: Comparar e decompor
+  subtitle: Use comprimento para mostrar diferença.
+  highlights: [barra, ranking, empilhado, treemap]
+  sections:
+    - title: Barras
+      kind: core
+      definition: Categorias no eixo e valor por comprimento.
+      bullets: [ordene, rotule, mantenha escala]
+    - title: Agrupadas
+      kind: base
+      definition: Compare subgrupos lado a lado.
+      example: Receita por região e trimestre.
+    - title: Empilhadas
+      kind: process
+      definition: Mostre total e composição; segmentos internos são difíceis de comparar.
+      bullets: [base comum, poucas séries]
+    - title: Treemap
+      kind: application
+      definition: Área representa parte do todo em hierarquias.
+      bullets: [bom panorama, ruim para diferenças próximas]
+---
+## Barras e colunas
+
+Barras horizontais funcionam para nomes longos e rankings. Colunas funcionam para poucas categorias. Ordene por valor, use uma cor para foco e neutros para contexto. Mantenha o zero quando o comprimento representa quantidade.
+
+## Agrupadas, empilhadas e 100%
+
+Agrupadas respondem “qual região vendeu mais em cada trimestre?”. Empilhadas respondem “qual é o total e como ele se divide?”. A versão 100% compara participação, mas esconde volume. Use poucas séries e legenda na ordem visual.
+
+| Objetivo | Escolha | Risco |
+| --- | --- | --- |
+| Ranking | Barra ordenada | muitas categorias |
+| Total + partes | Empilhada | segmentos do meio |
+| Participação | 100% empilhada | esconder volume |
+| Hierarquia | Treemap | comparação precisa |
+
+Pizza ou donut funcionam para poucas partes com diferenças grandes. Treemap explora portfólio, armazenamento ou orçamento; não é ideal para comparar áreas próximas.
+
+## Case: orçamento de marketing
+
+Uma barra mostra investimento por canal; uma barra 100% compara mix entre regiões; um KPI de retorno completa a decisão. Não misture investimento absoluto e participação no mesmo eixo sem explicar a unidade.

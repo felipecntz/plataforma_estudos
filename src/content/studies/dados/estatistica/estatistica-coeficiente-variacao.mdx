@@ -1,0 +1,61 @@
+---
+title: Coeficiente de variação
+description: Compare dispersão relativa entre métricas e entenda quando o coeficiente de variação ajuda — e quando engana.
+area: Dados
+areaSlug: dados
+category: Estatística
+categorySlug: estatistica
+topic: Coeficiente de variação
+slug: estatistica-coeficiente-variacao
+order: 4
+icon: sigma
+color: stats
+difficulty: Intermediário
+readingTime: 10 min
+updatedAt: 01/11/2026
+featured: true
+tags: [estatística, coeficiente de variação, dispersão relativa, comparação]
+summary: O CV relaciona desvio padrão e média em percentual, permitindo comparar variabilidade em escalas diferentes.
+mindMap:
+  title: Coeficiente de variação
+  subtitle: Uma medida relativa de dispersão.
+  highlights: [desvio padrão, média, percentual, cautela]
+  sections:
+    - title: Fórmula
+      kind: core
+      formula: 'CV=\frac{s}{\bar{x}}\times100\%'
+      bullets: [s = desvio padrão, x̄ = média]
+    - title: Leitura
+      kind: base
+      definition: Quanto maior o CV, maior a variação em relação ao centro.
+      example: CV 20% varia mais que CV 8%.
+    - title: Comparação
+      kind: process
+      definition: Útil entre métricas com unidades ou médias diferentes.
+      bullets: [compare produtos, lojas, processos]
+    - title: Limites
+      kind: application
+      definition: Média próxima de zero torna o CV instável.
+      bullets: [não use em escala intervalar sem zero real, não confunda com causalidade]
+---
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## O que é
+
+O coeficiente de variação (CV) expressa o desvio padrão como proporção da média. Assim, ele responde: “o tamanho da variação é grande em relação ao nível típico?”.
+
+<FormulaBlock name="Coeficiente de variação" expression="CV=\frac{s}{\bar{x}}\times100\%" description="Divide o desvio padrão pela média e converte o resultado para percentual." variables={[{label:"s",meaning:"desvio padrão, geralmente amostral"},{label:"x̄",meaning:"média"}]} example="Produto A: média 100, s 10 → CV 10%. Produto B: média 20, s 4 → CV 20%. B é relativamente menos estável." note="Use a mesma população e período ao comparar." />
+
+## Como analisar passo a passo
+
+Calcule a média e o desvio padrão de cada grupo; confirme que a média é positiva e distante de zero; calcule `s / média × 100`; ordene os grupos por CV; procure a causa da diferença. Um CV maior pode revelar demanda irregular, processo instável, mix diferente ou poucos registros.
+
+<TipBlock title="Case: qualidade industrial" text="Duas máquinas produzem peças com tolerância semelhante, mas médias de tamanho diferentes. O desvio padrão absoluto pode favorecer a máquina de maior escala; o CV permite comparar instabilidade proporcional e priorizar a manutenção." />
+
+<WarningBlock title="Quando não usar" text="Com média zero ou muito próxima de zero, o CV explode. Também é inadequado para dados com valores negativos relevantes ou escalas sem zero absoluto, como temperatura em Celsius." />
+
+## Cuidados de interpretação
+
+CV não define sozinho um limite universal de “baixo” ou “alto”. O aceitável depende do domínio: um processo farmacêutico exige estabilidade diferente de uma campanha de marketing. Compare grupos equivalentes e reporte tamanho da amostra junto do percentual.

@@ -1,0 +1,64 @@
+---
+title: Distribuições e probabilidade
+description: Use probabilidade, distribuição normal, binomial e z-score para modelar incerteza e interpretar valores.
+area: Dados
+areaSlug: dados
+category: Estatística
+categorySlug: estatistica
+topic: Distribuições e probabilidade
+slug: estatistica-distribuicoes-probabilidade
+order: 5
+icon: sigma
+color: stats
+difficulty: Intermediário
+readingTime: 15 min
+updatedAt: 01/11/2026
+featured: false
+tags: [estatística, probabilidade, normal, binomial, z-score]
+summary: Uma distribuição descreve como valores e probabilidades se espalham; ela ajuda a estimar risco, frequência e anomalias.
+mindMap:
+  title: Distribuições
+  subtitle: Modelos para pensar em incerteza.
+  highlights: [evento, normal, binomial, z-score]
+  sections:
+    - title: Probabilidade
+      kind: core
+      formula: 'P(A)=\frac{\text{casos favoráveis}}{\text{casos possíveis}}'
+      bullets: [0 ≤ P(A) ≤ 1, complemento = 1 − P(A)]
+    - title: Normal
+      kind: base
+      definition: Distribuição simétrica em torno da média.
+      bullets: ["média = mediana = moda", "regra 68–95–99,7"]
+    - title: Binomial
+      kind: process
+      formula: 'P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}'
+      bullets: [n tentativas, dois resultados, p constante]
+    - title: Z-score
+      kind: application
+      formula: 'z=\frac{x-\mu}{\sigma}'
+      example: z = 2 está a dois desvios acima da média.
+---
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+
+## Probabilidade como linguagem de risco
+
+Probabilidade mede quão plausível é um evento dentro de um conjunto de resultados. Evento, espaço amostral, complemento, interseção e união permitem construir análises de risco. Para eventos independentes, `P(A e B) = P(A)P(B)`; em geral, condicione a informação: `P(A|B) = P(A∩B)/P(B)`.
+
+<FormulaBlock name="Probabilidade clássica" expression="P(A)=\frac{\text{casos favoráveis}}{\text{casos possíveis}}" description="Funciona quando resultados elementares são equiprováveis." variables={[{label:"A",meaning:"evento de interesse"}]} example="Em um dado justo, P(obter 6) = 1/6." />
+
+## Distribuição normal e z-score
+
+A normal é simétrica e contínua. A regra empírica coloca aproximadamente 68% dos valores em ±1 desvio padrão, 95% em ±2 e 99,7% em ±3, quando o modelo é adequado. O z-score padroniza um valor para comparar escalas.
+
+<FormulaBlock name="Padronização" expression="z=\frac{x-\mu}{\sigma}" description="Mostra quantos desvios padrão um valor está distante da média populacional." variables={[{label:"x",meaning:"valor observado"},{label:"μ",meaning:"média"},{label:"σ",meaning:"desvio padrão"}]} example="Nota 85, média 70 e σ 10 → z = 1,5; a nota está acima do centro." />
+
+## Binomial e análise de eventos
+
+A binomial conta sucessos em `n` tentativas independentes, com probabilidade `p` constante. É útil para cliques, defeitos, conversões e aprovação. Se as tentativas mudam de probabilidade ou não são independentes, o modelo precisa ser revisto.
+
+<ExampleBlock title="Case: inspeção de qualidade" text="Em 20 peças com defeito histórico p = 2%, calcule a probabilidade de exatamente dois defeitos. O resultado ajuda a definir amostragem e gatilho de investigação; não substitui inspeção do processo." />
+
+## Como analisar
+
+Escolha o modelo pelo processo de geração dos dados, estime parâmetros na amostra, verifique aderência com gráfico e resíduos, e use a distribuição para obter probabilidades ou limites. Nunca force normalidade só porque uma fórmula é conveniente.

@@ -1,0 +1,63 @@
+---
+title: Medidas de dispersão
+description: Entenda amplitude, variância, desvio padrão, quartis e percentis para medir o quanto os dados variam.
+area: Dados
+areaSlug: dados
+category: Estatística
+categorySlug: estatistica
+topic: Medidas de dispersão
+slug: estatistica-dispersao
+order: 3
+icon: sigma
+color: stats
+difficulty: Intermediário
+readingTime: 14 min
+updatedAt: 01/11/2026
+featured: false
+tags: [estatística, variância, desvio padrão, quartil, percentil]
+summary: Duas séries podem ter a mesma média e riscos completamente diferentes; a dispersão torna essa diferença visível.
+mindMap:
+  title: Quanto os dados variam
+  subtitle: Centro sem dispersão esconde risco.
+  highlights: [amplitude, variância, desvio padrão, quartis]
+  sections:
+    - title: Amplitude
+      kind: base
+      formula: 'A=\max(x)-\min(x)'
+      bullets: [fácil de entender, sensível a extremos]
+    - title: Variância
+      kind: process
+      formula: 's^2=\frac{\sum(x_i-\bar{x})^2}{n-1}'
+      bullets: [quadrado das distâncias, unidade ao quadrado]
+    - title: Desvio padrão
+      kind: core
+      formula: 's=\sqrt{s^2}'
+      bullets: [mesma unidade dos dados, distância típica ao centro]
+    - title: Quartis
+      kind: application
+      formula: 'AIQ=Q_3-Q_1'
+      bullets: [Q1 = 25%, Q2 = mediana, Q3 = 75%]
+---
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## Variabilidade é informação
+
+<ExampleBlock title="Mesma média, risco diferente" text="A = 48, 49, 50, 51, 52 e B = 10, 20, 50, 80, 90 têm média 50. A primeira série é estável; a segunda é imprevisível. Média sem dispersão não informa a experiência real." />
+
+## Amplitude, variância e desvio padrão
+
+Amplitude é máximo menos mínimo. É rápida para uma primeira leitura, mas depende apenas de dois pontos. Variância calcula a média dos desvios ao quadrado; o quadrado impede que desvios positivos e negativos se anulem. Para uma **amostra**, o denominador usual é `n − 1`; para uma população completa, é `N`.
+
+<FormulaBlock name="Desvio padrão amostral" expression="s=\sqrt{\frac{\sum_{i=1}^{n}(x_i-\bar{x})^2}{n-1}}" description="Resume a distância típica entre observações e a média na mesma unidade do dado." variables={[{label:"xᵢ",meaning:"observação"},{label:"x̄",meaning:"média amostral"},{label:"n−1",meaning:"graus de liberdade"}]} example="Se tempos têm s = 3 minutos, uma variação típica ao redor da média é de aproximadamente 3 minutos." mistake="Comparar desvios padrão de métricas com escalas muito diferentes; use coeficiente de variação quando fizer sentido." />
+
+## Quartis, intervalo interquartil e percentis
+
+Q1 deixa 25% dos dados abaixo; Q2 é a mediana; Q3 deixa 75% abaixo. O intervalo interquartil (`Q3 − Q1`) descreve os 50% centrais e é robusto a extremos. Percentil 95 de latência significa que 95% das observações estão abaixo daquele valor — não que a média seja aquela.
+
+<TipBlock title="Como analisar" text="Mostre centro, dispersão e extremos juntos. Compare o desvio padrão com a média, use boxplot para ver quartis e outliers e investigue se a variação é natural, erro de medição ou sinal de incidente." />
+
+## Case: logística
+
+Uma transportadora pode manter média de entrega em dois dias e ainda frustrar clientes se o p95 for dez dias. O time operacional acompanha média, mediana, desvio padrão e percentis por rota para descobrir onde a cauda está concentrada.

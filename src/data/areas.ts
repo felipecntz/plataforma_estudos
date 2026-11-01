@@ -22,9 +22,9 @@ export const areas = [
     icon: "▣",
     heroKicker: "Dados com estrutura",
     stats: {
-      categories: 1,
-      topics: 13,
-      spotlight: "Comece por banco de dados e avance para SQL com foco em PostgreSQL."
+      categories: 3,
+      topics: 27,
+      spotlight: "Organize, analise e comunique dados: comece por estatística, avance para visualização e depois aprofunde banco de dados."
     }
   },
   {

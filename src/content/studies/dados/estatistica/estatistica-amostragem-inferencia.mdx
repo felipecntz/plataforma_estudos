@@ -1,0 +1,61 @@
+---
+title: Amostragem e inferência
+description: Entenda viés, erro amostral, intervalo de confiança, teste de hipótese e o cuidado com significância.
+area: Dados
+areaSlug: dados
+category: Estatística
+categorySlug: estatistica
+topic: Amostragem e inferência
+slug: estatistica-amostragem-inferencia
+order: 6
+icon: sigma
+color: stats
+difficulty: Intermediário
+readingTime: 15 min
+updatedAt: 01/11/2026
+featured: false
+tags: [estatística, amostragem, inferência, confiança, hipótese]
+summary: Inferir é generalizar com incerteza explícita; a qualidade depende mais do desenho da amostra que de uma fórmula isolada.
+mindMap:
+  title: Inferência estatística
+  subtitle: Da amostra para a população com incerteza.
+  highlights: [viés, intervalo, hipótese, efeito]
+  sections:
+    - title: Amostras
+      kind: core
+      definition: Aleatória, estratificada e sistemática tentam representar a população.
+      bullets: [conveniência gera viés, tamanho não corrige amostra errada]
+    - title: Intervalo de confiança
+      kind: base
+      formula: '\bar{x}\pm z^*\frac{\sigma}{\sqrt{n}}'
+      bullets: [faixa de valores plausíveis, largura cai com n]
+    - title: Teste
+      kind: process
+      definition: Compare hipótese nula, evidência e nível de significância.
+      bullets: [p-valor não é probabilidade da hipótese, reporte efeito]
+    - title: Decisão
+      kind: application
+      definition: Significância estatística não garante relevância prática.
+      bullets: [olhe efeito, intervalo e custo da ação]
+---
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## Como uma amostra representa
+
+Amostragem aleatória dá chance conhecida de seleção; estratificação garante presença de subgrupos; amostragem sistemática seleciona cada k-ésimo elemento após um início aleatório. Amostra de conveniência é rápida, mas pode excluir justamente quem não responde, não compra ou não está online.
+
+<WarningBlock title="Mais linhas não curam viés" text="Milhares de respostas voluntárias continuam enviesadas se um grupo participa mais que outro. Corrija cobertura, não apenas o tamanho." />
+
+## Intervalo de confiança
+
+Um intervalo de 95% é um procedimento que, repetido muitas vezes, captura o parâmetro em aproximadamente 95% das amostras. Para uma média com desvio populacional conhecido, a forma aproximada é:
+
+<FormulaBlock name="Intervalo para média" expression="\bar{x}\pm z^*\frac{\sigma}{\sqrt{n}}" description="Centro observado mais ou menos margem de erro." variables={[{label:"x̄",meaning:"média da amostra"},{label:"z*",meaning:"quantil do nível de confiança"},{label:"σ",meaning:"desvio padrão"},{label:"n",meaning:"tamanho da amostra"}]} example="Aumentar n reduz a margem aproximadamente na raiz de n; quadruplicar n reduz pela metade." note="Com σ desconhecido, use t de Student e o desvio amostral." />
+
+## Testes de hipótese
+
+Defina hipótese nula, alternativa, métrica, desenho e nível de significância antes de olhar resultados. O p-valor mede quão incompatíveis os dados seriam com a hipótese nula sob o modelo; não mede a chance de a hipótese ser verdadeira. Reporte diferença estimada, intervalo e relevância operacional.
+
+<TipBlock title="Case: experimento de checkout" text="A versão B converteu 5,2% contra 5,0% da A. Pergunte se o intervalo da diferença exclui zero e se 0,2 ponto percentual paga o custo da mudança. Um p-valor pequeno sem efeito útil não é vitória de negócio." />

@@ -1,0 +1,56 @@
+---
+title: Gráficos de tempo e tendências
+description: Construa linhas, áreas, colunas temporais e calendários para revelar tendência e sazonalidade.
+area: Dados
+areaSlug: dados
+category: Visualização de dados
+categorySlug: visualizacao-de-dados
+topic: Tempo e tendências
+slug: visualizacao-tempo-tendencias
+order: 3
+icon: chart
+color: data
+difficulty: Iniciante
+readingTime: 12 min
+updatedAt: 01/11/2026
+featured: false
+tags: [linha, série temporal, tendência, sazonalidade, calendário]
+summary: Dados temporais exigem eixo cronológico correto, granularidade consistente e separação entre tendência, ciclo e ruído.
+mindMap:
+  title: Tempo em gráficos
+  subtitle: O eixo temporal conta uma história.
+  highlights: [linha, tendência, sazonalidade, média móvel]
+  sections:
+    - title: Linha
+      kind: core
+      definition: Conecta pontos em ordem para mostrar evolução.
+      bullets: [eixo cronológico, intervalos regulares]
+    - title: Sazonalidade
+      kind: base
+      definition: Padrão que se repete em períodos conhecidos.
+      example: Vendas maiores em dezembro.
+    - title: Média móvel
+      kind: process
+      formula: 'MM_k=\frac{x_t+\cdots+x_{t-k+1}}{k}'
+      bullets: [suaviza ruído, atrasa viradas]
+    - title: Calendário
+      kind: application
+      definition: Heatmap destaca dias e horários de intensidade.
+      bullets: [bom para operação, explique a escala]
+---
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+
+## Linha, coluna e área
+
+Linhas mostram evolução de uma ou poucas séries. Colunas ajudam a comparar períodos discretos. Área enfatiza volume acumulado ou composição, mas pode esconder séries atrás de outras. Nunca ordene meses por valor quando a pergunta é evolução.
+
+## Tendência, sazonalidade e eventos
+
+Tendência é direção de longo prazo; sazonalidade é repetição previsível; ruído é variação irregular. Marque campanhas, feriados, falhas e mudanças de preço. Compare ano contra ano quando mês contra mês for enganoso.
+
+<FormulaBlock name="Média móvel simples" expression="MM_k=\frac{x_t+x_{t-1}+\cdots+x_{t-k+1}}{k}" description="Suaviza flutuações para tornar tendência mais legível." variables={[{label:"k",meaning:"janela de períodos"},{label:"x",meaning:"observação"}]} example="Média móvel de 7 dias suaviza o efeito diário e evidencia o ritmo semanal." note="A janela pode atrasar a percepção de uma virada." />
+
+Use datas reais, intervalos regulares, timezone explícito e agregação consistente. Mostre lacunas: conectar pontos ausentes sugere continuidade que não existiu.
+
+<TipBlock title="Case: produto digital" text="Usuários ativos por dia com marcações de release mostram impacto; um calendário por hora encontra picos; ano contra ano separa crescimento de sazonalidade." />

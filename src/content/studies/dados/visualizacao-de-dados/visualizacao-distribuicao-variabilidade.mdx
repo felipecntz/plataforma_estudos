@@ -1,0 +1,55 @@
+---
+title: Gráficos de distribuição e variabilidade
+description: Use histograma, boxplot, violino, densidade e pontos para entender centro, caudas e outliers.
+area: Dados
+areaSlug: dados
+category: Visualização de dados
+categorySlug: visualizacao-de-dados
+topic: Distribuição e variabilidade
+slug: visualizacao-distribuicao-variabilidade
+order: 4
+icon: chart
+color: data
+difficulty: Intermediário
+readingTime: 13 min
+updatedAt: 01/11/2026
+featured: false
+tags: [histograma, boxplot, violino, distribuição, outlier]
+summary: "Distribuições mostram o que médias escondem: assimetria, caudas, grupos, lacunas e valores extremos."
+mindMap:
+  title: Distribuição visual
+  subtitle: Veja forma, centro e caudas.
+  highlights: [histograma, boxplot, quartil, outlier]
+  sections:
+    - title: Histograma
+      kind: core
+      definition: Divide valores em intervalos e conta frequência.
+      bullets: [largura da faixa muda a leitura, mostre unidade]
+    - title: Boxplot
+      kind: base
+      definition: Resume mediana, quartis, faixa e possíveis outliers.
+      bullets: [compare grupos, robusto a assimetria]
+    - title: Violino
+      kind: process
+      definition: Combina quartis com forma estimada da densidade.
+      bullets: [mostra multimodalidade, exige amostra suficiente]
+    - title: Pontos
+      kind: application
+      definition: Mostra cada observação e evita resumo excessivo.
+      example: Tempos por equipe.
+---
+## Histograma, densidade e boxplot
+
+Histograma conta valores em faixas; faixas largas escondem picos e estreitas criam ruído. Boxplot mostra mediana, quartis e pontos extremos, sendo ótimo para comparar tempo por canal. Violino revela forma e dois picos, mas exige amostra suficiente. Strip plot mostra cada observação e é útil em grupos pequenos.
+
+Um outlier pode ser erro, fraude, incidente ou segmento raro. Não remova automaticamente: marque a origem, compare com a regra de negócio e reporte a análise com e sem o ponto quando a decisão for sensível.
+
+| Sinal | Hipótese | Próximo passo |
+| --- | --- | --- |
+| Cauda longa | poucos casos muito altos | mediana e percentil |
+| Dois picos | grupos misturados | segmentar população |
+| Caixa larga | alta variação | investigar processo |
+
+## Case: tempo de entrega
+
+Uma média de dois dias pode ocultar pedidos expressos e atrasados. Histograma mostra a cauda; boxplots por transportadora revelam instabilidade; pontos encontram datas de incidente.

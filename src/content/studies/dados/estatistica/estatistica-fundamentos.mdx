@@ -1,0 +1,87 @@
+---
+title: "Estatística: fundamentos e tipos de dados"
+description: Entenda população, amostra, variáveis, escalas de medição e o roteiro de uma análise estatística.
+area: Dados
+areaSlug: dados
+category: Estatística
+categorySlug: estatistica
+topic: Fundamentos e tipos de dados
+slug: estatistica-fundamentos
+order: 1
+icon: sigma
+color: stats
+difficulty: Iniciante
+readingTime: 12 min
+updatedAt: 01/11/2026
+featured: true
+tags: [dados, estatística, população, amostra, variáveis]
+summary: "A estatística transforma observações em evidência: defina a pergunta, identifique a população, escolha uma amostra, descreva os dados e comunique incerteza."
+mindMap:
+  title: Estatística em uma página
+  subtitle: O vocabulário que sustenta toda análise.
+  highlights: [população, amostra, variável, escala]
+  sections:
+    - title: População e amostra
+      kind: core
+      definition: População é o conjunto de interesse; amostra é a parte observada.
+      bullets: [parâmetro descreve a população, estatística descreve a amostra]
+      example: Todos os clientes versus 500 clientes pesquisados.
+    - title: Tipos de variável
+      kind: base
+      definition: Categórica descreve grupos; numérica mede quantidade.
+      bullets: [nominal, ordinal, discreta, contínua]
+      example: Canal é categórica; receita é numérica.
+    - title: Escalas
+      kind: process
+      definition: A escala define quais operações fazem sentido.
+      bullets: [nominal = rótulo, ordinal = ordem, intervalo = diferenças, razão = zero real]
+    - title: Roteiro
+      kind: application
+      definition: Pergunta → coleta → limpeza → descrição → inferência → decisão.
+      bullets: [registre unidade, período e fonte, procure viés e valores ausentes]
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## O que a estatística faz
+
+<DefinitionBlock title="Estatística é raciocínio com dados" text="Ela organiza observações, mede padrões, quantifica incerteza e apoia decisões. Um número isolado descreve um caso; uma análise compara o número com contexto, população, período e qualidade da medição." />
+
+O bom trabalho começa por uma pergunta verificável. “As vendas caíram?” pede comparação com período anterior, sazonalidade e definição de venda. “Qual campanha converte melhor?” pede uma métrica, grupos comparáveis e uma regra para atribuir conversões.
+
+## População, amostra, parâmetro e estatística
+
+| Conceito | Significado | Exemplo de negócio |
+| --- | --- | --- |
+| População | Todos os elementos sobre os quais queremos concluir | Todos os pedidos do trimestre |
+| Amostra | Parte observada da população | 2.000 pedidos auditados |
+| Parâmetro | Medida verdadeira da população, geralmente desconhecida | Conversão real de todos os visitantes |
+| Estatística | Medida calculada na amostra | Conversão observada nos 2.000 pedidos |
+
+<TipBlock title="Declare a unidade de análise" text="Antes de calcular, diga se cada linha representa cliente, pedido, sessão, produto ou dia. Misturar unidades cria médias enganosas: um cliente recorrente pode aparecer muitas vezes." />
+
+## Variáveis e escalas de medição
+
+Variáveis **categóricas** são rótulos. Nominal não tem ordem (estado, canal, cor); ordinal tem ordem, mas a distância entre níveis não é necessariamente igual (baixo, médio, alto). Variáveis **numéricas** expressam quantidade: discretas contam (itens, chamados) e contínuas medem (tempo, peso, temperatura).
+
+Escala de intervalo tem diferenças interpretáveis, mas zero não significa ausência, como temperatura em °C. Escala de razão tem zero real, como receita, idade e distância; nela fazem sentido frases como “o dobro”.
+
+## Frequência e tabela de dados
+
+Uma tabela de frequência conta ocorrências por categoria ou faixa. Para cada classe, registre frequência absoluta, frequência relativa (`frequência / total`) e acumulada quando houver ordem. Em um funil, a frequência relativa mostra a taxa; em uma pesquisa, mostra a composição da amostra.
+
+## Roteiro de análise
+
+1. Defina pergunta, métrica, unidade e período.
+2. Colete com regra consistente e documente fonte.
+3. Limpe duplicidades, ausências, unidades e valores impossíveis.
+4. Descreva com tabelas, gráficos e medidas adequadas ao tipo de variável.
+5. Compare grupos sem ignorar tamanho, viés e incerteza.
+6. Transforme o achado em ação e monitore o efeito.
+
+<WarningBlock title="Correlação não é causa" text="Uma associação pode ser explicada por sazonalidade, variável escondida, seleção da amostra ou causalidade reversa. Antes de agir, proponha uma hipótese e busque desenho experimental ou evidência adicional." />
+
+## Case: suporte ao cliente
+
+Uma equipe quer reduzir o tempo de atendimento. Primeiro separa chamados por canal, prioridade e tipo; depois calcula mediana e percentis por grupo. Se o tempo médio caiu apenas porque os chamados simples aumentaram, a conclusão é falsa. A unidade, a segmentação e a distribuição fazem parte da análise.

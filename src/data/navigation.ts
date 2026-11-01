@@ -45,6 +45,34 @@ export const navigation = [
     icon: "▣",
     categories: [
       {
+        name: "Estatística",
+        slug: "estatistica",
+        description: "Da leitura de dados à inferência: medidas, distribuição, probabilidade, amostragem e análise aplicada.",
+        topics: [
+          { title: "Fundamentos e tipos de dados", slug: "estatistica-fundamentos" },
+          { title: "Medidas de tendência central", slug: "estatistica-tendencia-central" },
+          { title: "Medidas de dispersão", slug: "estatistica-dispersao" },
+          { title: "Coeficiente de variação", slug: "estatistica-coeficiente-variacao" },
+          { title: "Distribuições e probabilidade", slug: "estatistica-distribuicoes-probabilidade" },
+          { title: "Amostragem e inferência", slug: "estatistica-amostragem-inferencia" },
+          { title: "Correlação e regressão", slug: "estatistica-correlacao-regressao" }
+        ]
+      },
+      {
+        name: "Visualização de dados",
+        slug: "visualizacao-de-dados",
+        description: "Escolha, construa e interprete gráficos para comunicar comparações, tendências, distribuição e relações.",
+        topics: [
+          { title: "Princípios e escolha do gráfico", slug: "visualizacao-principios-escolha" },
+          { title: "Comparação e composição", slug: "visualizacao-comparacao-composicao" },
+          { title: "Tempo e tendências", slug: "visualizacao-tempo-tendencias" },
+          { title: "Distribuição e variabilidade", slug: "visualizacao-distribuicao-variabilidade" },
+          { title: "Relações e geografia", slug: "visualizacao-relacoes-geografia" },
+          { title: "Formatação e narrativa", slug: "visualizacao-formatacao-narrativa" },
+          { title: "Dashboards e cases", slug: "visualizacao-dashboards-cases" }
+        ]
+      },
+      {
         name: "Banco de Dados",
         slug: "banco-de-dados",
         description: "Conceitos de bancos de dados, SGBDs e SQL com sintaxe focada em PostgreSQL.",

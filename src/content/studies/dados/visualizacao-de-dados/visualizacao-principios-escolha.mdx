@@ -1,0 +1,66 @@
+---
+title: "Visualização de dados: princípios e escolha do gráfico"
+description: Transforme perguntas em gráficos claros, honestos e adequados ao tipo de comparação.
+area: Dados
+areaSlug: dados
+category: Visualização de dados
+categorySlug: visualizacao-de-dados
+topic: Princípios e escolha do gráfico
+slug: visualizacao-principios-escolha
+order: 1
+icon: chart
+color: data
+difficulty: Iniciante
+readingTime: 12 min
+updatedAt: 01/11/2026
+featured: true
+tags: [visualização, gráficos, design, dados]
+summary: Defina pergunta, público, comparação e ação antes de escolher cores ou efeitos.
+mindMap:
+  title: Escolha do gráfico
+  subtitle: Primeiro a pergunta, depois a forma.
+  highlights: [comparar, ordenar, tendência, distribuição]
+  sections:
+    - title: Pergunta
+      kind: core
+      definition: O gráfico deve responder uma pergunta de negócio.
+      bullets: [o quê, para quem, quando, contra qual referência]
+    - title: Codificação
+      kind: base
+      definition: Posição e comprimento são mais precisos que área, volume ou efeito 3D.
+      bullets: [posição, comprimento, cor, tamanho, forma]
+    - title: Tipo
+      kind: process
+      definition: Barras comparam; linhas mostram tempo; pontos mostram relação.
+      bullets: [parte do todo, distribuição, mapa]
+    - title: Honestidade
+      kind: application
+      definition: Escala, fonte, unidade e período precisam ser explícitos.
+      bullets: [zero em barras, contexto, acessibilidade]
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+
+## Visualizar é codificar uma comparação
+
+<DefinitionBlock title="Um gráfico é uma frase visual" text="Ele escolhe o que comparar, em qual escala e com qual destaque. O leitor deve perceber a mensagem principal antes de ler cada rótulo." />
+
+Comece pela pergunta: comparar categorias, mostrar evolução, explicar composição, encontrar distribuição, localizar pontos ou relacionar variáveis? Depois escolha a codificação mais precisa. Posição comum em um eixo é percebida melhor que área, volume ou efeitos 3D.
+
+| Pergunta | Gráfico inicial | Case |
+| --- | --- | --- |
+| Quem tem mais? | Barras ordenadas | vendas por canal |
+| Como mudou? | Linha | receita mensal |
+| Do que é composto? | Barra empilhada ou 100% | mix de receita |
+| Onde estão extremos? | Histograma ou boxplot | tempo de atendimento |
+| Há relação? | Dispersão | preço e demanda |
+| Onde acontece? | Mapa | incidentes por região |
+
+<TipBlock title="Comece pelo rascunho" text="Faça uma tabela simples e um esboço em papel. Se a mensagem não estiver clara sem estilo, nenhuma paleta vai resolver." />
+
+## Contexto e honestidade
+
+Destaque uma mensagem; use meta, período anterior ou média como referência. Ordene barras quando a ordem importa, rotule unidades e mostre fonte e atualização. Cuidado com eixo de barras cortado, 3D e escalas misturadas: eles inflacionam diferenças.
+
+<WarningBlock title="Case: fila de atendimento" text="Uma linha de volume por hora mostra quando a fila cresce; uma barra por canal mostra onde está o volume; um boxplot mostra consistência. Um gráfico sozinho não responde todas as perguntas." />

@@ -1,0 +1,59 @@
+---
+title: Dashboards e cases de visualização
+description: Estruture dashboards operacionais, analíticos e executivos com hierarquia, filtros e decisões claras.
+area: Dados
+areaSlug: dados
+category: Visualização de dados
+categorySlug: visualizacao-de-dados
+topic: Dashboards e cases
+slug: visualizacao-dashboards-cases
+order: 7
+icon: chart
+color: data
+difficulty: Intermediário
+readingTime: 15 min
+updatedAt: 01/11/2026
+featured: true
+tags: [dashboard, KPI, BI, cases, decisão]
+summary: "Um dashboard é uma interface de decisão: cada visual precisa de público, frequência, ação e definição."
+mindMap:
+  title: Dashboard que orienta ação
+  subtitle: Menos widgets, mais decisões.
+  highlights: [KPI, contexto, filtro, ação]
+  sections:
+    - title: Objetivo
+      kind: core
+      definition: Operacional monitora; analítico explica; executivo orienta.
+      bullets: [usuário, frequência, decisão]
+    - title: KPI
+      kind: base
+      definition: Métrica com definição, meta, período e responsável.
+      bullets: [valor atual, comparação, tendência]
+    - title: Layout
+      kind: process
+      definition: Hierarquia conduz do sinal para a causa.
+      bullets: [resumo, diagnóstico, detalhe]
+    - title: Interação
+      kind: application
+      definition: Filtros e drill-down respondem perguntas reais.
+      bullets: [estado inicial, filtros visíveis, performance]
+---
+## Tipos e arquitetura
+
+Operacional acompanha eventos; analítico investiga tendências e segmentos; executivo resume direção e risco. Comece com período, atualização e filtros. Depois, poucos KPIs com valor, comparação e meta; em seguida, tendência, diagnóstico e tabela para ação.
+
+| Contexto | Visuais | Impacto |
+| --- | --- | --- |
+| E-commerce | funil, linha de pedidos, mapa de entrega | encontrar queda e atraso |
+| Finanças | waterfall, margem, barras por centro | explicar resultado |
+| Produto | cohort, DAU, funil | priorizar retenção |
+| Operação | SLA, heatmap, boxplot | reduzir filas |
+| Marketing | CAC, ROAS, série temporal | redistribuir verba |
+
+## Interações e qualidade
+
+Filtros precisam de estado inicial útil, indicação de seleção e opção de limpar. Drill-down preserva contexto e oferece volta. Teste com o usuário: peça para encontrar um problema e dizer qual ação tomaria. Se ninguém usa uma visualização, remova-a.
+
+<p><strong>Case:</strong> um dashboard de suporte combina cartões de SLA, heatmap por hora, barras por canal e boxplot de duração. O impacto é localizar a fila, explicar sua causa e priorizar escala.</p>
+
+<p><strong>Atenção:</strong> mais gráficos não significam mais análise. Documente fórmula, filtros, fonte, timezone, granularidade e responsável de cada KPI.</p>

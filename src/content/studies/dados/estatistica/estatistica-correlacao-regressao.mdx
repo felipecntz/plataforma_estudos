@@ -1,0 +1,57 @@
+---
+title: Correlação e regressão
+description: Analise associação entre variáveis, ajuste uma reta e use resíduos para avaliar previsões sem confundir causa e correlação.
+area: Dados
+areaSlug: dados
+category: Estatística
+categorySlug: estatistica
+topic: Correlação e regressão
+slug: estatistica-correlacao-regressao
+order: 7
+icon: sigma
+color: stats
+difficulty: Intermediário
+readingTime: 14 min
+updatedAt: 01/11/2026
+featured: false
+tags: [estatística, correlação, regressão, previsão, causalidade]
+summary: Correlação mede associação linear; regressão estima relação e previsão, sempre com diagnóstico de resíduos e contexto.
+mindMap:
+  title: Relação entre variáveis
+  subtitle: Associação, modelo e cuidado causal.
+  highlights: [r, reta, resíduos, causalidade]
+  sections:
+    - title: Correlação
+      kind: core
+      formula: '−1\le r\le1'
+      bullets: [sinal indica direção, módulo indica força linear]
+    - title: Regressão
+      kind: base
+      formula: 'y=\beta_0+\beta_1x+\varepsilon'
+      bullets: [intercepto, inclinação, erro]
+    - title: R²
+      kind: process
+      definition: Proporção de variação explicada pelo modelo linear.
+      bullets: [não prova causalidade, pode subir com variáveis inúteis]
+    - title: Resíduos
+      kind: application
+      definition: Diferença entre observado e previsto.
+      bullets: [procure padrão, heterocedasticidade e outliers]
+---
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+
+## Correlação
+
+O coeficiente de Pearson `r` varia de −1 a 1 e mede associação linear. Positivo indica que as variáveis tendem a crescer juntas; negativo, que uma cresce quando a outra cai. `r` perto de zero não descarta relação não linear.
+
+<FormulaBlock name="Regressão linear simples" expression="y=\beta_0+\beta_1x+\varepsilon" description="Representa uma resposta y em função de um preditor x e de erro não explicado." variables={[{label:"β₀",meaning:"intercepto"},{label:"β₁",meaning:"mudança esperada em y por unidade de x"},{label:"ε",meaning:"resíduo"}]} example="Prever demanda a partir de preço, estação e campanha exige validar se os resíduos não guardam padrão." />
+
+## Como fazer a análise
+
+Comece com dispersão em scatterplot, confira escala e outliers, calcule correlação, ajuste a reta, avalie `R²`, erro e resíduos, e teste o modelo em dados fora do ajuste. Para previsão, valide acurácia; para explicação, investigue variáveis omitidas e desenho temporal.
+
+<ExampleBlock title="Case: anúncios e vendas" text="Investimento em mídia e vendas podem subir juntos porque ambos crescem no fim do ano. Controle sazonalidade e preço antes de atribuir causalidade ao anúncio." />
+
+<WarningBlock title="Cuidado causal" text="Uma correlação alta pode vir de tendência comum, seleção, confusão ou vazamento de informação. Só um modelo estatístico observacional não autoriza dizer que x causou y." />
