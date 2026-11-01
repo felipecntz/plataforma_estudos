@@ -25,6 +25,10 @@ const studyCollection = defineCollection({
       title: z.string(),
       subtitle: z.string().optional(),
       highlights: z.array(z.string()).optional(),
+      multiplicationCards: z.array(z.object({
+        factor: z.number().int().min(1).max(9),
+        tip: z.string()
+      })).optional(),
       sections: z.array(
         z.object({
           title: z.string(),

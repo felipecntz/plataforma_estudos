@@ -66,19 +66,20 @@ const breadcrumbs = [
 
           <section class="prose-shell" data-view-panel="mindmap" hidden>
             <div class="stack-md">
-              <div class="study-mode-intro">
+              {!data.mindMap?.multiplicationCards?.length && <div class="study-mode-intro">
                 <span class="eyebrow">Revisao rapida</span>
                 <h2 class="section-title">Mapa mental enxuto do topico</h2>
                 <p class="lede">
                   Esta visao resume o essencial para revisao curta. O que for periferico fica no resumo descritivo.
                 </p>
-              </div>
+              </div>}
               {data.mindMap ? (
                 <MindMap
                   title={data.mindMap.title}
                   subtitle={data.mindMap.subtitle}
                   sections={data.mindMap.sections}
                   highlights={data.mindMap.highlights}
+                  multiplicationCards={data.mindMap.multiplicationCards}
                 />
               ) : (
                 <div class="info-card">

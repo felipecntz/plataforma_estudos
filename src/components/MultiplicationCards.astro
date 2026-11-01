@@ -1,0 +1,153 @@
+---
+interface Props {
+  cards: { factor: number; tip: string }[];
+}
+
+const { cards } = Astro.props;
+const accents = ["math", "data", "tech", "stats", "ai", "data", "math", "tech", "stats"];
+---
+
+<div class="multiplication-grid">
+  {cards.map(({ factor, tip }) => (
+    <article class="multiplication-card" style={`--card-accent: var(--${accents[factor - 1]}); --card-soft: var(--${accents[factor - 1]}-soft);`} aria-labelledby={`times-table-${factor}`}>
+      <header class="multiplication-card-heading">
+        <h4 id={`times-table-${factor}`}>
+          <span>Tabuada do</span>
+          <strong>{factor}</strong>
+        </h4>
+        <div class="multiplication-dots" aria-hidden="true">
+          {Array.from({ length: 9 }, (_, index) => <span class:list={{ filled: index < factor }} />)}
+        </div>
+      </header>
+      <ul class="multiplication-products" aria-label={`Multiplicações por ${factor}`}>
+        {Array.from({ length: 10 }, (_, index) => {
+          const multiplier = index + 1;
+          return (
+            <li>
+              <span>{factor}</span>
+              <span class="operator">×</span>
+              <span>{multiplier}</span>
+              <span class="operator">=</span>
+              <strong>{factor * multiplier}</strong>
+            </li>
+          );
+        })}
+      </ul>
+      <footer class="multiplication-tip">
+        <span>Para lembrar</span>
+        <p>{tip}</p>
+      </footer>
+    </article>
+  ))}
+</div>
+
+<style>
+  .multiplication-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: 1.25rem;
+    margin-block: 0.5rem 1rem;
+  }
+
+  .multiplication-card {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--surface-strong);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--card-accent);
+    border-radius: 1.2rem;
+    box-shadow: 0 5px 18px rgb(0 0 0 / 4%);
+  }
+
+  .multiplication-card-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.4rem 1rem;
+    background: linear-gradient(135deg, var(--card-soft), var(--surface-strong));
+  }
+
+  h4 { margin: 0; }
+
+  h4 span,
+  .multiplication-tip > span {
+    display: block;
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
+
+  h4 strong {
+    display: block;
+    margin-top: 0.3rem;
+    font: 600 3.6rem/1 var(--font-display);
+    color: color-mix(in srgb, var(--card-accent) 65%, var(--text));
+  }
+
+  .multiplication-dots {
+    display: grid;
+    grid-template-columns: repeat(3, 0.6rem);
+    gap: 0.35rem;
+  }
+
+  .multiplication-dots span {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--card-accent) 13%, transparent);
+  }
+
+  .multiplication-dots .filled { background: var(--card-accent); }
+
+  .multiplication-products {
+    list-style: none;
+    padding: 0.75rem 1rem;
+    margin: 0;
+    font: 500 0.94rem/1.4 var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--text);
+  }
+
+  .multiplication-products li {
+    display: grid;
+    grid-template-columns: 1fr 0.65fr 1fr 0.65fr 1.3fr;
+    gap: 0.25rem;
+    align-items: center;
+    text-align: center;
+    padding: 0.24rem 0.4rem;
+    border-radius: 0.5rem;
+  }
+
+  .multiplication-products li:nth-child(5n) { background: var(--card-soft); }
+  .operator { color: var(--text-soft); }
+
+  .multiplication-products strong {
+    padding: 0.15rem 0.2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: color-mix(in srgb, var(--card-accent) 55%, var(--text));
+  }
+
+  .multiplication-tip {
+    margin-top: auto;
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--border);
+    background: color-mix(in srgb, var(--card-soft) 35%, var(--surface-strong));
+  }
+
+  .multiplication-tip p {
+    margin: 0.4rem 0 0;
+    color: var(--text-soft);
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+
+  @media (min-width: 1600px) {
+    .multiplication-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+</style>

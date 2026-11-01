@@ -62,6 +62,14 @@
   min-width: 0;
 }
 
+.content-container:has([data-view-panel="mindmap"]:not([hidden]) .multiplication-grid) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.content-container:has([data-view-panel="mindmap"]:not([hidden]) .multiplication-grid) > .toc-shell {
+  display: none;
+}
+
 .prose-shell {
   padding: 1.5rem;
 }
