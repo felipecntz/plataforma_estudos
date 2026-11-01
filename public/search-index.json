@@ -1,5 +1,15 @@
 [
   {
+    "title": "Tabuada",
+    "description": "Entenda a multiplicação, consulte a tabuada de 0 a 10 e aprenda estratégias para lembrar os resultados.",
+    "area": "Matematica",
+    "category": "Matematica basica",
+    "topic": "Tabuada",
+    "slug": "tabuada",
+    "tags": ["matemática", "tabuada", "multiplicação", "cálculo mental"],
+    "content": "tabuada de 0 a 10 multiplicação soma de parcelas iguais fatores produto zero um comutativa ordem dos fatores distributiva dobro triplo quádruplo cinco nove dez divisão operação inversa macetes exemplos exercícios respostas"
+  },
+  {
     "title": "Fracoes",
     "description": "Revise a logica das fracoes, as operacoes principais e os macetes que evitam erros.",
     "area": "Matematica",

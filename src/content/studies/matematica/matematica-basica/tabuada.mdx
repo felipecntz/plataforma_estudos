@@ -1,0 +1,191 @@
+---
+title: Tabuada
+description: Entenda a multiplicação, consulte a tabuada de 0 a 10 e aprenda estratégias para lembrar os resultados.
+area: Matematica
+areaSlug: matematica
+category: Matematica basica
+categorySlug: matematica-basica
+topic: Tabuada
+slug: tabuada
+order: 0
+icon: multiply
+color: math
+difficulty: Iniciante
+readingTime: 7 min
+updatedAt: 01/11/2026
+featured: false
+tags:
+  - matemática
+  - tabuada
+  - multiplicação
+  - cálculo mental
+summary: Multiplicação como grupos iguais, tabuada de 0 a 10, padrões para calcular de cabeça e relação com a divisão.
+mindMap:
+  title: Mapa mental da tabuada
+  subtitle: Entenda os grupos, lembre os padrões e reconstrua as contas que esquecer.
+  highlights:
+    - grupos iguais
+    - 0 a 10
+    - cálculo mental
+  sections:
+    - title: O que é multiplicar
+      kind: core
+      definition: Para números naturais, multiplicar permite contar grupos com a mesma quantidade.
+      formula: '3 \times 4 = 4 + 4 + 4 = 12'
+      bullets:
+        - Os números multiplicados são fatores.
+        - O resultado é o produto.
+      example: 3 caixas com 4 lápis cada contêm 12 lápis.
+    - title: Zero, um e dez
+      kind: base
+      definition: Zero zera o produto; um mantém o número; dez forma dezenas.
+      bullets:
+        - n × 0 = 0
+        - n × 1 = n
+        - Para naturais, n × 10 acrescenta um zero à direita.
+      example: 7 × 0 = 0; 7 × 1 = 7; 7 × 10 = 70.
+    - title: Dobros e metades
+      kind: process
+      definition: Use resultados conhecidos para chegar a outras tabuadas.
+      bullets:
+        - '× 2: dobro; × 4: dobro do dobro'
+        - '× 8: dobre três vezes'
+        - '× 5: metade de × 10'
+      example: 6 × 4 = 24 porque o dobro de 6 é 12 e o dobro de 12 é 24.
+    - title: Troque ou decomponha
+      kind: process
+      definition: Trocar a ordem mantém o produto; separar um fator permite somar produtos menores.
+      formula: '7 \times 8 = 7 \times (5 + 3) = 35 + 21 = 56'
+      bullets:
+        - 6 × 7 = 7 × 6 = 42
+        - n × 9 = n × 10 − n
+      example: 8 × 9 = 80 − 8 = 72.
+    - title: Confira com a divisão
+      kind: application
+      definition: A divisão desfaz a multiplicação quando o divisor é diferente de zero.
+      bullets:
+        - 6 × 7 = 42 → 42 ÷ 7 = 6
+        - 6 × 7 = 42 → 42 ÷ 6 = 7
+        - Multiplicar não é somar os dois fatores.
+      example: 4 × 3 = 12, enquanto 4 + 3 = 7. Não existe divisão por zero.
+---
+import DefinitionBlock from "../../../../components/DefinitionBlock.astro";
+import ExampleBlock from "../../../../components/ExampleBlock.astro";
+import TipBlock from "../../../../components/TipBlock.astro";
+import WarningBlock from "../../../../components/WarningBlock.astro";
+import FormulaBlock from "../../../../components/FormulaBlock.astro";
+
+## O que é a tabuada?
+
+A tabuada organiza resultados de multiplicações para facilitar consultas e cálculos de cabeça. Aqui vamos trabalhar com os números naturais de **0 a 10**. Essa base reaparece na divisão, nas frações e na porcentagem.
+
+<DefinitionBlock title="Multiplicar é contar grupos iguais" text="Se cada caixa tem 4 lápis, três caixas têm 4 + 4 + 4 lápis. Escrevemos essa soma como 3 × 4 = 12. Os números 3 e 4 são os fatores; 12 é o produto." />
+
+Entender essa ideia permite reconstruir um resultado esquecido. Se você sabe que `5 × 4 = 20`, basta acrescentar mais um grupo de quatro para descobrir que `6 × 4 = 24`.
+
+<WarningBlock title="Multiplicação não é soma dos fatores" text="3 × 4 significa três grupos de quatro: 4 + 4 + 4 = 12. Não confunda com 3 + 4 = 7. Para usar a multiplicação nessa contagem, os grupos precisam ter a mesma quantidade." />
+
+## Tabuada de 0 a 10
+
+Escolha um fator na primeira coluna e o outro no cabeçalho. O encontro da linha com a coluna mostra o produto. Por exemplo, a linha **7** e a coluna **8** se encontram em **56**, portanto `7 × 8 = 56`.
+
+No celular, deslize a tabela para os lados para consultar todas as colunas. Com o teclado, foque a tabela e use as setas.
+
+<table tabIndex="0" aria-label="Tabuada de multiplicação de zero a dez">
+  <caption>Multiplicação: fator da linha × fator da coluna</caption>
+  <thead>
+    <tr>
+      <th scope="col">×</th>
+      {Array.from({ length: 11 }, (_, n) => <th scope="col">{n}</th>)}
+    </tr>
+  </thead>
+  <tbody>
+    {Array.from({ length: 11 }, (_, row) => (
+      <tr>
+        <th scope="row">{row}</th>
+        {Array.from({ length: 11 }, (_, column) => <td>{row * column}</td>)}
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+<TipBlock title="A tabela é simétrica" text="A ordem dos fatores não altera o produto: 3 × 7 e 7 × 3 valem 21. Ao aprender uma dessas contas, você já conhece a outra. Essa é a propriedade comutativa." />
+
+## Comece por zero, um, dois, cinco e dez
+
+Essas tabuadas têm padrões simples e servem de apoio para as demais.
+
+- **Zero:** qualquer número multiplicado por zero resulta em zero. Sete grupos vazios continuam sem objetos: `7 × 0 = 0`.
+- **Um:** multiplicar por um mantém o número. Um grupo de sete tem sete elementos: `1 × 7 = 7`.
+- **Dois:** calcule o dobro. `2 × 6 = 6 + 6 = 12`. Os produtos são pares.
+- **Cinco:** conte de cinco em cinco: `5, 10, 15, 20…`. Os produtos terminam em **0 ou 5**.
+- **Dez:** para números naturais escritos na forma usual, acrescente um zero à direita: `10 × 8 = 80`.
+
+Outro caminho para multiplicar por cinco é calcular a metade do produto por dez. Assim, `5 × 8` é a metade de `10 × 8 = 80`, ou seja, **40**.
+
+## Reconstrua as tabuadas de três, quatro, seis, sete e oito
+
+Você não precisa começar cada conta do zero. Use um produto conhecido e acrescente grupos, ou dobre o resultado.
+
+| Tabuada | Estratégia | Exemplo |
+| --- | --- | --- |
+| 3 | Dobro mais uma vez o número | 3 × 7 = 14 + 7 = 21 |
+| 4 | Dobro do dobro | 4 × 6 = 2 × 12 = 24 |
+| 6 | Cinco vezes mais uma vez | 6 × 8 = 40 + 8 = 48 |
+| 7 | Cinco vezes mais duas vezes | 7 × 8 = 40 + 16 = 56 |
+| 8 | Dobro três vezes | 8 × 7: 7 → 14 → 28 → 56 |
+
+Essas estratégias usam a **propriedade distributiva**: quando separamos um fator em uma soma, multiplicamos cada parcela e somamos os resultados.
+
+<FormulaBlock
+  name="Separar para multiplicar"
+  expression="a \times (b + c) = a \times b + a \times c"
+  description="Divida uma conta difícil em duas multiplicações conhecidas."
+  variables={[
+    { label: "a", meaning: "fator que multiplica as duas parcelas" },
+    { label: "b e c", meaning: "parcelas que formam o outro fator" }
+  ]}
+  example="7 × 8 = 7 × (5 + 3) = 35 + 21 = 56."
+  mistake="Multiplicar só a primeira parcela: 7 × (5 + 3) não é 35 + 3."
+/>
+
+## O macete da tabuada de nove
+
+Nove grupos são dez grupos menos um. Para calcular `9 × 7`, faça `10 × 7 = 70` e retire um grupo de sete: `70 − 7 = 63`.
+
+- `9 × 4 = 40 − 4 = 36`
+- `9 × 6 = 60 − 6 = 54`
+- `9 × 8 = 80 − 8 = 72`
+
+Nos resultados de `9 × 1` até `9 × 10`, a soma dos algarismos é nove. Em **72**, por exemplo, `7 + 2 = 9`. Isso ajuda a conferir, mas não prova que a conta está certa: **63** também soma nove, porém não é o resultado de `9 × 8`.
+
+## Use a tabuada para dividir
+
+Multiplicação e divisão estão ligadas. Se `6 × 7 = 42`, podemos repartir 42 objetos em seis grupos de sete ou em sete grupos de seis. Por isso, `42 ÷ 6 = 7` e `42 ÷ 7 = 6`.
+
+<ExampleBlock title="Uma situação do dia a dia" text="Quatro pacotes têm seis figurinhas cada: 4 × 6 = 24 figurinhas. Se as 24 forem repartidas igualmente entre seis pessoas, cada uma recebe 24 ÷ 6 = 4 figurinhas." />
+
+<WarningBlock title="Zero exige atenção na divisão" text="0 ÷ 5 = 0, pois 5 × 0 = 0. Já 5 ÷ 0 e 0 ÷ 0 não são definidos. A regra de inverter a multiplicação só vale quando o divisor é diferente de zero." />
+
+## Pratique e confira
+
+Tente responder sem consultar a tabela. Se esquecer uma conta, explique como chegou ao resultado usando um dobro, uma decomposição ou uma multiplicação conhecida.
+
+1. Quanto é `0 × 8`? E `1 × 8`?
+2. Calcule `6 × 7` usando a tabuada de cinco.
+3. Calcule `8 × 9` usando a tabuada de dez.
+4. Cinco caixas têm oito livros cada. Quantos livros há ao todo?
+5. Complete: `7 × ? = 56`. Quanto é `56 ÷ 7`?
+
+<details>
+<summary>Ver respostas comentadas</summary>
+
+1. **0 e 8.** Multiplicar por zero zera o produto; por um mantém o número.
+2. **42.** `6 × 7 = 5 × 7 + 1 × 7 = 35 + 7`.
+3. **72.** `8 × 9 = 8 × 10 − 8 = 80 − 8`.
+4. **40 livros.** São cinco grupos de oito: `5 × 8 = 40`.
+5. **8 nas duas contas.** `7 × 8 = 56`, então `56 ÷ 7 = 8`.
+
+</details>
+
+<TipBlock title="Como revisar" text="Comece pelas tabuadas de 0, 1, 2, 5 e 10. Depois use essas bases para reconstruir as demais. Alterne a ordem das perguntas para lembrar o produto sem depender de recitar a sequência inteira." />

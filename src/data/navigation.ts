@@ -10,6 +10,7 @@ export const navigation = [
         slug: "matematica-basica",
         description: "Fundamentos de calculo, algebra, proporcoes e matematica financeira.",
         topics: [
+          { title: "Tabuada", slug: "tabuada" },
           { title: "Fracoes", slug: "fracoes" },
           { title: "Porcentagem", slug: "porcentagem" },
           { title: "Expressoes numericas", slug: "expressoes-numericas" },
