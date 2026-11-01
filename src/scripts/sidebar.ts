@@ -42,7 +42,9 @@ export function initSidebar() {
     panel.hidden = !shouldOpen;
     toggle.setAttribute("aria-expanded", String(shouldOpen));
 
-    toggle.addEventListener("click", () => {
+    toggle.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
       const willOpen = panel.hidden;
       panel.hidden = !panel.hidden;
       toggle.setAttribute("aria-expanded", String(willOpen));

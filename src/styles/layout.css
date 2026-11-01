@@ -6,13 +6,16 @@
 }
 
 .sidebar-wrap {
-  position: sticky;
+  position: fixed;
+  z-index: 30;
   top: 1rem;
+  width: var(--sidebar-width);
   height: calc(100vh - 2rem);
 }
 
 .content-wrap {
   min-width: 0;
+  grid-column: 2;
 }
 
 .content-panel {

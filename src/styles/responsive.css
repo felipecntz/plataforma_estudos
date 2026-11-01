@@ -13,6 +13,10 @@
     transition: transform var(--transition);
   }
 
+  .content-wrap {
+    grid-column: 1;
+  }
+
   body.drawer-open .sidebar-wrap {
     transform: translateX(0);
   }
